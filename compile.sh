@@ -1,0 +1,1 @@
+g++ $(pkg-config --cflags --libs SDL2_image) -I include src/*.cpp test/*.cpp -o out/game
