@@ -9,14 +9,7 @@
     * Rects
     * Circles
     * Fill
-* Entity class
-    * Velocity
-    * Position
-    * Update method
-    * Draw method
-    * Z ordering for scenes to manage
-    * Hitbox
-* Hitbox class
+* Collider class
 * Sprite class
     * Vector2 for scaling
 * Scene class

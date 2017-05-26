@@ -1,8 +1,7 @@
 #include <SDL2/SDL_image.h>
 #include <math.h>
-#include <unordered_map>
-#include <string>
 #include "canvas.hpp"
+#include "vector2.hpp"
 #include "sprite.hpp"
 
 void Canvas::DrawSprite(Sprite* sprite, Vector2 vector)

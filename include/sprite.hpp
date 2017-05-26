@@ -4,6 +4,7 @@
 #include <unordered_map>
 #include "vector2.hpp"
 
+class Vector2;
 class Canvas;
 class Animation;
 

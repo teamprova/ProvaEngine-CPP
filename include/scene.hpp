@@ -1,21 +1,24 @@
 #pragma once
 #include <SDL2/SDL.h>
+#include <list>
 
 class Game;
 class Canvas;
+class Entity;
 
 class Scene
 {
-  friend class Game;
-
   public:
     Game* game;
+    void PreUpdate();
     bool IsKeyDown(int);
     bool IsKeyUp(int);
-  protected:
-    virtual void Update() = 0;
-    virtual void Draw(Canvas*) = 0;
+    void AddEntity(Entity*);
+    void RemoveEntity(Entity*);
+    void EntityUpdate();
+    virtual void Update();
+    virtual void Draw(Canvas*);
   private:
-    void PreUpdate();
     const Uint8* _keystate;
+    std::list<Entity*> _entities;
 };
