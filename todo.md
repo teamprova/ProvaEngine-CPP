@@ -14,16 +14,24 @@
     * Circles
     * Fill
 * Entity class
-    * velocity
-    * position
-    * update method
-    * draw method
+    * Velocity
+    * Position
+    * Update method
+    * Draw method
     * Z ordering for scenes to manage
 * Sprite class
     * Vector2 for scaling
 * Scene class
     * Vector2 camera position
     * Entity camera follow
+* Sound class
+    * Path
+    * Play - maybe play through an audio class instead?
+    * Pause
+    * Pitch
+    * Speed
+    * Loop
+    * Position
 * UI
     * Font class
     * Button
