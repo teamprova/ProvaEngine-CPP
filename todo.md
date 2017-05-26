@@ -19,11 +19,17 @@
     * Update method
     * Draw method
     * Z ordering for scenes to manage
+    * Hitbox
+* Hitbox class
 * Sprite class
     * Vector2 for scaling
 * Scene class
     * Vector2 camera position
-    * Entity camera follow
+    * Vector2 camera follow
+        * Update with the draw method of an entity to follow an entity
+    * float cameraGrip
+        * When equal to 1 it will be following 1:1 with the entity
+        * lower values cause the camera to have a smooth delay  
 * Sound class
     * Path
     * Play - maybe play through an audio class instead?
@@ -37,6 +43,16 @@
     * Button
     * Text
 * Console like Otter2D?
+    * Autocomplete
+    * Ability to pause the update loop
+    * Ability to modify entities
+        * Drag
+        * Delete
+        * Clone
+    * Ability to save scene setups
+        * https://stackoverflow.com/questions/1024648/retrieving-a-c-class-name-programmatically
+    * Ability to display hitboxes
+    * Get FPS
 * Controller support
 * dll/so file
 
