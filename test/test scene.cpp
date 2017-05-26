@@ -1,5 +1,7 @@
 #include "engine.hpp"
 
+// junky code to test if things are working fast
+
 class Test : public Scene
 {
   public:
@@ -9,31 +11,46 @@ class Test : public Scene
       sprite->CreateAnimation(0, 0, 15, .07f);
       sprite->CreateAnimation(1, 1, 6, .1f);
       sprite->PlayAnimation(1, true);
-      sprite->scaleX = 2;
-      sprite->scaleY = 2;
+      sprite->scale.x = 2;
+      sprite->scale.y = 2;
+      sprite->origin.x = 12;
+      sprite->origin.y = 0;
+
+      pos.x = 400;
+      pos.y = 300;
     }
   protected:
     void Update() override
     {
+      Vector2 vel;
+
       if(IsKeyDown(Keys::W))
-        y -= 1;
+        vel.y -= 1;
       if(IsKeyDown(Keys::S))
-        y += 1;
+        vel.y += 1;
       if(IsKeyDown(Keys::A))
-        x -= 1;
+      {
+        vel.x -= 1;
+        sprite->scale.x = -2;
+      }
       if(IsKeyDown(Keys::D))
-        x += 1;
+      {
+        vel.x += 1;
+        sprite->scale.x = 2;
+      }
+
+      vel *= 5;
+      pos += vel;
     }
     void Draw(Canvas* canvas) override
     {
       canvas->Clear(0, 0, 0);
 
-      canvas->DrawSprite(sprite, x, y);
+      canvas->DrawSprite(sprite, pos);
 
       canvas->SwapBuffer();
     }
   private:
     Sprite* sprite;
-    int x = 400;
-    int y = 300;
+    Vector2 pos;
 };

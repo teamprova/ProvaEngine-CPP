@@ -1,10 +1,6 @@
 # Todo
 
 * Vector2D class
-    * Operator overloads
-    * Magnitude
-    * Angle
-    * Distance difference
     * Angle difference
 * Canvas class
     * Shaders

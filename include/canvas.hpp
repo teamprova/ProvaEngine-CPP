@@ -3,6 +3,7 @@
 #include <unordered_map>
 #include <string>
 
+class Vector2;
 class Sprite;
 
 class Canvas
@@ -10,7 +11,8 @@ class Canvas
   friend class Game;
 
   public:
-    void DrawSprite(Sprite*, int, int);
+    void DrawSprite(Sprite*, Vector2);
+    void DrawSprite(Sprite*, float, float);
     void Clear(int, int, int);
     void SwapBuffer();
   private:

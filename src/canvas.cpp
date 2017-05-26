@@ -5,7 +5,12 @@
 #include "canvas.hpp"
 #include "sprite.hpp"
 
-void Canvas::DrawSprite(Sprite* sprite, int x, int y)
+void Canvas::DrawSprite(Sprite* sprite, Vector2 vector)
+{
+  Canvas::DrawSprite(sprite, vector.x, vector.y);
+}
+
+void Canvas::DrawSprite(Sprite* sprite, float x, float y)
 {
   // load the texture for the first time
   if(sprite->_texture == NULL)
@@ -16,22 +21,22 @@ void Canvas::DrawSprite(Sprite* sprite, int x, int y)
   // get the source and destination rectangles
   SDL_Rect source = sprite->_clip;
   SDL_Rect destination = {
-    x - sprite->originX * abs(sprite->scaleX),
-    y - sprite->originY * abs(sprite->scaleY),
-    source.w * abs(sprite->scaleX),
-    source.h * abs(sprite->scaleY)
+    (int)(x - sprite->origin.x * abs(sprite->scale.x)),
+    (int)(y - sprite->origin.y * abs(sprite->scale.y)),
+    (int)(source.w * abs(sprite->scale.x)),
+    (int)(source.h * abs(sprite->scale.y))
   };
   
   SDL_Point center;
-  center.x = -source.w;
-  center.y = -source.h;
+  center.x = sprite->origin.x;
+  center.y = sprite->origin.y;
 
   int flip = SDL_FLIP_NONE;
 
-  if(sprite->scaleX < 0)
+  if(sprite->scale.x < 0)
     flip |= SDL_FLIP_HORIZONTAL;
   
-  if(sprite->scaleY < 0)
+  if(sprite->scale.y < 0)
     flip |= SDL_FLIP_VERTICAL;
     
   // copy the texture onto the canvas

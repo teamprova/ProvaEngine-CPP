@@ -10,8 +10,10 @@ Sprite::Sprite(std::string sheetpath, int width, int height)
   _clip.y = 0;
   _clip.w = width;
   _clip.h = height;
-  originX = width / 2;
-  originY = height / 2;
+  origin.x = width / 2;
+  origin.y = height / 2;
+  scale.x = 1;
+  scale.y = 1;
 }
 
 void Sprite::CreateAnimation(int id, int row, int frameCount, float frameDuration)

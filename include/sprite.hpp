@@ -2,6 +2,7 @@
 #include <SDL2/SDL.h>
 #include <string>
 #include <unordered_map>
+#include "vector2.hpp"
 
 class Canvas;
 class Animation;
@@ -14,11 +15,9 @@ class Sprite
 
   public:
     Sprite(std::string, int, int);
+    Vector2 origin;
+    Vector2 scale;
     int angle = 0;
-    int scaleX = 1;
-    int scaleY = 1;
-    int originX;
-    int originY;
     bool looping = false;
     void CreateAnimation(int id, int row, int frameCount, float frameDuration);
     void PlayAnimation(int id, bool loop);
