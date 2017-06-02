@@ -1,17 +1,22 @@
 #include <SDL2/SDL.h>
 #include <string>
+#include <stdexcept>
 #include "game.hpp"
 #include "scene.hpp"
-#include "canvas.hpp"
+#include "screen.hpp"
 
 Game::Game(int width, int height, std::string title)
 {
-  if(SDL_Init(SDL_INIT_VIDEO) < 0)
+  if(SDL_Init(SDL_INIT_EVERYTHING) < 0)
   {
     std::string error(SDL_GetError());
-    throw "Initialization Error: " + error;
+    throw std::runtime_error("Initialization Error: " + error);
   }
   
+  //SDL_GL_SetAttribute( SDL_GL_CONTEXT_MAJOR_VERSION, 3 );
+  //SDL_GL_SetAttribute( SDL_GL_CONTEXT_MINOR_VERSION, 1 );
+  //SDL_GL_SetAttribute( SDL_GL_CONTEXT_PROFILE_MASK, SDL_GL_CONTEXT_PROFILE_CORE );
+
   _window = SDL_CreateWindow(
     title.c_str(),
     SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED,
@@ -19,8 +24,9 @@ Game::Game(int width, int height, std::string title)
     SDL_WINDOW_OPENGL
   );
 
-  _canvas = new Canvas();
-  _canvas->_renderer = SDL_CreateRenderer(_window, -1, 0);
+  screen = new Screen(this);
+  screen->_width = width;
+  screen->_height = height;
 }
 
 void Game::SetTitle(std::string title)
@@ -34,8 +40,8 @@ void Game::Start(Scene* scene)
     throw "Attempt to start game while it is already running";
   
   _running = true;
-  _scene = scene;
-  _scene->game = this;
+  this->scene = scene;
+  scene->game = this;
 
 
   while(_running)
@@ -57,16 +63,16 @@ void Game::SwapScene(Scene* scene)
   if(!_running)
     throw "Set initial scene through Game::Start(Scene*)";
   
-  delete _scene;
-  _scene = scene;
-  _scene->game = this;
+  delete scene;
+  scene = scene;
+  scene->game = this;
 }
 
 void Game::Update()
 {
   SDL_Event e;
 
-  while(SDL_PollEvent( &e ) != 0)
+  while(SDL_PollEvent(&e) != 0)
   {
     if(e.type == SDL_QUIT)
     {
@@ -75,19 +81,19 @@ void Game::Update()
     }
   }
 
-  _scene->Draw(_canvas);
-
-  _scene->PreUpdate();
-  _scene->Update();
+  screen->BeginDraw();
+  scene->Draw(screen);
+  
+  scene->PreUpdate();
+  scene->Update();
 }
 
 void Game::Close()
 {
   if(_running)
-    delete _scene;
+    delete scene;
   
-  SDL_DestroyRenderer(_canvas->_renderer);
-  delete _canvas;
+  delete screen;
   
   SDL_DestroyWindow(_window);
   SDL_Quit();

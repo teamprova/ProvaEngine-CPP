@@ -1,24 +1,23 @@
+# TeamProva Game Engine
+
 # Todo
 
-* Vector2D class
-    * Angle difference
-* Canvas class
-    * Shaders
-    * Ability to save the canvas as a texture
-    * Lines
-    * Rects
-    * Circles
-    * Fill
+add description for the engine
+
+## Priority
+* Optimize rendering
+* Sprite
+    * Cache
+* Vector
+    * Add normalize function
 * Collider class
-* Sprite class
-    * Vector2 for scaling
 * Scene class
     * Vector2 camera position
     * Vector2 camera follow
         * Update with the draw method of an entity to follow an entity
     * float cameraGrip
         * When equal to 1 it will be following 1:1 with the entity
-        * lower values cause the camera to have a smooth delay  
+        * lower values cause the camera to have a smooth delay
 * Sound class
     * Path
     * Play - maybe play through an audio class instead?
@@ -31,6 +30,12 @@
     * Font class
     * Button
     * Text
+* Controller support
+* dll/so file
+* Shader class
+    * Set VAO?
+
+## Optional/Future functionality
 * Console like Otter2D?
     * Autocomplete
     * Ability to pause the update loop
@@ -42,16 +47,16 @@
         * https://stackoverflow.com/questions/1024648/retrieving-a-c-class-name-programmatically
     * Ability to display hitboxes
     * Get FPS
-* Controller support
-* dll/so file
-
-# Far future
-
-* Vector3D class
-* 3D model class
-    * Vector3 scaling
-    * Vector3 rotation
-    * Matrix stuff
+* Screen class
+    * Ability to save the screen as a texture
+    * Lines
+    * Rects
+    * Circles
+    * Fill
+* Model class
+    * Mesh
+    * Textures
+    * UV Maps
 * Camera
     * 3D options
-    
+* Quaternions for rotation

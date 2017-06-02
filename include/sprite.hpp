@@ -1,38 +1,44 @@
 #pragma once
-#include <SDL2/SDL.h>
 #include <string>
 #include <unordered_map>
 #include "vector2.hpp"
+#include "mesh.hpp"
+#include "rect.hpp"
 
 class Vector2;
-class Canvas;
+class Model;
+class Screen;
 class Animation;
+class Rect;
 
 // animations use an id as an int
 // but use enums
 class Sprite
 {
-  friend class Canvas;
+  friend class Screen;
 
   public:
-    Sprite(std::string, int, int);
+    Sprite(std::string sheetpath, int width, int height);
+    unsigned int texture;
+    Mesh mesh;
     Vector2 origin;
     Vector2 scale;
+    int width;
+    int height;
     int angle = 0;
     bool looping = false;
     void CreateAnimation(int id, int row, int frameCount, float frameDuration);
     void PlayAnimation(int id, bool loop);
     bool IsAnimationFinished();
     float GetCurrentTime();
-    float GetCurrentFrame();
+    int GetCurrentFrame();
+    int GetCurrentAnimation();
     void Update();
+    ~Sprite();
   private:
     std::unordered_map<int, Animation*> _animations;
     Animation* _currentAnimation = NULL;
-    SDL_Texture* _texture = NULL;
-    SDL_Rect _clip;
-    std::string _path;
-    Uint32 _startTime;
-    void SetTexture(SDL_Texture*);
-    ~Sprite();
+    Rect _clip;
+    unsigned int _startTime;
+    Vector2 _sheetSize;
 };

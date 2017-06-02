@@ -1,22 +1,11 @@
 #include <math.h>
 #include "vector2.hpp"
+#include "vector3.hpp"
 
-Vector2::Vector2()
-{
-  this->x = 0;
-  this->y = 0;
-}
+Vector2::Vector2(){}
 
 Vector2::Vector2(float x, float y)
-{
-  this->x = x;
-  this->y = y;
-}
-
-float Vector2::GetMagnitude()
-{
-  return sqrt(x * x + y * y);
-}
+  : Vector3(x, y, 0) {}
 
 float Vector2::GetAngle()
 {
@@ -77,17 +66,26 @@ Vector2 Vector2::operator+(Vector2 vector)
 
 Vector2 Vector2::operator-(Vector2 vector)
 {
-  vector.x = x - vector.x ;
+  vector.x = x - vector.x;
   vector.y = y - vector.y;
 
   return vector; 
 }
 
+Vector2 Vector2::operator-()
+{
+  Vector2 vector;
+  vector.x = -x;
+  vector.y = -y;
+
+  return vector;
+}
+
 Vector2 Vector2::operator*(float a)
 {
   Vector2 vector;
-  vector.x = x / a;
-  vector.y = y / a;
+  vector.x = x * a;
+  vector.y = y * a;
 
   return vector; 
 }

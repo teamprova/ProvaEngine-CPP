@@ -1,7 +1,8 @@
 #include <SDL2/SDL.h>
+#include <map>
 #include "scene.hpp"
 #include "entity.hpp"
-#include "canvas.hpp"
+#include "screen.hpp"
 
 void Scene::PreUpdate()
 {
@@ -46,12 +47,26 @@ void Scene::Update()
   EntityUpdate();
 }
 
-void Scene::Draw(Canvas* canvas)
+void Scene::Draw(Screen* screen)
 {
-  canvas->Clear(0, 0, 0);
+  std::multimap<float, Entity*> sorted;
 
   for(Entity* entity : _entities)
-    entity->Draw(canvas);
+  {
+    float distance;
+    
+    if(sortingMethod == SortingMethod::Distance)
+      distance = entity->position.DistanceFrom(camera.position);
+    else
+      distance = camera.position.z - entity->position.z;
+    
+    sorted.emplace(distance, entity);
+  }
+ 
+  screen->Clear(0, 0, 0);
 
-  canvas->SwapBuffer();
+  for(auto it = sorted.rbegin(); it != sorted.rend(); ++it) 
+    it->second->Draw(screen);
+
+  screen->SwapBuffer();
 }

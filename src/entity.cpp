@@ -10,3 +10,6 @@ bool Entity::IsKeyUp(int key)
 {
   return scene->IsKeyUp(key);
 }
+
+void Entity::Update(){}
+void Entity::Draw(Screen* screen){}

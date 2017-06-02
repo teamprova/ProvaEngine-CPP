@@ -1,1 +1,1 @@
-g++ $(pkg-config --cflags --libs SDL2_image) -I include src/*.cpp test/*.cpp -o out/game
+g++ $(pkg-config --cflags --libs SDL2_image glew) -Iinclude src/*.cpp test/*.cpp  -Ideps -Ldeps/lib -lSOIL -o out/game

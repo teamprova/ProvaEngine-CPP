@@ -4,19 +4,40 @@ class Cowboy : public Entity
 {
   Sprite* sprite;
 
+  enum Animations {
+    WALK,
+    SHOOT
+  };
+
   public:
     Cowboy()
     {
       sprite = new Sprite("assets/cowboy.png", 31, 36);
-      sprite->CreateAnimation(0, 0, 15, .07f);
-      sprite->CreateAnimation(1, 1, 6, .1f);
-      sprite->PlayAnimation(1, true);
-      sprite->scale.x = 2;
-      sprite->scale.y = 2;
-      position.x = 400;
-      position.y = 300;
+      sprite->CreateAnimation(Animations::SHOOT, 0, 15, .07f);
+      sprite->CreateAnimation(Animations::WALK, 1, 6, .1f);
+      sprite->PlayAnimation(Animations::WALK, true);
+      position.x = 0;
+      position.y = 0;
+      sprite->origin.x = 12;
+      sprite->origin.y = 36;
     }
     void Update() override
+    {
+      int currentAnimation = sprite->GetCurrentAnimation();
+      bool animationFinished = sprite->IsAnimationFinished();
+      bool shooting = currentAnimation == Animations::SHOOT && !animationFinished;
+      
+      if(IsKeyDown(Keys::SPACE) && !shooting)
+        sprite->PlayAnimation(Animations::SHOOT, false);
+      if(animationFinished)
+        sprite->PlayAnimation(Animations::WALK, true);
+      
+      //sprite->angle += 1;
+
+      if(!shooting)
+        Walk();
+    }
+    void Walk()
     {
       Vector2 displacement;
 
@@ -27,19 +48,24 @@ class Cowboy : public Entity
       if(IsKeyDown(Keys::A))
       {
         displacement.x -= 1;
-        sprite->scale.x = -2;
+        sprite->scale.x = -1;
       }
       if(IsKeyDown(Keys::D))
       {
         displacement.x += 1;
-        sprite->scale.x = 2;
+        sprite->scale.x = 1;
       }
 
-      displacement *= 5;
+      displacement *= 2;
       position += displacement;
     }
-    void Draw(Canvas* canvas) override
+    void Draw(Screen* screen) override
     {
-      canvas->DrawSprite(sprite, position);
+      position.z = position.y;
+      screen->DrawSprite(sprite, position);
+    }
+    ~Cowboy()
+    {
+      delete sprite;
     }
 };

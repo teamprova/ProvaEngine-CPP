@@ -1,18 +1,18 @@
 #pragma once
-#include "vector2.hpp"
+#include "vector3.hpp"
 
-class Vector2;
+class Vector3;
 class Scene;
-class Canvas;
+class Screen;
 
 class Entity
 {
   public:
-    Vector2 position;
-    Vector2 velocity;
+    Vector3 position;
+    Vector3 velocity;
     Scene* scene;
     bool IsKeyDown(int);
     bool IsKeyUp(int);
-    virtual void Update() = 0;
-    virtual void Draw(Canvas*) = 0;
+    virtual void Update();
+    virtual void Draw(Screen*);
 };
