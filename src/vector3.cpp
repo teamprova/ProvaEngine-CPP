@@ -7,6 +7,23 @@ Vector3::Vector3() {}
 Vector3::Vector3(float x, float y, float z)
   : Vector4(x, y, z, 0) {}
 
+
+Vector3 Vector3::Normalize()
+{
+  float magnitude = GetMagnitude();
+
+  Vector3 result;
+
+  if(magnitude != 0)
+  {
+    result.x = x / magnitude;
+    result.y = y / magnitude;
+    result.z = z / magnitude;
+  }
+  
+  return result;
+}
+
 float Vector3::DistanceFrom(Vector3 vector)
 {
   float a = vector.x - x;

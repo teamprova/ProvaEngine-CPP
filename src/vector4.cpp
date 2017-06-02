@@ -16,6 +16,23 @@ Vector4::Vector4(float x, float y, float z, float w)
   this->w = w;
 }
 
+Vector4 Vector4::Normalize()
+{
+  float magnitude = GetMagnitude();
+
+  Vector4 result;
+  
+  if(magnitude != 0)
+  {
+    result.x = x / magnitude;
+    result.y = y / magnitude;
+    result.z = z / magnitude;
+    result.w = w / magnitude;
+  }
+  
+  return result;
+}
+
 float Vector4::GetMagnitude()
 {
   return sqrt(x * x + y * y + z * z + w * w);

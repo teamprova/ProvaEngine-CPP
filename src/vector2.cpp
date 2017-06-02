@@ -7,6 +7,21 @@ Vector2::Vector2(){}
 Vector2::Vector2(float x, float y)
   : Vector3(x, y, 0) {}
 
+Vector2 Vector2::Normalize()
+{
+  float magnitude = GetMagnitude();
+
+  Vector2 result;
+
+  if(magnitude != 0)
+  {
+    result.x = x / magnitude;
+    result.y = y / magnitude;
+  }
+  
+  return result;
+}
+
 float Vector2::GetAngle()
 {
   return atan2(y, x);

@@ -12,6 +12,7 @@ class Vector4
     float y;
     float z;
     float w;
+    Vector4 Normalize();
     float GetMagnitude();
     float DistanceFrom(Vector4);
     Vector4& operator+=(Vector4);

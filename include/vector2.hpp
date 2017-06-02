@@ -6,6 +6,7 @@ class Vector2 : public Vector3
   public:
     Vector2();
     Vector2(float, float);
+    Vector2 Normalize();
     float GetAngle();
     float DistanceFrom(Vector2);
     Vector2& operator+=(Vector2);

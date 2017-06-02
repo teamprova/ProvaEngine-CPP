@@ -56,8 +56,7 @@ class Cowboy : public Entity
         sprite->scale.x = 1;
       }
 
-      displacement *= 2;
-      position += displacement;
+      position += displacement.Normalize() * 2;
     }
     void Draw(Screen* screen) override
     {

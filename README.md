@@ -8,15 +8,12 @@ add description for the engine
 * Optimize rendering
 * Sprite
     * Cache
-* Vector
-    * Add normalize function
 * Collider class
-* Scene class
-    * Vector2 camera position
+* Camera class
     * Vector2 camera follow
-        * Update with the draw method of an entity to follow an entity
+        * Update with the update method of an entity to follow an entity
     * float cameraGrip
-        * When equal to 1 it will be following 1:1 with the entity
+        * When equal to 1 it will be following 1:1 with the follow position
         * lower values cause the camera to have a smooth delay
 * Sound class
     * Path
