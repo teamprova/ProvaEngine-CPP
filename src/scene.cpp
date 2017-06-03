@@ -21,13 +21,13 @@ bool Scene::IsKeyUp(int key)
 
 void Scene::AddEntity(Entity* entity)
 {
-  _entities.push_back(entity);
+  entities.push_back(entity);
   entity->scene = this;
 }
 
 void Scene::RemoveEntity(Entity* entity)
 {
-  _entities.remove(entity);
+  entities.remove(entity);
   
   if(entity->scene == this)
     entity->scene = NULL;
@@ -35,7 +35,7 @@ void Scene::RemoveEntity(Entity* entity)
 
 void Scene::EntityUpdate()
 {
-  for(Entity* entity : _entities)
+  for(Entity* entity : entities)
   {
     entity->Update();
     entity->position += entity->velocity;
@@ -51,7 +51,7 @@ void Scene::Draw(Screen* screen)
 {
   std::multimap<float, Entity*> sorted;
 
-  for(Entity* entity : _entities)
+  for(Entity* entity : entities)
   {
     float distance;
     

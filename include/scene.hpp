@@ -16,6 +16,7 @@ class Scene
 
     Game* game;
     Camera camera;
+    std::list<Entity*> entities;
     SortingMethod sortingMethod = SortingMethod::Distance;
     void PreUpdate();
     bool IsKeyDown(int);
@@ -27,5 +28,4 @@ class Scene
     virtual void Draw(Screen* screen);
   private:
     const Uint8* _keystate;
-    std::list<Entity*> _entities;
 };
