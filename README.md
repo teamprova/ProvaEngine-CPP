@@ -28,7 +28,6 @@ add description for the engine
     * Button
     * Text
 * Controller support
-* dll/so file
 * Shader class
     * Set VAO?
 
