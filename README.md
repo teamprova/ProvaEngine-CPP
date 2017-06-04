@@ -9,6 +9,8 @@ add description for the engine
 * Sprite
     * Cache
 * Collider class
+    * 3D colliders
+        * should they collide with 2d colliders?
 * Camera class
     * Vector2 camera follow
         * Update with the update method of an entity to follow an entity

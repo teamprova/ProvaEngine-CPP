@@ -1,16 +1,22 @@
 #pragma once
 #include <SDL2/SDL.h>
 #include <list>
+#include "vector2.hpp"
 #include "camera.hpp"
+#include "collider2d.hpp"
 
 class Game;
 class Screen;
 class Entity;
 class Camera;
+class Collider2D;
+class Vector2;
 
 
 class Scene
 {
+  friend class Entity;
+
   public:
     enum SortingMethod { Z, Distance };
 
@@ -23,9 +29,15 @@ class Scene
     bool IsKeyUp(int);
     void AddEntity(Entity*);
     void RemoveEntity(Entity*);
-    void EntityUpdate();
     virtual void Update();
+    void Collider2DUpdate();
+    void EntityUpdate();
     virtual void Draw(Screen* screen);
+    ~Scene();
   private:
+    void UpdateLargestCollider2D();
+    void UpdateLargestCollider2D(Collider2D*);
     const Uint8* _keystate;
+    std::list<Collider2D*> _2dColliders;
+    Vector2 _largestCollider2dSize;
 };

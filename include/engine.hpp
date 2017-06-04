@@ -11,6 +11,7 @@
 #include "vector3.hpp"
 #include "vector2.hpp"
 #include "matrix.hpp"
+#include "collider2d.hpp"
 
 // core
 #include "game.hpp"
