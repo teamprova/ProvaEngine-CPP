@@ -11,12 +11,6 @@ add description for the engine
 * Collider class
     * 3D colliders
         * should they collide with 2d colliders?
-* Camera class
-    * Vector2 camera follow
-        * Update with the update method of an entity to follow an entity
-    * float cameraGrip
-        * When equal to 1 it will be following 1:1 with the follow position
-        * lower values cause the camera to have a smooth delay
 * Sound class
     * Path
     * Play - maybe play through an audio class instead?
