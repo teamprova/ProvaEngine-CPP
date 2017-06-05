@@ -59,7 +59,7 @@ void Scene::Update()
 
 void Scene::Collider2DUpdate()
 {
-  std::unordered_map<Vector4, std::set<Collider2D*>> spaceMap;
+  std::unordered_map<Vector4, std::set<Collider2D*>> spacialMap;
 
   for(Collider2D* collider : _2dColliders)
   {
@@ -70,16 +70,21 @@ void Scene::Collider2DUpdate()
 
     // todo:
     Vector2 key;
-    key.x = floor(key.x / _bucketSize2d.x);
-    key.y = floor(key.y / _bucketSize2d.y);
-    spaceMap[key].emplace(collider);
+    key.x = key.x / _bucketSize2d.x;
+    key.y = key.y / _bucketSize2d.y;
+
+    // it might make sense to floor the
+    // key vector, but our hash function
+    // converts our vectors dimensions to
+    // integers anyway
+    spacialMap[key].emplace(collider);
   }
 
   // loop through spacial map
-  for(auto spaceMapIterator : spaceMap)
+  for(auto spacialMapIterator : spacialMap)
     // test for collision within each mapped space
-    for(Collider2D* colliderA : spaceMapIterator.second)
-      for(Collider2D* colliderB : spaceMapIterator.second)
+    for(Collider2D* colliderA : spacialMapIterator.second)
+      for(Collider2D* colliderB : spacialMapIterator.second)
         if(colliderA != colliderB && colliderA->Intersects(colliderB))
           colliderA->entity->OnCollision2D(colliderA, colliderB);
 }
