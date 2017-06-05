@@ -20,12 +20,47 @@ add description for the engine
     * Loop
     * Position
 * UI
+    * GUI class
+        * scene pointer
+        * focus management
+        * draw method
     * Font class
-    * Button
+    * Control
+        * GUI pointer
+        * Focus (click modifies this)
+        * update method
+        * draw method
+    * Image
+        * use sprite internally
     * Text
-* Controller support
+        * Font
+        * Background
+        * Alignment enum
+    * Text Input
+        * Extends Text
+    * Button
+        * Extends Text
+        * Activates callback with controller A/Enter/Space/click, only if focused (click focuses first, so it always activates)
+    * Input/Option List
+        * DPad/WASD/Analog/up/down selects current input
+    * Slider
+        * Left/Right arrow, mouse
+* Input class
+    * Controller support
+        * analog sticks should be able to act as buttons for binding
+    * Binding creation using binding class
+        * Binding CreateBinder/Binding()?
+* Binding class
+    * BindButton(enum name, button)
+    * BindKey(enum name, button)
+* SaveFile
+    * Name
+    * Save location?
 * Shader class
     * Set VAO?
+* Render targets?
+* Screen class
+    * blend mode?
 
 ## Optional/Future functionality
 * Console like Otter2D?
