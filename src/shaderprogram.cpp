@@ -1,5 +1,8 @@
 #include <GL/glew.h>
 #include <GL/glu.h>
+#include <fstream>
+#include <string>
+#include <cerrno>
 #include <stdexcept>
 #include <iostream>
 #include <string>
@@ -70,6 +73,21 @@ void ShaderProgram::SetTexture(std::string name, unsigned int texture)
   glBindTexture(GL_TEXTURE_2D, texture);
 }
 
+void ShaderProgram::LoadVertexShader(std::string sourceFile)
+{
+  LoadShader(GL_VERTEX_SHADER, sourceFile);
+}
+
+void ShaderProgram::LoadFragmentShader(std::string sourceFile)
+{
+  LoadShader(GL_FRAGMENT_SHADER, sourceFile);
+}
+
+void ShaderProgram::LoadGeometryShader(std::string sourceFile)
+{
+  LoadShader(GL_GEOMETRY_SHADER, sourceFile);
+}
+
 void ShaderProgram::AttachVertexShader(std::string source)
 {
   CompileShader(GL_VERTEX_SHADER, source);
@@ -78,6 +96,11 @@ void ShaderProgram::AttachVertexShader(std::string source)
 void ShaderProgram::AttachFragmentShader(std::string source)
 {
   CompileShader(GL_FRAGMENT_SHADER, source);
+}
+
+void ShaderProgram::AttachGeometryShader(std::string source)
+{
+  CompileShader(GL_GEOMETRY_SHADER, source);
 }
 
 void ShaderProgram::Link()
@@ -110,6 +133,28 @@ void ShaderProgram::PrintProgramLog()
     std::cout << infoLog << "\n";
   
   delete[] infoLog;
+}
+
+void ShaderProgram::LoadShader(unsigned int shaderType, std::string sourceFile)
+{
+  // read file as written
+  std::ifstream in(sourceFile, std::ios::in | std::ios::binary);
+
+  if (!in)
+  {
+    std::string error = "Error reading file " + sourceFile + ", Error Code: ";
+    error += std::to_string(errno);
+    throw std::runtime_error(error);
+  }
+  
+  std::string contents;
+  in.seekg(0, std::ios::end);
+  contents.resize(in.tellg());
+  in.seekg(0, std::ios::beg);
+  in.read(&contents[0], contents.size());
+  in.close();
+
+  CompileShader(shaderType, contents);
 }
 
 void ShaderProgram::CompileShader(unsigned int shaderType, std::string source)
