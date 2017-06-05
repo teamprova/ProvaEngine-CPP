@@ -35,9 +35,9 @@ class Scene
     virtual void Draw(Screen* screen);
     ~Scene();
   private:
-    void UpdateLargestCollider2D();
-    void UpdateLargestCollider2D(Collider2D*);
+    void UpdateBucketSize2D();
+    void UpdateBucketSize2D(Collider2D*);
     const Uint8* _keystate;
     std::list<Collider2D*> _2dColliders;
-    Vector2 _largestCollider2dSize;
+    Vector2 _bucketSize2d;
 };

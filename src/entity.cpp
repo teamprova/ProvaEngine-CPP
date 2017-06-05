@@ -14,7 +14,7 @@ bool Entity::IsKeyUp(int key)
 void Entity::AddCollider(Collider2D* collider)
 {
   if(scene != NULL)
-    scene->UpdateLargestCollider2D(collider);
+    scene->UpdateBucketSize2D(collider);
   
   _2dColliders.push_back(collider);
 }
@@ -22,7 +22,7 @@ void Entity::AddCollider(Collider2D* collider)
 void Entity::RemoveCollider(Collider2D* collider)
 {
   if(scene != NULL)
-    scene->UpdateLargestCollider2D();
+    scene->UpdateBucketSize2D();
   
   _2dColliders.remove(collider);
 }

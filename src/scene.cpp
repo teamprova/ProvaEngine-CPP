@@ -33,7 +33,7 @@ void Scene::AddEntity(Entity* entity)
   
   for(Collider2D* collider : entity->_2dColliders)
   {
-    UpdateLargestCollider2D(collider);
+    UpdateBucketSize2D(collider);
     _2dColliders.push_back(collider);
   }
 }
@@ -48,7 +48,7 @@ void Scene::RemoveEntity(Entity* entity)
   for(Collider2D* collider : entity->_2dColliders)
     _2dColliders.remove(collider);
   
-  UpdateLargestCollider2D();
+  UpdateBucketSize2D();
 }
 
 void Scene::Update()
@@ -64,14 +64,14 @@ void Scene::Collider2DUpdate()
   for(Collider2D* collider : _2dColliders)
   {
     // we map the corners to a space,
-    // edges don't matter as the rooms are
+    // edges don't matter as the buckets are
     // as big as the largest collider
     Rect bounds = collider->GetBounds();
 
     // todo:
     Vector2 key;
-    key.x = floor(key.x / _largestCollider2dSize.x);
-    key.y = floor(key.y / _largestCollider2dSize.y);
+    key.x = floor(key.x / _bucketSize2d.x);
+    key.y = floor(key.y / _bucketSize2d.y);
     spaceMap[key].emplace(collider);
   }
 
@@ -84,20 +84,20 @@ void Scene::Collider2DUpdate()
           colliderA->entity->OnCollision2D(colliderA, colliderB);
 }
 
-void Scene::UpdateLargestCollider2D()
+void Scene::UpdateBucketSize2D()
 {
   for(Collider2D* collider : _2dColliders)
-    UpdateLargestCollider2D(collider);
+    UpdateBucketSize2D(collider);
 }
 
-void Scene::UpdateLargestCollider2D(Collider2D* collider)
+void Scene::UpdateBucketSize2D(Collider2D* collider)
 {
   Vector2 size = collider->GetSize();
 
-  if(size.x > _largestCollider2dSize.x)
-    _largestCollider2dSize.x = size.x;
-  if(size.x > _largestCollider2dSize.y)
-    _largestCollider2dSize.y = size.y;
+  if(size.x > _bucketSize2d.x)
+    _bucketSize2d.x = size.x;
+  if(size.x > _bucketSize2d.y)
+    _bucketSize2d.y = size.y;
 }
 
 void Scene::EntityUpdate()
