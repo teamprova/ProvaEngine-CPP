@@ -7,10 +7,12 @@ class Vector3;
 class Scene;
 class Screen;
 class Collider2D;
+class SpacialMap2D;
 
 class Entity
 {
   friend class Scene;
+  friend class SpacialMap2D;
 
   public:
     Vector3 position;

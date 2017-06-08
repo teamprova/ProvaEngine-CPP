@@ -4,6 +4,7 @@
 #include "vector2.hpp"
 #include "camera.hpp"
 #include "collider2d.hpp"
+#include "spacialmap2d.hpp"
 
 class Game;
 class Screen;
@@ -35,9 +36,6 @@ class Scene
     virtual void Draw(Screen* screen);
     ~Scene();
   private:
-    void UpdateBucketSize2D();
-    void UpdateBucketSize2D(Collider2D*);
     const Uint8* _keystate;
-    std::list<Collider2D*> _2dColliders;
-    Vector2 _bucketSize2d;
+    SpacialMap2D Collider2DMap;
 };

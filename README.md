@@ -8,9 +8,6 @@ add description for the engine
 * Optimize rendering
 * Sprite
     * Cache
-* Collider class
-    * 3D colliders
-        * should they collide with 2d colliders?
 * Sound class
     * Path
     * Play - maybe play through an audio class instead?

@@ -27,21 +27,3 @@ class Vector4
     Vector4 operator/(float);
     bool operator==(const Vector4&) const;
 };
-
-namespace std {
-  template <>
-  struct hash<Vector4>
-  {
-    std::size_t operator()(const Vector4& vector) const
-    {
-      using std::size_t;
-      using std::hash;
-      using std::string;
-
-      return ((((int)(vector.x) ^
-               ((int)(vector.y) << 1)) >> 1) ^
-               ((int)(vector.z) << 1) >> 1) ^
-               ((int)(vector.w) << 1);
-    }
-  };
-}
