@@ -1,7 +1,9 @@
 #include "camera.hpp"
 
+using namespace Prova;
+
 Camera::Camera()
- : scale(1,1,1) {}
+: scale(1,1,1) {}
 
 Matrix Camera::GetTransform()
 {

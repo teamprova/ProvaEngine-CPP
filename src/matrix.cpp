@@ -3,6 +3,8 @@
 #include "vector4.hpp"
 #include "vector3.hpp"
 
+using namespace Prova;
+
 /*/ Debugging
 #include <iostream>
 void PrintMatrix(Matrix m)
@@ -36,10 +38,10 @@ Matrix Matrix::Identity()
 Matrix Matrix::Ortho(float left, float right, float bottom, float top, float near, float far)
 {
   /*| 2/x_max   0        0                     -1             |
-   *|    0  -2/y_max     0                      1             |
-   *|    0      0   2/(zFar-zNear)  (zNear+zFar)/(zNear-zFar) |
-   *|    0      0        0                      1             |
-   */
+  *|    0  -2/y_max     0                      1             |
+  *|    0      0   2/(zFar-zNear)  (zNear+zFar)/(zNear-zFar) |
+  *|    0      0        0                      1             |
+  */
   
   Matrix ortho;
   ortho[0][0] = 2/(right - left);

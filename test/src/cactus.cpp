@@ -1,8 +1,8 @@
 #include "engine.hpp"
 
-class Cactus : public Entity
+class Cactus : public Prova::Entity
 {
-  Sprite sprite;
+  Prova::Sprite sprite;
 
   public:
     Cactus()
@@ -14,7 +14,7 @@ class Cactus : public Entity
       position.x = 0;
       position.y = 0;
     }
-    void Draw(Screen& screen)
+    void Draw(Prova::Screen& screen)
     {
       position.z = position.y;
       screen.DrawSprite(sprite, position);

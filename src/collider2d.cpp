@@ -2,6 +2,8 @@
 #include "rect.hpp"
 #include "vector2.hpp"
 
+using namespace Prova;
+
 Collider2D::Collider2D(Entity* entity)
 {
   this->entity = entity;
@@ -21,4 +23,9 @@ Rect Collider2D::GetBounds()
     position.x + halfSize.x,
     position.y + halfSize.y
   );
+}
+
+bool Collider2D::Intersects(Collider2D& collider)
+{
+  return false;
 }

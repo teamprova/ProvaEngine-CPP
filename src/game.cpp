@@ -5,6 +5,8 @@
 #include "scene.hpp"
 #include "screen.hpp"
 
+using namespace Prova;
+
 Game::Game(int width, int height, std::string title)
 {
   if(SDL_Init(SDL_INIT_EVERYTHING) < 0)

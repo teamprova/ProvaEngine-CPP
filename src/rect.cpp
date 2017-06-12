@@ -1,6 +1,8 @@
 #include "rect.hpp"
 #include "vector2.hpp"
 
+using namespace Prova;
+
 Rect::Rect()
   : Rect(0, 0, 0, 0) {}
 

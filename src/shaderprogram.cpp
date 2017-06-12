@@ -13,6 +13,8 @@
 #include "vector3.hpp"
 #include "vector4.hpp"
 
+using namespace Prova;
+
 ShaderProgram::ShaderProgram()
 {
   id = glCreateProgram();
@@ -202,8 +204,8 @@ ShaderProgram::~ShaderProgram()
   for(auto shader : _shaders)
   {
     glDetachShader(id, shader);
-	  glDeleteShader(shader);
+    glDeleteShader(shader);
   }
 
-	glDeleteProgram(id);
+  glDeleteProgram(id);
 }

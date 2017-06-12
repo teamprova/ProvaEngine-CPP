@@ -2,6 +2,8 @@
 #include "vector2.hpp"
 #include "vector3.hpp"
 
+using namespace Prova;
+
 Vector2::Vector2(){}
 
 Vector2::Vector2(float x, float y)

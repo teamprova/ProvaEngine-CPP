@@ -1,8 +1,8 @@
 #include "engine.hpp"
 
-class Cowboy : public Entity
+class Cowboy : public Prova::Entity
 {
-  Sprite sprite;
+  Prova::Sprite sprite;
 
   enum Animations {
     WALK,
@@ -28,7 +28,7 @@ class Cowboy : public Entity
       bool animationFinished = sprite.IsAnimationFinished();
       bool shooting = currentAnimation == Animations::SHOOT && !animationFinished;
       
-      if(IsKeyDown(Keys::SPACE) && !shooting)
+      if(IsKeyDown(Prova::Keys::SPACE) && !shooting)
         sprite.PlayAnimation(Animations::SHOOT, false);
       if(animationFinished)
         sprite.PlayAnimation(Animations::WALK, true);
@@ -40,18 +40,18 @@ class Cowboy : public Entity
     }
     void Walk()
     {
-      Vector2 displacement;
+      Prova::Vector2 displacement;
 
-      if(IsKeyDown(Keys::W))
+      if(IsKeyDown(Prova::Keys::W))
         displacement.y -= 1;
-      if(IsKeyDown(Keys::S))
+      if(IsKeyDown(Prova::Keys::S))
         displacement.y += 1;
-      if(IsKeyDown(Keys::A))
+      if(IsKeyDown(Prova::Keys::A))
       {
         displacement.x -= 1;
         sprite.scale.x = -1;
       }
-      if(IsKeyDown(Keys::D))
+      if(IsKeyDown(Prova::Keys::D))
       {
         displacement.x += 1;
         sprite.scale.x = 1;
@@ -59,7 +59,7 @@ class Cowboy : public Entity
 
       position += displacement.Normalize() * 2;
     }
-    void Draw(Screen& screen) override
+    void Draw(Prova::Screen& screen) override
     {
       position.z = position.y;
       screen.DrawSprite(sprite, position);

@@ -7,7 +7,7 @@ int main()
 {
   try
   {
-    Game game(800, 600, "Hello World!");
+    Prova::Game game(800, 600, "Hello World!");
     game.Start(new Test);
   }
   catch(std::exception& e)

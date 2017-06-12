@@ -2,6 +2,8 @@
 #include "vector4.hpp"
 #include "rect.hpp"
 
+using namespace Prova;
+
 Vector4::Vector4()
   :Vector4(0, 0, 0, 0) {}
 
@@ -148,7 +150,7 @@ Vector4 Vector4::operator/(float a)
 bool Vector4::operator==(const Vector4& vector) const
 {
   return vector.x == x &&
-         vector.y == y &&
-         vector.z == z &&
-         vector.w == w;
+        vector.y == y &&
+        vector.z == z &&
+        vector.w == w;
 }

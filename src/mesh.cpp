@@ -2,6 +2,8 @@
 #include <GL/gl.h>
 #include "mesh.hpp"
 
+using namespace Prova;
+
 Mesh::Mesh()
 {
   glGenVertexArrays(1, &VAO);

@@ -1,10 +1,13 @@
 #pragma once
 
-struct Animation
+namespace Prova
 {
-  int id;
-  int frameCount;
-  int row;
-  float frameDuration;
-  float duration;
-};
+  struct Animation
+  {
+    int id;
+    int frameCount;
+    int row;
+    float frameDuration;
+    float duration;
+  };
+}

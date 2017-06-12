@@ -1,6 +1,7 @@
 #include "spacialmap2d.hpp"
 #include "rect.hpp"
 
+using namespace Prova;
 
 void SpacialMap2D::MapColliders()
 {
@@ -47,7 +48,7 @@ void SpacialMap2D::FindCollisions()
         Collider2D* colliderA = *colliderItA;
         Collider2D* colliderB = *colliderItB;
         
-        if(colliderA->Intersects(colliderB))
+        if(colliderA->Intersects(*colliderB))
         {
           colliderA->entity->OnCollision2D(*colliderA, *colliderB);
           colliderB->entity->OnCollision2D(*colliderB, *colliderA);

@@ -1,6 +1,8 @@
 #include "entity.hpp"
 #include "scene.hpp"
 
+using namespace Prova;
+
 bool Entity::IsKeyDown(int key)
 {
   return scene->IsKeyDown(key);

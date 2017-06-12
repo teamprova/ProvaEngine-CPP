@@ -9,6 +9,8 @@
 #include "vector4.hpp"
 #include "rect.hpp"
 
+using namespace Prova;
+
 void Scene::PreUpdate()
 {
   _keystate = SDL_GetKeyboardState(NULL);
@@ -78,7 +80,7 @@ void Scene::Draw(Screen& screen)
     
     sorted.emplace(distance, entity);
   }
- 
+
   screen.Clear(0, 0, 0);
 
   for(auto it = sorted.rbegin(); it != sorted.rend(); ++it) 

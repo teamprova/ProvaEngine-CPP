@@ -4,10 +4,11 @@
 
 // junky code to test if things are working fast
 
-class Test : public Scene
+class Test : public Prova::Scene
 {
   Cowboy player;
   Cactus cactus;
+  
   public:
     Test()
     {

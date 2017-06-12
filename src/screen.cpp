@@ -10,6 +10,8 @@
 #include "game.hpp"
 #include "scene.hpp"
 
+using namespace Prova;
+
 Screen::Screen(Game* game)
 {
   this->game = game;

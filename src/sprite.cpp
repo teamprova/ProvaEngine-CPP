@@ -7,15 +7,17 @@
 #include "animation.hpp"
 #include "vector2.hpp"
 
+using namespace Prova;
+
 Sprite::Sprite(std::string sheetpath, int width, int height)
 {
   texture = SOIL_load_OGL_texture
-	(
-		sheetpath.c_str(),
-		SOIL_LOAD_AUTO,
-		SOIL_CREATE_NEW_ID,
-		0
-	);
+  (
+    sheetpath.c_str(),
+    SOIL_LOAD_AUTO,
+    SOIL_CREATE_NEW_ID,
+    0
+  );
 
   glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
   glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
