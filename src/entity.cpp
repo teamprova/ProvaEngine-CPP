@@ -11,26 +11,24 @@ bool Entity::IsKeyUp(int key)
   return scene->IsKeyUp(key);
 }
 
-void Entity::AddCollider(Collider2D* collider)
+void Entity::AddCollider(Collider2D& collider)
 {
-  if(scene != NULL)
-    scene->Collider2DMap.AddCollider(collider);
+  scene->Collider2DMap.AddCollider(collider);
   
-  _2dColliders.push_back(collider);
+  _2dColliders.push_back(&collider);
 }
 
-void Entity::RemoveCollider(Collider2D* collider)
+void Entity::RemoveCollider(Collider2D& collider)
 {
-  if(scene != NULL)
-    scene->Collider2DMap.RemoveCollider(collider);
+  scene->Collider2DMap.RemoveCollider(collider);
   
-  _2dColliders.remove(collider);
+  _2dColliders.remove(&collider);
 }
 
 void Entity::Update(){}
-void Entity::Draw(Screen* screen){}
+void Entity::Draw(Screen& screen){}
 
-void Entity::OnCollision2D(Collider2D* collider, Collider2D* other){}
+void Entity::OnCollision2D(Collider2D& collider, Collider2D& other){}
 
 Entity::~Entity()
 {

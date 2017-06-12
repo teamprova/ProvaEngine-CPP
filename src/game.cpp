@@ -41,7 +41,7 @@ void Game::Start(Scene* scene)
   
   _running = true;
   this->scene = scene;
-  scene->game = this;
+  this->scene->game = this;
 
 
   while(_running)
@@ -63,9 +63,9 @@ void Game::SwapScene(Scene* scene)
   if(!_running)
     throw "Set initial scene through Game::Start(Scene*)";
   
-  delete scene;
-  scene = scene;
-  scene->game = this;
+  delete this->scene;
+  this->scene = scene;
+  this->scene->game = this;
 }
 
 void Game::Update()
@@ -82,7 +82,7 @@ void Game::Update()
   }
 
   screen->BeginDraw();
-  scene->Draw(screen);
+  scene->Draw(*screen);
   
   scene->PreUpdate();
   scene->Update();

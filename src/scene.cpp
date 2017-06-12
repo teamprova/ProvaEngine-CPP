@@ -24,20 +24,20 @@ bool Scene::IsKeyUp(int key)
   return !IsKeyDown(key);
 }
 
-void Scene::AddEntity(Entity* entity)
+void Scene::AddEntity(Entity& entity)
 {
-  entities.push_back(entity);
-  entity->scene = this;
+  entities.push_back(&entity);
+  entity.scene = this;
   
   Collider2DMap.AddColliders(entity);
 }
 
-void Scene::RemoveEntity(Entity* entity)
+void Scene::RemoveEntity(Entity& entity)
 {
-  entities.remove(entity);
+  entities.remove(&entity);
   
-  if(entity->scene == this)
-    entity->scene = NULL;
+  if(entity.scene == this)
+    entity.scene = NULL;
   
   Collider2DMap.RemoveColliders(entity);
 }
@@ -63,7 +63,7 @@ void Scene::EntityUpdate()
   }
 }
 
-void Scene::Draw(Screen* screen)
+void Scene::Draw(Screen& screen)
 {
   std::multimap<float, Entity*> sorted;
 
@@ -79,17 +79,10 @@ void Scene::Draw(Screen* screen)
     sorted.emplace(distance, entity);
   }
  
-  screen->Clear(0, 0, 0);
+  screen.Clear(0, 0, 0);
 
   for(auto it = sorted.rbegin(); it != sorted.rend(); ++it) 
     it->second->Draw(screen);
 
-  screen->SwapBuffer();
-}
-
-Scene::~Scene()
-{
-  for(Entity* entity : entities)
-    if(entity->scene == this)
-      delete entity;
+  screen.SwapBuffer();
 }

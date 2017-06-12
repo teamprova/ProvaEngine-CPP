@@ -6,16 +6,18 @@
 
 class Test : public Scene
 {
+  Cowboy player;
+  Cactus cactus;
   public:
     Test()
     {
       // Z sorting for 2D
       // Distance sorting for 3D
       sortingMethod = SortingMethod::Z;
-
-      AddEntity(new Cowboy);
-      AddEntity(new Cactus);
       camera.scale.x = 2;
       camera.scale.y = 2;
+
+      AddEntity(cactus);
+      AddEntity(player);
     }
 };

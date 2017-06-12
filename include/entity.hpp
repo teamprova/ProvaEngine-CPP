@@ -20,11 +20,11 @@ class Entity
     Scene* scene;
     bool IsKeyDown(int);
     bool IsKeyUp(int);
-    void AddCollider(Collider2D*);
-    void RemoveCollider(Collider2D*);
+    void AddCollider(Collider2D&);
+    void RemoveCollider(Collider2D&);
     virtual void Update();
-    virtual void Draw(Screen*);
-    virtual void OnCollision2D(Collider2D*, Collider2D*);
+    virtual void Draw(Screen&);
+    virtual void OnCollision2D(Collider2D&, Collider2D&);
     ~Entity();
   private:
     std::list<Collider2D*> _2dColliders;

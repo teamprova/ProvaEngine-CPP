@@ -19,8 +19,8 @@ class Screen
     ShaderProgram* spriteShaderProgram;
     Game* game;
     void BeginDraw();
-    void DrawSprite(Sprite*, Vector3);
-    void DrawSprite(Sprite*, float, float);
+    void DrawSprite(Sprite&, Vector3);
+    void DrawSprite(Sprite&, float, float);
     void Clear(int, int, int);
     void SwapBuffer();
     void GetWidth();

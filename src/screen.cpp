@@ -86,34 +86,34 @@ void Screen::BeginDraw()
   _transforms = game->scene->camera.projection * cameraTransform;
 }
 
-void Screen::DrawSprite(Sprite* sprite, Vector3 vector)
+void Screen::DrawSprite(Sprite& sprite, Vector3 vector)
 {
   Screen::DrawSprite(sprite, vector.x, vector.y);
 }
 
-void Screen::DrawSprite(Sprite* sprite, float x, float y)
+void Screen::DrawSprite(Sprite& sprite, float x, float y)
 {
-  sprite->Update();
+  sprite.Update();
   glUseProgram(spriteShaderProgram->id);
   glEnable(GL_BLEND);
   glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);  
 
   Matrix model = Matrix::Identity();
-  model = model.Scale(sprite->width, sprite->height, 1);
-  model = model.Translate(-sprite->origin);
-  model = model.Scale(sprite->scale);
-  model = model.RotateZ(sprite->angle);
+  model = model.Scale(sprite.width, sprite.height, 1);
+  model = model.Translate(-sprite.origin);
+  model = model.Scale(sprite.scale);
+  model = model.RotateZ(sprite.angle);
   model = model.Translate(x, y, 0);
 
   spriteShaderProgram->SetMatrix("transforms", _transforms);
   spriteShaderProgram->SetMatrix("model", model);
-  spriteShaderProgram->SetTexture("sprite", sprite->texture);
-  spriteShaderProgram->SetVector4("clip", Vector4(sprite->_clip));
+  spriteShaderProgram->SetTexture("sprite", sprite.texture);
+  spriteShaderProgram->SetVector4("clip", Vector4(sprite._clip));
 
   // vertex position
   unsigned int vertexPos = spriteShaderProgram->GetAttribute("vertexPosition");
   glEnableVertexAttribArray(vertexPos);
-  glBindVertexArray(sprite->mesh.VAO);
+  glBindVertexArray(sprite.mesh.VAO);
   glDrawElements(GL_TRIANGLE_FAN, 4, GL_UNSIGNED_INT, NULL);
   
   //Disable vertex position

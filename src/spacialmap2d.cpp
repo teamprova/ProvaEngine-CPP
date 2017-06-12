@@ -49,8 +49,8 @@ void SpacialMap2D::FindCollisions()
         
         if(colliderA->Intersects(colliderB))
         {
-          colliderA->entity->OnCollision2D(colliderA, colliderB);
-          colliderB->entity->OnCollision2D(colliderB, colliderA);
+          colliderA->entity->OnCollision2D(*colliderA, *colliderB);
+          colliderB->entity->OnCollision2D(*colliderB, *colliderA);
         }
       }
     
@@ -58,33 +58,33 @@ void SpacialMap2D::FindCollisions()
   }
 }
 
-void SpacialMap2D::AddCollider(Collider2D* collider)
+void SpacialMap2D::AddCollider(Collider2D& collider)
 {
-  _colliders.push_back(collider);
+  _colliders.push_back(&collider);
   
   UpdateBucketSize(collider);
 }
 
-void SpacialMap2D::AddColliders(Entity* entity)
+void SpacialMap2D::AddColliders(Entity& entity)
 {
-  for(Collider2D* collider : entity->_2dColliders)
+  for(Collider2D* collider : entity._2dColliders)
   {
     _colliders.push_back(collider);
 
-    UpdateBucketSize(collider);
+    UpdateBucketSize(*collider);
   }
 }
 
-void SpacialMap2D::RemoveCollider(Collider2D* collider)
+void SpacialMap2D::RemoveCollider(Collider2D& collider)
 {
-  _colliders.remove(collider);
+  _colliders.remove(&collider);
 
   UpdateBucketSize();
 }
 
-void SpacialMap2D::RemoveColliders(Entity* entity)
+void SpacialMap2D::RemoveColliders(Entity& entity)
 {
-  for(Collider2D* collider : entity->_2dColliders)
+  for(Collider2D* collider : entity._2dColliders)
     _colliders.remove(collider);
 
   UpdateBucketSize();
@@ -93,12 +93,12 @@ void SpacialMap2D::RemoveColliders(Entity* entity)
 void SpacialMap2D::UpdateBucketSize()
 {
   for(Collider2D* collider : _colliders)
-    UpdateBucketSize(collider);
+    UpdateBucketSize(*collider);
 }
 
-void SpacialMap2D::UpdateBucketSize(Collider2D* collider)
+void SpacialMap2D::UpdateBucketSize(Collider2D& collider)
 {
-  Vector2 size = collider->GetSize();
+  Vector2 size = collider.GetSize();
 
   if(size.x + 5 > _bucketSize.x)
     _bucketSize.x = size.x + 5;

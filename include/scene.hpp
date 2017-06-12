@@ -28,13 +28,12 @@ class Scene
     void PreUpdate();
     bool IsKeyDown(int);
     bool IsKeyUp(int);
-    void AddEntity(Entity*);
-    void RemoveEntity(Entity*);
+    void AddEntity(Entity&);
+    void RemoveEntity(Entity&);
     virtual void Update();
     void Collider2DUpdate();
     void EntityUpdate();
-    virtual void Draw(Screen* screen);
-    ~Scene();
+    virtual void Draw(Screen& screen);
   private:
     const Uint8* _keystate;
     SpacialMap2D Collider2DMap;

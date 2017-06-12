@@ -13,14 +13,14 @@ class SpacialMap2D
   public:
     void MapColliders();
     void FindCollisions();
-    void AddCollider(Collider2D*);
-    void AddColliders(Entity*);
-    void RemoveCollider(Collider2D*);
-    void RemoveColliders(Entity*);
+    void AddCollider(Collider2D&);
+    void AddColliders(Entity&);
+    void RemoveCollider(Collider2D&);
+    void RemoveColliders(Entity&);
   private:
     void MapColliderCorner(Vector2, Collider2D*);
     void UpdateBucketSize();
-    void UpdateBucketSize(Collider2D*);
+    void UpdateBucketSize(Collider2D&);
     void ResolveCollisions(std::list<Collider2D*>*);
     Vector2 _bucketSize;
     std::list<Collider2D*> _colliders;
