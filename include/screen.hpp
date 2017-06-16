@@ -7,10 +7,12 @@
 
 namespace Prova
 {
+  class Color;
   class Matrix;
-  class Vector3;
+  class Rect;
   class Sprite;
   class ShaderProgram;
+  class Vector3;
 
   class Screen
   {
@@ -19,18 +21,26 @@ namespace Prova
     public:
       Screen(Game*);
       ShaderProgram* spriteShaderProgram;
+      ShaderProgram* flatShaderProgram;
       Game* game;
       void BeginDraw();
+      void DrawLine(Color, Vector3, Vector3);
+      void DrawLine(Color, Vector2, Vector2);
+      void DrawLine(Color, float, float, float, float);
+      void DrawRect(Color, Rect);
+      void DrawRect(Color, float, float, float, float);
       void DrawSprite(Sprite&, Vector3);
       void DrawSprite(Sprite&, float, float);
-      void Clear(int, int, int);
+      void DrawSprite(Sprite&, float, float, float);
+      void Clear(float, float, float);
       void SwapBuffer();
       void GetWidth();
       void GetHeight();
       ~Screen();
     private:
       void InitGL();
-      void InitDefaultShader();
+      void InitSpriteShader();
+      void InitLineShader();
       SDL_GLContext _glContext;
       Matrix _transforms;
       int _width;

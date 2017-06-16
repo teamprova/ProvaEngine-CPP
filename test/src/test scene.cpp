@@ -1,24 +1,45 @@
 #include "engine.hpp"
 #include "cowboy.cpp"
 #include "cactus.cpp"
+#include <list>
 
 // junky code to test if things are working fast
 
 class Test : public Prova::Scene
 {
   Cowboy player;
-  Cactus cactus;
+  std::list<Cactus> cacti;
   
   public:
     Test()
     {
       // Z sorting for 2D
       // Distance sorting for 3D
-      sortingMethod = SortingMethod::Z;
+      camera.projection = Projection::Orthographic;
+      camera.sortingMethod = SortingMethod::Z;
+      camera.useDepthBuffer = false;
       camera.scale.x = 2;
       camera.scale.y = 2;
+      //Debug = true;
 
-      AddEntity(cactus);
       AddEntity(player);
+
+      for(int x = -15; x < 15; x++)
+        for(int y = -15; y < 15; y++)
+        {
+          cacti.emplace_back();
+          Cactus& cactus = cacti.back();
+          cactus.position.x = x * 32 + 10 * (y % 2);
+          cactus.position.y = y * 20;
+
+          AddEntity(cactus);
+        }
+    }
+    void Update() override
+    {
+      Scene::Update();
+      //camera.rotation.x -= 1;
+      camera.position.x = player.position.x * 2;
+      camera.position.y = player.position.y * 2;
     }
 };

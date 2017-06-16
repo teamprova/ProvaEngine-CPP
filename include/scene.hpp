@@ -20,12 +20,10 @@ namespace Prova
     friend class Entity;
 
     public:
-      enum SortingMethod { Z, Distance };
-
       Game* game;
       Camera camera;
       std::list<Entity*> entities;
-      SortingMethod sortingMethod = SortingMethod::Distance;
+      bool Debug = false;
       void PreUpdate();
       bool IsKeyDown(int);
       bool IsKeyUp(int);
@@ -37,6 +35,6 @@ namespace Prova
       virtual void Draw(Screen& screen);
     private:
       const Uint8* _keystate;
-      SpacialMap2D Collider2DMap;
+      SpacialMap2D _collider2DMap;
   };
 }

@@ -15,14 +15,16 @@ bool Entity::IsKeyUp(int key)
 
 void Entity::AddCollider(Collider2D& collider)
 {
-  scene->Collider2DMap.AddCollider(collider);
+  if(scene != nullptr)
+    scene->_collider2DMap.AddCollider(collider);
   
   _2dColliders.push_back(&collider);
 }
 
 void Entity::RemoveCollider(Collider2D& collider)
 {
-  scene->Collider2DMap.RemoveCollider(collider);
+  if(scene != nullptr)
+    scene->_collider2DMap.RemoveCollider(collider);
   
   _2dColliders.remove(&collider);
 }

@@ -3,15 +3,15 @@
 #include "shaderprogram.hpp"
 #include "sprite.hpp"
 #include "animation.hpp"
+#include "color.hpp"
 
 // core tools
 #include "keys.hpp"
-#include "rect.hpp"
 #include "vector4.hpp"
 #include "vector3.hpp"
 #include "vector2.hpp"
 #include "matrix.hpp"
-#include "collider2d.hpp"
+#include "rect.hpp"
 
 // core
 #include "game.hpp"
@@ -19,3 +19,8 @@
 #include "scene.hpp"
 #include "camera.hpp"
 #include "entity.hpp"
+#include "collider2d.hpp"
+#include "pointcollider.hpp"
+#include "circlecollider.hpp"
+#include "rectcollider.hpp"
+//#include "pixelcollider.hpp"

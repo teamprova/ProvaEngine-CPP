@@ -53,8 +53,6 @@ add description for the engine
 * SaveFile
     * Name
     * Save location?
-* Shader class
-    * Set VAO?
 * Render targets?
 * Screen class
     * blend mode?
@@ -73,14 +71,9 @@ add description for the engine
     * Get FPS
 * Screen class
     * Ability to save the screen as a texture
-    * Lines
-    * Rects
     * Circles
-    * Fill
 * Model class
     * Mesh
     * Textures
     * UV Maps
-* Camera
-    * 3D options
 * Quaternions for rotation

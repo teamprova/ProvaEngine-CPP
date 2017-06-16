@@ -3,6 +3,7 @@
 class Cactus : public Prova::Entity
 {
   Prova::Sprite sprite;
+  Prova::RectCollider collider = Prova::RectCollider(this, 31, 10);
 
   public:
     Cactus()
@@ -13,10 +14,12 @@ class Cactus : public Prova::Entity
       
       position.x = 0;
       position.y = 0;
+
+      AddCollider(collider);
     }
     void Draw(Prova::Screen& screen)
     {
-      position.z = position.y;
+      position.z = position.y / 10000;
       screen.DrawSprite(sprite, position);
     }
 };

@@ -3,6 +3,7 @@
 class Cowboy : public Prova::Entity
 {
   Prova::Sprite sprite;
+  Prova::RectCollider collider = Prova::RectCollider(this, 31, 10);
 
   enum Animations {
     WALK,
@@ -21,6 +22,8 @@ class Cowboy : public Prova::Entity
 
       position.x = 0;
       position.y = 0;
+
+      AddCollider(collider);
     }
     void Update() override
     {
@@ -28,7 +31,7 @@ class Cowboy : public Prova::Entity
       bool animationFinished = sprite.IsAnimationFinished();
       bool shooting = currentAnimation == Animations::SHOOT && !animationFinished;
       
-      if(IsKeyDown(Prova::Keys::SPACE) && !shooting)
+      if(IsKeyDown(Keys::SPACE) && !shooting)
         sprite.PlayAnimation(Animations::SHOOT, false);
       if(animationFinished)
         sprite.PlayAnimation(Animations::WALK, true);
@@ -42,16 +45,16 @@ class Cowboy : public Prova::Entity
     {
       Prova::Vector2 displacement;
 
-      if(IsKeyDown(Prova::Keys::W))
+      if(IsKeyDown(Keys::W))
         displacement.y -= 1;
-      if(IsKeyDown(Prova::Keys::S))
+      if(IsKeyDown(Keys::S))
         displacement.y += 1;
-      if(IsKeyDown(Prova::Keys::A))
+      if(IsKeyDown(Keys::A))
       {
         displacement.x -= 1;
         sprite.scale.x = -1;
       }
-      if(IsKeyDown(Prova::Keys::D))
+      if(IsKeyDown(Keys::D))
       {
         displacement.x += 1;
         sprite.scale.x = 1;
@@ -61,7 +64,7 @@ class Cowboy : public Prova::Entity
     }
     void Draw(Prova::Screen& screen) override
     {
-      position.z = position.y;
+      position.z = position.y / 10000;
       screen.DrawSprite(sprite, position);
     }
 };

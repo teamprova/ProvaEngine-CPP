@@ -19,7 +19,7 @@ namespace Prova
     public:
       Vector3 position;
       Vector3 velocity;
-      Scene* scene;
+      Scene* scene = nullptr;
       bool IsKeyDown(int);
       bool IsKeyUp(int);
       void AddCollider(Collider2D&);

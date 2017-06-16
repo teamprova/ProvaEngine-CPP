@@ -35,36 +35,46 @@ Matrix Matrix::Identity()
   return identity;
 }
 
-Matrix Matrix::Ortho(float left, float right, float bottom, float top, float near, float far)
+Matrix Matrix::Ortho(float left, float right, float top, float bottom, float near, float far)
 {
-  /*| 2/x_max   0        0                     -1             |
-  *|    0  -2/y_max     0                      1             |
-  *|    0      0   2/(zFar-zNear)  (zNear+zFar)/(zNear-zFar) |
-  *|    0      0        0                      1             |
-  */
-  
   Matrix ortho;
-  ortho[0][0] = 2/(right - left);
-  ortho[1][1] = 2/(top - bottom);
-  ortho[2][2] = 2/(far - near);
-  ortho[2][3] = (near + far)/(near - far);
+  ortho[0][0] = 2 / (right - left);
+  ortho[1][1] = 2 / (top - bottom);
+  ortho[2][2] = 2 / (near - far);
 
-  ortho[0][3] = -1;
-  ortho[1][3] = 1;
+  ortho[0][3] = (left + right) / (left - right);
+  ortho[1][3] = (bottom + top) / (bottom - top);
+  ortho[2][3] = (far + near) / (far - near);
   ortho[3][3] = 1;
   
   return ortho;
 }
 
+Matrix Matrix::Perspective(float width, float height, float fov)
+{
+  fov = fov / 180 * M_PI;
+
+  Matrix perspective;
+  perspective[0][0] = 1/(tan(fov / 2) * width / height);
+  perspective[1][1] = tan(fov / 2);
+  perspective[2][2] = 1;
+
+  perspective[3][2] = -1;
+  
+  return perspective;
+}
+
 Matrix Matrix::RotateX(float degrees)
 {
   float angle = degrees / 180 * M_PI;
+  float angleSin = sin(-angle);
+  float angleCos = cos(-angle);
 
   Matrix rotation = Matrix::Identity();
-  rotation[1][1] = cos(-angle);
-  rotation[1][2] = -sin(-angle);
-  rotation[2][1] = sin(-angle);
-  rotation[2][2] = cos(-angle);
+  rotation[1][1] = angleCos;
+  rotation[1][2] = -angleSin;
+  rotation[2][1] = angleSin;
+  rotation[2][2] = angleCos;
 
   return rotation * *this;
 }
@@ -72,12 +82,14 @@ Matrix Matrix::RotateX(float degrees)
 Matrix Matrix::RotateY(float degrees)
 {
   float angle = degrees / 180 * M_PI;
+  float angleSin = sin(-angle);
+  float angleCos = cos(-angle);
 
   Matrix rotation = Matrix::Identity();
-  rotation[0][0] = cos(-angle);
-  rotation[0][2] = sin(-angle);
-  rotation[2][0] = -sin(-angle);
-  rotation[2][2] = cos(-angle);
+  rotation[0][0] = angleCos;
+  rotation[0][2] = angleSin;
+  rotation[2][0] = -angleSin;
+  rotation[2][2] = angleCos;
 
   return rotation * *this;
 }
@@ -85,12 +97,14 @@ Matrix Matrix::RotateY(float degrees)
 Matrix Matrix::RotateZ(float degrees)
 {
   float angle = degrees / 180 * M_PI;
+  float angleSin = sin(-angle);
+  float angleCos = cos(-angle);
 
   Matrix rotation = Matrix::Identity();
-  rotation[0][0] = cos(-angle);
-  rotation[0][1] = -sin(-angle);
-  rotation[1][0] = sin(-angle);
-  rotation[1][1] = cos(-angle);
+  rotation[0][0] = angleCos;
+  rotation[0][1] = -angleSin;
+  rotation[1][0] = angleSin;
+  rotation[1][1] = angleCos;
 
   return rotation * *this;
 }
@@ -153,7 +167,7 @@ Matrix Matrix::operator-(Matrix matrix)
   return matrix;
 }
 
-Matrix Matrix::operator*(Matrix matrix)
+Matrix Matrix::operator*(Matrix& matrix)
 {
   Matrix result;
 

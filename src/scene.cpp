@@ -31,7 +31,7 @@ void Scene::AddEntity(Entity& entity)
   entities.push_back(&entity);
   entity.scene = this;
   
-  Collider2DMap.AddColliders(entity);
+  _collider2DMap.AddColliders(entity);
 }
 
 void Scene::RemoveEntity(Entity& entity)
@@ -41,7 +41,7 @@ void Scene::RemoveEntity(Entity& entity)
   if(entity.scene == this)
     entity.scene = NULL;
   
-  Collider2DMap.RemoveColliders(entity);
+  _collider2DMap.RemoveColliders(entity);
 }
 
 void Scene::Update()
@@ -52,8 +52,8 @@ void Scene::Update()
 
 void Scene::Collider2DUpdate()
 {
-  Collider2DMap.MapColliders();
-  Collider2DMap.FindCollisions();
+  _collider2DMap.MapColliders();
+  _collider2DMap.FindCollisions();
 }
 
 void Scene::EntityUpdate()
@@ -73,7 +73,7 @@ void Scene::Draw(Screen& screen)
   {
     float distance;
     
-    if(sortingMethod == SortingMethod::Distance)
+    if(camera.sortingMethod == SortingMethod::Distance)
       distance = entity->position.DistanceFrom(camera.position);
     else
       distance = camera.position.z - entity->position.z;
@@ -83,8 +83,15 @@ void Scene::Draw(Screen& screen)
 
   screen.Clear(0, 0, 0);
 
-  for(auto it = sorted.rbegin(); it != sorted.rend(); ++it) 
-    it->second->Draw(screen);
+  for(auto it = sorted.rbegin(); it != sorted.rend(); ++it)
+  {
+    Entity& entity = *it->second;
+
+    entity.Draw(screen);
+  }
+  
+  if(Debug)
+    _collider2DMap.Draw(*game->screen);
 
   screen.SwapBuffer();
 }

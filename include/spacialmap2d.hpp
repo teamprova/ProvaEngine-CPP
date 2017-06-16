@@ -19,13 +19,14 @@ namespace Prova
       void AddColliders(Entity&);
       void RemoveCollider(Collider2D&);
       void RemoveColliders(Entity&);
+      void Draw(Screen&);
     private:
       void MapColliderCorner(Vector2, Collider2D*);
       void UpdateBucketSize();
       void UpdateBucketSize(Collider2D&);
-      void ResolveCollisions(std::list<Collider2D*>*);
+      void ResolveCollisions(std::list<Collider2D>*);
       Vector2 _bucketSize;
       std::list<Collider2D*> _colliders;
-      std::unordered_map<long long int, std::set<Collider2D*>*> _map;
+      std::unordered_map<long long int, std::set<Collider2D*>> _map;
   };
 }

@@ -5,8 +5,6 @@ using namespace Prova;
 
 void SpacialMap2D::MapColliders()
 {
-  _map.clear();
-
   for(Collider2D* collider : _colliders)
   {
     // we map the corners to a space,
@@ -26,12 +24,8 @@ void SpacialMap2D::MapColliderCorner(Vector2 corner, Collider2D* collider)
   long long int x = corner.y / _bucketSize.x;
   long long int y = corner.y / _bucketSize.y;
 
-  std::set<Collider2D*>* bucket = _map[(x << 32) | y];
-
-  if(bucket == NULL)
-    bucket = new std::set<Collider2D*>();
-  
-  bucket->emplace(collider);
+  std::set<Collider2D*>& bucket = _map[(x << 32) | y];
+  bucket.emplace(collider);
 }
 
 void SpacialMap2D::FindCollisions()
@@ -39,23 +33,39 @@ void SpacialMap2D::FindCollisions()
   // loop through buckets in the spacial map
   for(auto spacialMapIterator : _map)
   {
-    auto* bucket = spacialMapIterator.second;
+    auto& bucket = spacialMapIterator.second;
 
     // test for collision within each mapped space
-    for(auto colliderItA = bucket->begin(); colliderItA != bucket->end(); ++colliderItA)
-      for(auto colliderItB = colliderItA; ++colliderItB != bucket->end();)
+    for(auto colliderItA = bucket.begin(); colliderItA != bucket.end(); ++colliderItA)
+    {
+      Collider2D& colliderA = **colliderItA;
+
+      for(auto colliderItB = colliderItA; ++colliderItB != bucket.end();)
       {
-        Collider2D* colliderA = *colliderItA;
-        Collider2D* colliderB = *colliderItB;
+        Collider2D& colliderB = **colliderItB;
         
-        if(colliderA->Intersects(*colliderB))
+        if(colliderA.Intersects(colliderB))
         {
-          colliderA->entity->OnCollision2D(*colliderA, *colliderB);
-          colliderB->entity->OnCollision2D(*colliderB, *colliderA);
+          colliderA.collisionOccurred = true;
+          colliderB.collisionOccurred = true;
+          colliderA.entity.OnCollision2D(colliderA, colliderB);
+          colliderB.entity.OnCollision2D(colliderB, colliderA);
         }
       }
+    }
     
-    delete bucket;
+    bucket.clear();
+  }
+
+  _map.clear();
+}
+
+void SpacialMap2D::Draw(Screen& screen)
+{
+  for(Collider2D* collider : _colliders)
+  {
+    collider->Draw(screen);
+    collider->collisionOccurred = false;
   }
 }
 

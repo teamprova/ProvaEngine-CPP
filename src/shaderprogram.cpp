@@ -8,6 +8,8 @@
 #include <string>
 #include <list>
 #include "shaderprogram.hpp"
+#include "color.hpp"
+#include "mesh.hpp"
 #include "matrix.hpp"
 #include "vector2.hpp"
 #include "vector3.hpp"
@@ -40,39 +42,67 @@ unsigned int ShaderProgram::GetUniform(std::string name)
 
 void ShaderProgram::SetVector2(std::string name, Vector2 vector)
 {
+  glUseProgram(id);
+
   unsigned int location = GetUniform(name);
   glUniform4fv(location, 1, &vector.x);
 }
 
 void ShaderProgram::SetVector3(std::string name, Vector3 vector)
 {
+  glUseProgram(id);
+
   unsigned int location = GetUniform(name);
   glUniform4fv(location, 1, &vector.x);
 }
 
 void ShaderProgram::SetVector4(std::string name, Vector4 vector)
 {
+  glUseProgram(id);
+
   unsigned int location = GetUniform(name);
   glUniform4fv(location, 1, &vector.x);
 }
 
+void ShaderProgram::SetVector4(std::string name, Color color)
+{
+  glUseProgram(id);
+
+  unsigned int location = GetUniform(name);
+  glUniform4fv(location, 1, &color.r);
+}
+
 void ShaderProgram::SetMatrix(std::string name, Matrix matrix)
 {
+  glUseProgram(id);
+
   unsigned int location = GetUniform(name);
   glUniformMatrix4fv(location, 1, true, &matrix[0][0]);
 }
 
 void ShaderProgram::SetTexture(int sampler, unsigned int texture)
 {
+  glUseProgram(id);
+
   glActiveTexture(GL_TEXTURE0 + sampler);
   glBindTexture(GL_TEXTURE_2D, texture);
 }
 
 void ShaderProgram::SetTexture(std::string name, unsigned int texture)
 {
+  glUseProgram(id);
+  
   unsigned int location = GetUniform(name);
   glActiveTexture(location);
   glBindTexture(GL_TEXTURE_2D, texture);
+}
+
+void ShaderProgram::DrawMesh(DrawMode mode, Mesh& mesh)
+{
+  glUseProgram(id);
+  glBindVertexArray(mesh.VAO);
+  glDrawElements(mode, mesh._indexCount, GL_UNSIGNED_INT, NULL);
+  glBindVertexArray(0);
 }
 
 void ShaderProgram::LoadVertexShader(std::string sourceFile)
