@@ -1,15 +1,15 @@
 #pragma once
 #include <list>
-#include "vector3.hpp"
 #include "collider2d.hpp"
+#include "vector3.hpp"
 
 namespace Prova
 {
-  class Vector3;
+  class Collider2D;
   class Scene;
   class Screen;
-  class Collider2D;
   class SpacialMap2D;
+  class Vector3;
 
   class Entity
   {
@@ -20,8 +20,6 @@ namespace Prova
       Vector3 position;
       Vector3 velocity;
       Scene* scene = nullptr;
-      bool IsKeyDown(int);
-      bool IsKeyUp(int);
       void AddCollider(Collider2D&);
       void RemoveCollider(Collider2D&);
       virtual void Update();

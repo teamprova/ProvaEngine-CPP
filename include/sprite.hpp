@@ -1,17 +1,19 @@
 #pragma once
 #include <string>
 #include <unordered_map>
-#include "vector2.hpp"
 #include "mesh.hpp"
 #include "rect.hpp"
+#include "texture.hpp"
+#include "vector2.hpp"
 
 namespace Prova
 {
-  class Vector2;
-  class Model;
-  class Screen;
   class Animation;
+  class Model;
   class Rect;
+  class Screen;
+  class Texture;
+  class Vector2;
 
   // animations use an id as an int
   // but use enums
@@ -21,7 +23,7 @@ namespace Prova
 
     public:
       Sprite(std::string sheetpath, int width, int height);
-      unsigned int texture;
+      Texture texture;
       Mesh mesh;
       Vector2 origin;
       Vector2 scale;
@@ -42,6 +44,5 @@ namespace Prova
       Animation* _currentAnimation = NULL;
       Rect _clip;
       unsigned int _startTime;
-      Vector2 _sheetSize;
   };
 }

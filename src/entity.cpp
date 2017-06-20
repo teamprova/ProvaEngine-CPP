@@ -1,17 +1,8 @@
 #include "entity.hpp"
+#include "game.hpp"
 #include "scene.hpp"
 
 using namespace Prova;
-
-bool Entity::IsKeyDown(int key)
-{
-  return scene->IsKeyDown(key);
-}
-
-bool Entity::IsKeyUp(int key)
-{
-  return scene->IsKeyUp(key);
-}
 
 void Entity::AddCollider(Collider2D& collider)
 {

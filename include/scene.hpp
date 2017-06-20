@@ -1,10 +1,10 @@
 #pragma once
-#include <SDL2/SDL.h>
 #include <list>
-#include "vector2.hpp"
 #include "camera.hpp"
 #include "collider2d.hpp"
+#include "input.hpp"
 #include "spacialmap2d.hpp"
+#include "vector2.hpp"
 
 namespace Prova
 {
@@ -20,13 +20,11 @@ namespace Prova
     friend class Entity;
 
     public:
-      Game* game;
+      Game* game = nullptr;
+      Input* input = nullptr;
       Camera camera;
       std::list<Entity*> entities;
       bool Debug = false;
-      void PreUpdate();
-      bool IsKeyDown(int);
-      bool IsKeyUp(int);
       void AddEntity(Entity&);
       void RemoveEntity(Entity&);
       virtual void Update();
@@ -34,7 +32,7 @@ namespace Prova
       void EntityUpdate();
       virtual void Draw(Screen& screen);
     private:
-      const Uint8* _keystate;
+      const uint8_t* _keystate;
       SpacialMap2D _collider2DMap;
   };
 }

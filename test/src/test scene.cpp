@@ -38,8 +38,13 @@ class Test : public Prova::Scene
     void Update() override
     {
       Scene::Update();
-      //camera.rotation.x -= 1;
+
+      if(input->IsKeyDown(Keys::F11))
+        game->ToggleFullscreen();
+      
       camera.position.x = player.position.x * 2;
       camera.position.y = player.position.y * 2;
+
+      //camera.rotation.z -= 1;
     }
 };

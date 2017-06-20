@@ -7,6 +7,7 @@ namespace Prova
   class Color;
   class Matrix;
   class Mesh;
+  class Texture;
   class Vector2;
   class Vector3;
   class Vector4;
@@ -34,7 +35,9 @@ namespace Prova
       void SetVector4(std::string, Vector4);
       void SetVector4(std::string, Color);
       void SetMatrix(std::string, Matrix);
+      void SetTexture(int, Texture);
       void SetTexture(int, unsigned int);
+      void SetTexture(std::string, Texture);
       void SetTexture(std::string, unsigned int);
       void DrawMesh(DrawMode, Mesh&);
       // from file

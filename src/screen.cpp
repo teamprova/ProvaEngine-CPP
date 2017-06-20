@@ -117,6 +117,14 @@ void Screen::InitLineShader()
 
 void Screen::BeginDraw()
 {
+  glEnable(GL_BLEND);
+  glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+  
+  if(game->scene->camera.useDepthBuffer)
+    glEnable(GL_DEPTH_TEST);
+  else
+    glDisable(GL_DEPTH_TEST);
+  
   Matrix cameraTransform = game->scene->camera.GetTransform();
   _transforms = game->scene->camera.GetProjection() * cameraTransform;
   
@@ -191,14 +199,6 @@ void Screen::DrawSprite(Sprite& sprite, float x, float y)
 void Screen::DrawSprite(Sprite& sprite, float x, float y, float z)
 {
   sprite.Update();
-
-  glEnable(GL_BLEND);
-  glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-
-  if(game->scene->camera.useDepthBuffer)
-    glEnable(GL_DEPTH_TEST);
-  else
-    glDisable(GL_DEPTH_TEST);
 
   Matrix model = Matrix::Identity();
   model = model.Scale(sprite.width, sprite.height, 1);

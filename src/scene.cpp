@@ -11,21 +11,6 @@
 
 using namespace Prova;
 
-void Scene::PreUpdate()
-{
-  _keystate = SDL_GetKeyboardState(NULL);
-}
-
-bool Scene::IsKeyDown(int key)
-{
-  return _keystate[key];
-}
-
-bool Scene::IsKeyUp(int key)
-{
-  return !IsKeyDown(key);
-}
-
 void Scene::AddEntity(Entity& entity)
 {
   entities.push_back(&entity);
@@ -39,7 +24,7 @@ void Scene::RemoveEntity(Entity& entity)
   entities.remove(&entity);
   
   if(entity.scene == this)
-    entity.scene = NULL;
+    entity.scene = nullptr;
   
   _collider2DMap.RemoveColliders(entity);
 }

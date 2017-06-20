@@ -31,7 +31,7 @@ class Cowboy : public Prova::Entity
       bool animationFinished = sprite.IsAnimationFinished();
       bool shooting = currentAnimation == Animations::SHOOT && !animationFinished;
       
-      if(IsKeyDown(Keys::SPACE) && !shooting)
+      if(scene->input->IsKeyDown(Keys::SPACE) && !shooting)
         sprite.PlayAnimation(Animations::SHOOT, false);
       if(animationFinished)
         sprite.PlayAnimation(Animations::WALK, true);
@@ -43,24 +43,14 @@ class Cowboy : public Prova::Entity
     }
     void Walk()
     {
-      Prova::Vector2 displacement;
+      Prova::Vector2 displacement = scene->input->SimulateAxis(Keys::W, Keys::A, Keys::S, Keys::D);
 
-      if(IsKeyDown(Keys::W))
-        displacement.y -= 1;
-      if(IsKeyDown(Keys::S))
-        displacement.y += 1;
-      if(IsKeyDown(Keys::A))
-      {
-        displacement.x -= 1;
+      if(displacement.x < 0)
         sprite.scale.x = -1;
-      }
-      if(IsKeyDown(Keys::D))
-      {
-        displacement.x += 1;
+      else if(displacement.x > 0)
         sprite.scale.x = 1;
-      }
 
-      position += displacement.Normalize() * 2;
+      position += displacement * 2;
     }
     void Draw(Prova::Screen& screen) override
     {

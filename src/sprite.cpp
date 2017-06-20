@@ -1,39 +1,21 @@
 #include <SDL2/SDL.h>
-#include <GL/glew.h>
-#include <GL/gl.h>
-#include <SOIL/SOIL.h>
 #include <math.h>
 #include "sprite.hpp"
 #include "animation.hpp"
+#include "texture.hpp"
 #include "vector2.hpp"
 
 using namespace Prova;
 
 Sprite::Sprite(std::string sheetpath, int width, int height)
+  : texture(sheetpath)
 {
-  texture = SOIL_load_OGL_texture
-  (
-    sheetpath.c_str(),
-    SOIL_LOAD_AUTO,
-    SOIL_CREATE_NEW_ID,
-    0
-  );
-
-  glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
-  glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
-  
-  int sheetWidth, sheetHeight;
-  glGetTexLevelParameteriv(GL_TEXTURE_2D, 0, GL_TEXTURE_WIDTH, &sheetWidth);
-  glGetTexLevelParameteriv(GL_TEXTURE_2D, 0, GL_TEXTURE_HEIGHT, &sheetHeight);
-  _sheetSize.x = sheetWidth;
-  _sheetSize.y = sheetHeight;
-
   this->width = width;
   this->height = height;
   _clip.left = 0;
   _clip.top = 0;
-  _clip.width = width / _sheetSize.x;
-  _clip.height = height / _sheetSize.y;
+  _clip.width = width / (float) texture.width;
+  _clip.height = height / (float) texture.height;
   origin.x = width / 2;
   origin.y = height / 2;
   scale.x = 1;
@@ -117,8 +99,6 @@ void Sprite::Update()
 
 Sprite::~Sprite()
 {
-  glDeleteTextures(1, &texture);
-
   for(auto it : _animations)
     delete it.second;
 }

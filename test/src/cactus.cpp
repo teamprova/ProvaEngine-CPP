@@ -10,7 +10,7 @@ class Cactus : public Prova::Entity
       : sprite("assets/cactus2.png", 32, 46)
     {
       sprite.origin.x = 16;
-      sprite.origin.y = 46;
+      sprite.origin.y = 45;
       
       position.x = 0;
       position.y = 0;

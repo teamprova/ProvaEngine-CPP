@@ -11,6 +11,7 @@
 #include "color.hpp"
 #include "mesh.hpp"
 #include "matrix.hpp"
+#include "texture.hpp"
 #include "vector2.hpp"
 #include "vector3.hpp"
 #include "vector4.hpp"
@@ -80,12 +81,22 @@ void ShaderProgram::SetMatrix(std::string name, Matrix matrix)
   glUniformMatrix4fv(location, 1, true, &matrix[0][0]);
 }
 
+void ShaderProgram::SetTexture(int sampler, Texture texture)
+{
+  SetTexture(sampler, texture.id);
+}
+
 void ShaderProgram::SetTexture(int sampler, unsigned int texture)
 {
   glUseProgram(id);
 
   glActiveTexture(GL_TEXTURE0 + sampler);
   glBindTexture(GL_TEXTURE_2D, texture);
+}
+
+void ShaderProgram::SetTexture(std::string name, Texture texture)
+{
+  SetTexture(name, texture.id);
 }
 
 void ShaderProgram::SetTexture(std::string name, unsigned int texture)
@@ -102,7 +113,6 @@ void ShaderProgram::DrawMesh(DrawMode mode, Mesh& mesh)
   glUseProgram(id);
   glBindVertexArray(mesh.VAO);
   glDrawElements(mode, mesh._indexCount, GL_UNSIGNED_INT, NULL);
-  glBindVertexArray(0);
 }
 
 void ShaderProgram::LoadVertexShader(std::string sourceFile)

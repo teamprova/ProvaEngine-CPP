@@ -1,6 +1,7 @@
 // rendering tools
 #include "mesh.hpp"
 #include "shaderprogram.hpp"
+#include "texture.hpp"
 #include "sprite.hpp"
 #include "animation.hpp"
 #include "color.hpp"
@@ -17,6 +18,7 @@
 #include "game.hpp"
 #include "screen.hpp"
 #include "scene.hpp"
+#include "input.hpp"
 #include "camera.hpp"
 #include "entity.hpp"
 #include "collider2d.hpp"

@@ -15,9 +15,9 @@ Game::Game(int width, int height, std::string title)
     throw std::runtime_error("Initialization Error: " + error);
   }
   
-  //SDL_GL_SetAttribute( SDL_GL_CONTEXT_MAJOR_VERSION, 3 );
-  //SDL_GL_SetAttribute( SDL_GL_CONTEXT_MINOR_VERSION, 1 );
-  //SDL_GL_SetAttribute( SDL_GL_CONTEXT_PROFILE_MASK, SDL_GL_CONTEXT_PROFILE_CORE );
+  SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, 3);
+  SDL_GL_SetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, 0);
+  SDL_GL_SetAttribute(SDL_GL_CONTEXT_PROFILE_MASK, SDL_GL_CONTEXT_PROFILE_CORE);
 
   _window = SDL_CreateWindow(
     title.c_str(),
@@ -36,6 +36,16 @@ void Game::SetTitle(std::string title)
   SDL_SetWindowTitle(_window, title.c_str());
 }
 
+void Game::ToggleFullscreen()
+{
+  _isFullscreen = !_isFullscreen;
+
+  SDL_SetWindowFullscreen(
+    _window,
+    _isFullscreen ? SDL_WINDOW_FULLSCREEN : 0
+  );
+}
+
 void Game::Start(Scene* scene)
 {
   if(_running)
@@ -44,7 +54,8 @@ void Game::Start(Scene* scene)
   _running = true;
   this->scene = scene;
   this->scene->game = this;
-
+  this->scene->input = &input;
+  
 
   while(_running)
   {
@@ -53,7 +64,7 @@ void Game::Start(Scene* scene)
 
     Update();
     
-    int usedTime = frameStart - SDL_GetTicks();
+    int usedTime = SDL_GetTicks() - frameStart;
 
     if(usedTime < frameDuration)
       SDL_Delay(frameDuration - usedTime);
@@ -68,6 +79,7 @@ void Game::SwapScene(Scene* scene)
   delete this->scene;
   this->scene = scene;
   this->scene->game = this;
+  this->scene->input = &input;
 }
 
 void Game::Update()
@@ -83,11 +95,11 @@ void Game::Update()
     }
   }
 
+  input.Update();
+  scene->Update();
+
   screen->BeginDraw();
   scene->Draw(*screen);
-  
-  scene->PreUpdate();
-  scene->Update();
 }
 
 void Game::Close()

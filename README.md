@@ -44,12 +44,6 @@ add description for the engine
         * Left/Right arrow, mouse
 * Input class
     * Controller support
-        * analog sticks should be able to act as buttons for binding
-    * Binding creation using binding class
-        * Binding CreateBinder/Binding()?
-* Binding class
-    * BindButton(enum name, button)
-    * BindKey(enum name, button)
 * SaveFile
     * Name
     * Save location?
