@@ -6,8 +6,6 @@ add description for the engine
 
 ## Priority
 * Optimize rendering
-* Sprite
-    * Cache
 * Sound class
     * Path
     * Play - maybe play through an audio class instead?
