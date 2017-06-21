@@ -15,8 +15,8 @@ namespace Prova
 
     public:
       Game(int width, int height, std::string title);
-      Scene* scene;
-      Screen* screen;
+      Scene* scene = nullptr;
+      Screen* screen = nullptr;
       Input input;
       int FPS = 60;
       void SetTitle(std::string);
@@ -25,7 +25,10 @@ namespace Prova
       void Start(Scene*);
       void Close();
     private:
+      void Loop();
       void Update();
+      void Draw();
+      void CleanUp();
       SDL_Window* _window;
       bool _isFullscreen = false;
       bool _running = false;

@@ -4,6 +4,7 @@
 #include "game.hpp"
 #include "scene.hpp"
 #include "screen.hpp"
+#include "watch.hpp"
 
 using namespace Prova;
 
@@ -56,30 +57,38 @@ void Game::Start(Scene* scene)
   this->scene->game = this;
   this->scene->input = &input;
   
+  Loop();
+
+  // cleanup after finishing the final loop
+  CleanUp();
+}
+
+void Game::Loop()
+{
+  int lag = 0;
+  Watch watch;
+  watch.Start();
 
   while(_running)
   {
     int frameDuration = 1000/FPS;
-    int frameStart = SDL_GetTicks();
+    lag += watch.GetElapsedMilliseconds();
+    watch.Restart();
 
-    Update();
-    
-    int usedTime = SDL_GetTicks() - frameStart;
+    while(lag >= frameDuration)
+    {
+      Update();
+      lag -= frameDuration;
+    }
 
-    if(usedTime < frameDuration)
-      SDL_Delay(frameDuration - usedTime);
+    Draw();
+
+    // give the processor a break if we are ahead of schedule
+    int sleepTime = frameDuration - watch.GetElapsedMilliseconds() - lag;
+
+    if(sleepTime > 0)
+      SDL_Delay(sleepTime);
   }
-}
-
-void Game::SwapScene(Scene* scene)
-{
-  if(!_running)
-    throw "Set initial scene through Game::Start(Scene*)";
-  
-  delete this->scene;
-  this->scene = scene;
-  this->scene->game = this;
-  this->scene->input = &input;
 }
 
 void Game::Update()
@@ -97,20 +106,37 @@ void Game::Update()
 
   input.Update();
   scene->Update();
+}
 
+void Game::Draw()
+{
   screen->BeginDraw();
   scene->Draw(*screen);
 }
 
+void Game::SwapScene(Scene* scene)
+{
+  if(!_running)
+    throw "Set initial scene through Game::Start(Scene*)";
+  
+  delete this->scene;
+  this->scene = scene;
+  this->scene->game = this;
+  this->scene->input = &input;
+}
+
 void Game::Close()
 {
-  if(_running)
+  _running = false;
+}
+
+void Game::CleanUp()
+{
+  if(scene != nullptr)
     delete scene;
   
   delete screen;
   
   SDL_DestroyWindow(_window);
   SDL_Quit();
-
-  _running = false;
 }
