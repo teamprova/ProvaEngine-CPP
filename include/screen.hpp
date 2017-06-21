@@ -25,6 +25,8 @@ namespace Prova
       Game* game;
       int GetWidth();
       int GetHeight();
+      void EnableVSync();
+      void DisableVSync();
       void BeginDraw();
       void DrawLine(Color, Vector3, Vector3);
       void DrawLine(Color, Vector2, Vector2);

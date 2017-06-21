@@ -44,12 +44,7 @@ void Screen::InitGL()
     throw std::runtime_error("GLEW Error");// + error;
   }
 
-  //Use Vsync
-  if(SDL_GL_SetSwapInterval(1) < 0)
-  {
-    std::string error(SDL_GetError());
-    throw std::runtime_error("VSync Error: " + error);
-  }
+  DisableVSync();
 }
 
 void Screen::InitSpriteShader()
@@ -123,6 +118,24 @@ int Screen::GetWidth()
 int Screen::GetHeight()
 {
   return _height;
+}
+
+void Screen::EnableVSync()
+{
+  if(SDL_GL_SetSwapInterval(1) < 0)
+  {
+    std::string error(SDL_GetError());
+    throw std::runtime_error("VSync Error: " + error);
+  }
+}
+
+void Screen::DisableVSync()
+{
+  if(SDL_GL_SetSwapInterval(0) < 0)
+  {
+    std::string error(SDL_GetError());
+    throw std::runtime_error("VSync Error: " + error);
+  }
 }
 
 void Screen::BeginDraw()
