@@ -137,8 +137,7 @@ void Screen::BeginDraw()
   
   Matrix cameraTransform = game->scene->camera.GetTransform();
   _transforms = game->scene->camera.GetProjection() * cameraTransform;
-  
-  flatShaderProgram->SetMatrix("projection", game->scene->camera.GetProjection());
+  _2DProjection = Matrix::Ortho(0, _width, 0, _height, -1, 1);
 }
 
 void Screen::DrawLine(Color color, Vector3 a, Vector3 b)
@@ -169,6 +168,7 @@ void Screen::DrawLine(Color color, float x1, float y1, float x2, float y2)
   mesh.SetVBO(vertices, 6, 3);
   mesh.SetIBO(indexes, 2);
 
+  flatShaderProgram->SetMatrix("projection", _2DProjection);
   flatShaderProgram->SetVector4("color", color);
   flatShaderProgram->DrawMesh(ShaderProgram::DrawMode::LINES, mesh);
 }
@@ -192,6 +192,7 @@ void Screen::DrawRect(Color color, float x, float y, float width, float height)
   mesh.SetVBO(vertices, 12, 3);
   mesh.SetIBO(indexes, 4);
 
+  flatShaderProgram->SetMatrix("projection", _2DProjection);
   flatShaderProgram->SetVector4("color", color);
   flatShaderProgram->DrawMesh(ShaderProgram::DrawMode::LINE_LOOP, mesh);
 }

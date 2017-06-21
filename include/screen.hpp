@@ -43,6 +43,7 @@ namespace Prova
       void InitLineShader();
       SDL_GLContext _glContext;
       Matrix _transforms;
+      Matrix _2DProjection;
       int _width;
       int _height;
   };
