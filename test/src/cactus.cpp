@@ -21,8 +21,8 @@ class Cactus : public Prova::Entity
     {
       float offsetY = screen.GetHeight() / 2 + scene->camera.position.y;
 
-      float range = scene->camera.zFar - scene->camera.zNear - 1;
-      position.z = (-position.y + offsetY) / range;
+      float range = scene->camera.zFar - scene->camera.zNear;
+      position.z = (position.y + offsetY) / range;
 
       screen.DrawSprite(sprite, position);
     }
