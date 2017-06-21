@@ -115,6 +115,16 @@ void Screen::InitLineShader()
   flatShaderProgram->Link();
 }
 
+int Screen::GetWidth()
+{
+  return _width;
+}
+
+int Screen::GetHeight()
+{
+  return _height;
+}
+
 void Screen::BeginDraw()
 {
   glEnable(GL_BLEND);

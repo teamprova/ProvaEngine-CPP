@@ -8,12 +8,11 @@ Camera::Camera()
 Matrix Camera::GetTransform()
 {
   Matrix transform = Matrix::Identity();
-  transform = transform.Scale(scale);
   transform = transform.Translate(-position);
+  transform = transform.Scale(scale);
   transform = transform.RotateY(rotation.y);
   transform = transform.RotateX(rotation.x);
   transform = transform.RotateZ(rotation.z);
-  transform = transform.Translate(width / 2, height / 2, 0);
   
   return transform;
 }
@@ -21,6 +20,6 @@ Matrix Camera::GetTransform()
 Matrix Camera::GetProjection()
 {
   if(projection == Projection::Orthographic)
-    return Matrix::Ortho(0, width, 0, height, -1, 1000);
-  return Matrix::Perspective(width, height, 90);
+    return Matrix::Ortho(-width/2, width/2, -height/2, height/2, zNear, zFar);
+  return Matrix::Perspective(width, height, zNear, zFar, FOV);
 }

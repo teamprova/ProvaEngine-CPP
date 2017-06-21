@@ -23,6 +23,8 @@ namespace Prova
       ShaderProgram* spriteShaderProgram;
       ShaderProgram* flatShaderProgram;
       Game* game;
+      int GetWidth();
+      int GetHeight();
       void BeginDraw();
       void DrawLine(Color, Vector3, Vector3);
       void DrawLine(Color, Vector2, Vector2);
@@ -34,8 +36,6 @@ namespace Prova
       void DrawSprite(Sprite&, float, float, float);
       void Clear(float, float, float);
       void SwapBuffer();
-      void GetWidth();
-      void GetHeight();
       ~Screen();
     private:
       void InitGL();

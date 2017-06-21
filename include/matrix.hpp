@@ -10,7 +10,7 @@ namespace Prova
     public:
       static Matrix Identity();
       static Matrix Ortho(float, float, float, float, float, float);
-      static Matrix Perspective(float, float, float);
+      static Matrix Perspective(float, float, float, float, float);
       Matrix();
       Matrix RotateX(float);
       Matrix RotateY(float);

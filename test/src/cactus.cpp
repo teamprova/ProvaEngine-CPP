@@ -19,7 +19,11 @@ class Cactus : public Prova::Entity
     }
     void Draw(Prova::Screen& screen)
     {
-      position.z = position.y / 10000;
+      float offsetY = screen.GetHeight() / 2 + scene->camera.position.y;
+
+      float range = scene->camera.zFar - scene->camera.zNear - 1;
+      position.z = (-position.y + offsetY) / range;
+
       screen.DrawSprite(sprite, position);
     }
 };

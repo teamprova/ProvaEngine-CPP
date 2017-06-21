@@ -93,14 +93,19 @@ void Game::Loop()
 
 void Game::Update()
 {
-  SDL_Event e;
+  SDL_Event event;
 
-  while(SDL_PollEvent(&e) != 0)
+  while(SDL_PollEvent(&event) != 0)
   {
-    if(e.type == SDL_QUIT)
+    switch(event.type)
     {
-      Close();
-      return;
+      case SDL_QUIT:
+        Close();
+        return;
+      case SDL_WINDOWEVENT_SIZE_CHANGED:
+        screen->_width = event.window.data1;
+        screen->_height = event.window.data2;
+        break;
     }
   }
 

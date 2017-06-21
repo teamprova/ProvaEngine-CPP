@@ -19,7 +19,7 @@ class Test : public Prova::Scene
       camera.sortingMethod = SortingMethod::Z;
       camera.useDepthBuffer = false;
       camera.scale.x = 2;
-      camera.scale.y = 2;
+      camera.scale.y = -2;
       //Debug = true;
 
       AddEntity(player);
@@ -42,9 +42,12 @@ class Test : public Prova::Scene
       if(input->IsKeyDown(Keys::F11))
         game->ToggleFullscreen();
       
-      camera.position.x = player.position.x * 2;
-      camera.position.y = player.position.y * 2;
+      camera.position.x = player.position.x;
+      camera.position.y = player.position.y;
 
-      //camera.rotation.z -= 1;
+      Prova::Vector2 cameraInput = input->SimulateAxis(Keys::UP, Keys::LEFT, Keys::DOWN, Keys::RIGHT);
+
+      camera.rotation.y -= cameraInput.x;
+      camera.position.z += cameraInput.y * 4;
     }
 };

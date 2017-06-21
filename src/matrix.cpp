@@ -39,25 +39,27 @@ Matrix Matrix::Ortho(float left, float right, float top, float bottom, float nea
 {
   Matrix ortho;
   ortho[0][0] = 2 / (right - left);
-  ortho[1][1] = 2 / (top - bottom);
+  ortho[1][1] = 2 / (bottom - top);
   ortho[2][2] = 2 / (near - far);
 
   ortho[0][3] = (left + right) / (left - right);
   ortho[1][3] = (bottom + top) / (bottom - top);
-  ortho[2][3] = (far + near) / (far - near);
+  ortho[2][3] = - (far + near) / (far - near);
   ortho[3][3] = 1;
   
   return ortho;
 }
 
-Matrix Matrix::Perspective(float width, float height, float fov)
+Matrix Matrix::Perspective(float width, float height, float near, float far, float fov)
 {
+  float aspectRatio = width / height;
   fov = fov / 180 * M_PI;
 
   Matrix perspective;
-  perspective[0][0] = 1/(tan(fov / 2) * width / height);
-  perspective[1][1] = tan(fov / 2);
-  perspective[2][2] = 1;
+  perspective[0][0] = 1 / (tan(fov / 2) * aspectRatio);
+  perspective[1][1] = 1 / tan(fov / 2);
+  perspective[2][2] = - (far + near) / (far - near);
+  perspective[2][3] = - (2 * near * far) / (far - near);
 
   perspective[3][2] = -1;
   
