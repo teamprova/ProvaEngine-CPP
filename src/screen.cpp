@@ -19,8 +19,8 @@ Screen::Screen(Game* game)
   this->game = game;
 
   InitGL();
-  InitSpriteShader();
-  InitLineShader();
+  InitFlatShader();
+  spriteBatch.Init();
 }
 
 void Screen::InitGL()
@@ -48,50 +48,11 @@ void Screen::InitGL()
   glDepthFunc(GL_LEQUAL);
 }
 
-void Screen::InitSpriteShader()
+void Screen::InitFlatShader()
 {
-  spriteShaderProgram = new ShaderProgram();
+  flatShaderProgram.Init();
 
-  spriteShaderProgram->AttachVertexShader(
-    R"(#version 130
-    uniform mat4 transforms;
-    in vec4 vertexPosition;
-    out vec2 position;
-
-    void main() {
-      position = vertexPosition.xy;
-      gl_Position = transforms * vertexPosition;
-    })"
-  );
-
-  spriteShaderProgram->AttachFragmentShader(
-    R"(#version 130
-    uniform sampler2D sprite;
-    uniform vec4 clip;
-    in vec2 position;
-    out vec4 fragmentColor;
-
-    void main() {
-      vec2 texPos = vec2(
-        clip.x + (position.x) * clip.z,
-        clip.y + (position.y) * clip.w
-      );
-
-      fragmentColor = texture(sprite, texPos);
-
-      if(fragmentColor.a == 0)
-        discard;
-    })"
-  );
-
-  spriteShaderProgram->Link();
-}
-
-void Screen::InitLineShader()
-{
-  flatShaderProgram = new ShaderProgram();
-
-  flatShaderProgram->AttachVertexShader(
+  flatShaderProgram.AttachVertexShader(
     R"(#version 130
     uniform mat4 projection;
     in vec3 vertexPosition;
@@ -101,7 +62,7 @@ void Screen::InitLineShader()
     })"
   );
 
-  flatShaderProgram->AttachFragmentShader(
+  flatShaderProgram.AttachFragmentShader(
     R"(#version 130
     uniform vec4 color;
     out vec4 fragmentColor;
@@ -111,7 +72,7 @@ void Screen::InitLineShader()
     })"
   );
 
-  flatShaderProgram->Link();
+  flatShaderProgram.Link();
 }
 
 int Screen::GetWidth()
@@ -155,6 +116,8 @@ void Screen::BeginDraw()
   Matrix cameraTransform = game->scene->camera.GetTransform();
   _transforms = game->scene->camera.GetProjection() * cameraTransform;
   _2DProjection = Matrix::Ortho(0, _width, 0, _height, -1, 1);
+
+  spriteBatch.Begin(_transforms);
 }
 
 void Screen::DrawLine(Color color, Vector3 a, Vector3 b)
@@ -166,9 +129,9 @@ void Screen::DrawLine(Color color, Vector3 a, Vector3 b)
   mesh.SetVBO(vertices, 6, 3);
   mesh.SetIBO(indexes, 2);
 
-  flatShaderProgram->SetMatrix("projection", _transforms);
-  flatShaderProgram->SetVector4("color", color);
-  flatShaderProgram->DrawMesh(ShaderProgram::DrawMode::LINES, mesh);
+  flatShaderProgram.SetMatrix("projection", _transforms);
+  flatShaderProgram.SetVector4("color", color);
+  flatShaderProgram.DrawMesh(ShaderProgram::DrawMode::LINES, mesh);
 }
 
 void Screen::DrawLine(Color color, Vector2 a, Vector2 b)
@@ -185,9 +148,9 @@ void Screen::DrawLine(Color color, float x1, float y1, float x2, float y2)
   mesh.SetVBO(vertices, 6, 3);
   mesh.SetIBO(indexes, 2);
 
-  flatShaderProgram->SetMatrix("projection", _2DProjection);
-  flatShaderProgram->SetVector4("color", color);
-  flatShaderProgram->DrawMesh(ShaderProgram::DrawMode::LINES, mesh);
+  flatShaderProgram.SetMatrix("projection", _2DProjection);
+  flatShaderProgram.SetVector4("color", color);
+  flatShaderProgram.DrawMesh(ShaderProgram::DrawMode::LINES, mesh);
 }
 
 void Screen::DrawRect(Color color, Rect rect)
@@ -209,36 +172,24 @@ void Screen::DrawRect(Color color, float x, float y, float width, float height)
   mesh.SetVBO(vertices, 12, 3);
   mesh.SetIBO(indexes, 4);
 
-  flatShaderProgram->SetMatrix("projection", _2DProjection);
-  flatShaderProgram->SetVector4("color", color);
-  flatShaderProgram->DrawMesh(ShaderProgram::DrawMode::LINE_LOOP, mesh);
+  flatShaderProgram.SetMatrix("projection", _2DProjection);
+  flatShaderProgram.SetVector4("color", color);
+  flatShaderProgram.DrawMesh(ShaderProgram::DrawMode::LINE_LOOP, mesh);
 }
 
-void Screen::DrawSprite(Sprite& sprite, Vector3 vector)
+void Screen::DrawSprite(Sprite& sprite, Vector3 position)
 {
-  Screen::DrawSprite(sprite, vector.x, vector.y, vector.z);
+  spriteBatch.BatchSprite(sprite, position);
 }
 
 void Screen::DrawSprite(Sprite& sprite, float x, float y)
 {
-  Screen::DrawSprite(sprite, x, y, 0);
+  spriteBatch.BatchSprite(sprite, Vector3(x, y, 0));
 }
 
 void Screen::DrawSprite(Sprite& sprite, float x, float y, float z)
 {
-  sprite.Update();
-
-  Matrix model = Matrix::Identity();
-  model = model.Scale(sprite.width, sprite.height, 1);
-  model = model.Translate(-sprite.origin);
-  model = model.Scale(sprite.scale);
-  model = model.RotateZ(sprite.angle);
-  model = model.Translate(x, y, z);
-
-  spriteShaderProgram->SetMatrix("transforms", _transforms * model);
-  spriteShaderProgram->SetTexture(0, sprite.texture);
-  spriteShaderProgram->SetVector4("clip", Vector4(sprite._clip));
-  spriteShaderProgram->DrawMesh(ShaderProgram::DrawMode::TRIANGLE_FAN, sprite.mesh);
+  spriteBatch.BatchSprite(sprite, Vector3(x, y, z));
 }
 
 void Screen::Clear(float r, float g, float b)
@@ -250,11 +201,11 @@ void Screen::Clear(float r, float g, float b)
 
 void Screen::SwapBuffer()
 {
+  spriteBatch.End();
   SDL_GL_SwapWindow(game->_window);
 }
 
 Screen::~Screen()
 {
-  delete spriteShaderProgram;
   SDL_GL_DeleteContext(_glContext);
 }

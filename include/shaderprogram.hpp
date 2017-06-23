@@ -25,8 +25,8 @@ namespace Prova
         TRIANGLE_FAN = 6
       };
 
-      ShaderProgram();
       unsigned int id;
+      void Init();
       unsigned int GetVariable(std::string);
       unsigned int GetAttribute(std::string);
       unsigned int GetUniform(std::string);

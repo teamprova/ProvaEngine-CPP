@@ -19,7 +19,7 @@ namespace Prova
   // but use enums
   class Sprite
   {
-    friend class Screen;
+    friend class SpriteBatch;
 
     public:
       Sprite(std::string sheetpath, int width, int height);
