@@ -45,6 +45,7 @@ void Screen::InitGL()
   }
 
   DisableVSync();
+  glDepthFunc(GL_LEQUAL);
 }
 
 void Screen::InitSpriteShader()
@@ -77,6 +78,9 @@ void Screen::InitSpriteShader()
       );
 
       fragmentColor = texture(sprite, texPos);
+
+      if(fragmentColor.a == 0)
+        discard;
     })"
   );
 
