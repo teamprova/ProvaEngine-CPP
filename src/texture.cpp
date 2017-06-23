@@ -7,6 +7,7 @@
 
 using namespace Prova;
 
+std::unordered_map<std::string, Texture*> Texture::_textureCache;
 
 Texture::Texture()
 {}

@@ -13,7 +13,7 @@ namespace Prova
       int width;
       int height;
     private:
-      std::unordered_map<std::string, Texture*> _textureCache;
+      static std::unordered_map<std::string, Texture*> _textureCache;
       Texture* FetchTexture(std::string);
   };
 }
