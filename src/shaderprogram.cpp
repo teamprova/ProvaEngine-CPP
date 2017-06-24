@@ -18,7 +18,7 @@
 
 using namespace Prova;
 
-void ShaderProgram::Init()
+ShaderProgram::ShaderProgram()
 {
   id = glCreateProgram();
 }

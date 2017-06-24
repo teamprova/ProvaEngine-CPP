@@ -1,5 +1,4 @@
 #pragma once
-#include <SDL2/SDL.h>
 #include <string>
 #include "input.hpp"
 
@@ -29,7 +28,7 @@ namespace Prova
       void Update();
       void Draw();
       void CleanUp();
-      SDL_Window* _window;
+      void* _window;
       bool _isFullscreen = false;
       bool _running = false;
   };

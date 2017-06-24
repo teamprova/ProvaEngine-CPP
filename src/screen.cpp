@@ -15,43 +15,19 @@
 using namespace Prova;
 
 Screen::Screen(Game* game)
+  : glContext(game->_window)
 {
   this->game = game;
 
-  InitGL();
   InitFlatShader();
-  spriteBatch.Init();
-}
-
-void Screen::InitGL()
-{
-  _glContext = SDL_GL_CreateContext(game->_window);
-  
-  if(_glContext == NULL)
-  {
-    std::string error(SDL_GetError());
-    throw std::runtime_error("Error initializing GL Context: " + error);
-  }
-  
-  //Initialize GLEW
-  glewExperimental = GL_TRUE; 
-  GLenum glewError = glewInit();
-
-  if(glewError != GLEW_OK)
-  {
-    //const GLubyte can't be used as a c++ string for some reason
-    //std::string error(glewGetErrorString(glewError));
-    throw std::runtime_error("GLEW Error");// + error;
-  }
 
   DisableVSync();
   glDepthFunc(GL_LEQUAL);
 }
 
+
 void Screen::InitFlatShader()
 {
-  flatShaderProgram.Init();
-
   flatShaderProgram.AttachVertexShader(
     R"(#version 130
     uniform mat4 projection;
@@ -202,10 +178,5 @@ void Screen::Clear(float r, float g, float b)
 void Screen::SwapBuffer()
 {
   spriteBatch.End();
-  SDL_GL_SwapWindow(game->_window);
-}
-
-Screen::~Screen()
-{
-  SDL_GL_DeleteContext(_glContext);
+  SDL_GL_SwapWindow((SDL_Window*) game->_window);
 }

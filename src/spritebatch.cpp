@@ -6,10 +6,8 @@
 
 using namespace Prova;
 
-void SpriteBatch::Init()
+SpriteBatch::SpriteBatch()
 {
-  shaderProgram.Init();
-
   shaderProgram.AttachVertexShader(
     R"(#version 130
     uniform mat4 transforms;

@@ -34,7 +34,7 @@ Game::Game(int width, int height, std::string title)
 
 void Game::SetTitle(std::string title)
 {
-  SDL_SetWindowTitle(_window, title.c_str());
+  SDL_SetWindowTitle((SDL_Window*) _window, title.c_str());
 }
 
 void Game::ToggleFullscreen()
@@ -42,7 +42,7 @@ void Game::ToggleFullscreen()
   _isFullscreen = !_isFullscreen;
 
   SDL_SetWindowFullscreen(
-    _window,
+    (SDL_Window*) _window,
     _isFullscreen ? SDL_WINDOW_FULLSCREEN : 0
   );
 }
@@ -142,6 +142,6 @@ void Game::CleanUp()
   
   delete screen;
   
-  SDL_DestroyWindow(_window);
+  SDL_DestroyWindow((SDL_Window*) _window);
   SDL_Quit();
 }

@@ -1,7 +1,7 @@
 #pragma once
 #include <string>
-#include <SDL2/SDL.h>
 #include "game.hpp"
+#include "glcontext.hpp"
 #include "matrix.hpp"
 #include "shaderprogram.hpp"
 #include "spritebatch.hpp"
@@ -9,6 +9,7 @@
 namespace Prova
 {
   class Color;
+  class GLContext;
   class Matrix;
   class Rect;
   class Sprite;
@@ -23,6 +24,7 @@ namespace Prova
     public:
       Screen(Game*);
       Game* game;
+      GLContext glContext;
       ShaderProgram flatShaderProgram;
       SpriteBatch spriteBatch;
       int GetWidth();
@@ -40,11 +42,9 @@ namespace Prova
       void DrawSprite(Sprite&, float, float, float);
       void Clear(float, float, float);
       void SwapBuffer();
-      ~Screen();
     private:
       void InitGL();
       void InitFlatShader();
-      SDL_GLContext _glContext;
       Matrix _transforms;
       Matrix _2DProjection;
       int _width;

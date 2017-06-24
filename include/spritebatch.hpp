@@ -14,8 +14,8 @@ namespace Prova
   class SpriteBatch
   {
     public:
+      SpriteBatch();
       ShaderProgram shaderProgram;
-      void Init();
       void Begin(Matrix);
       void BatchSprite(Sprite&, Vector3);
       void End();
