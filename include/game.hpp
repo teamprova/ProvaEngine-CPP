@@ -21,6 +21,7 @@ namespace Prova
       void SetTitle(std::string);
       void ToggleFullscreen();
       void SwapScene(Scene*);
+      void SetScene(Scene*);
       void Start(Scene*);
       void Close();
     private:

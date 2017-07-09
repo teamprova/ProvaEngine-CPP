@@ -53,9 +53,7 @@ void Game::Start(Scene* scene)
     throw "Attempt to start game while it is already running";
   
   _running = true;
-  this->scene = scene;
-  this->scene->game = this;
-  this->scene->input = &input;
+  SetScene(scene);
   
   Loop();
 
@@ -127,9 +125,15 @@ void Game::SwapScene(Scene* scene)
     throw "Set initial scene through Game::Start(Scene*)";
   
   delete this->scene;
+  SetScene(scene);
+}
+
+void Game::SetScene(Scene* scene)
+{
   this->scene = scene;
   this->scene->game = this;
   this->scene->input = &input;
+  this->scene->Setup();
 }
 
 void Game::Close()

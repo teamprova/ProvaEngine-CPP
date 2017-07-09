@@ -29,6 +29,8 @@ void Scene::RemoveEntity(Entity& entity)
   _collider2DMap.RemoveColliders(entity);
 }
 
+void Scene::Setup() { }
+
 void Scene::Update()
 {
   EntityUpdate();

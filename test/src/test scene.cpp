@@ -11,8 +11,10 @@ class Test : public Prova::Scene
   std::list<Cactus> cacti;
   
   public:
-    Test()
+    void Setup() override
     {
+      game->screen->SetClearColor(1.00, 0.75, 0.49);
+
       // Z sorting for 2D
       // Distance sorting for 3D
       camera.projection = Projection::Orthographic;
