@@ -115,8 +115,10 @@ void Game::Update()
 
 void Game::Draw()
 {
+  screen->Clear();
   screen->BeginDraw();
   scene->Draw(*screen);
+  screen->SwapBuffer();
 }
 
 void Game::SwapScene(Scene* scene)

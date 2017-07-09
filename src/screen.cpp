@@ -168,9 +168,19 @@ void Screen::DrawSprite(Sprite& sprite, float x, float y, float z)
   spriteBatch.BatchSprite(sprite, Vector3(x, y, z));
 }
 
-void Screen::Clear(float r, float g, float b)
+void Screen::SetClearColor(float r, float g, float b)
 {
-  glClearColor(r, g, b, 1);
+  _clearColor = Color(r, g, b);
+}
+
+void Screen::SetClearColor(Color color)
+{
+  _clearColor = color;
+}
+
+void Screen::Clear()
+{
+  glClearColor(_clearColor.r, _clearColor.g, _clearColor.b, 1);
   glClearDepth(1);
   glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 }

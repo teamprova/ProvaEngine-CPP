@@ -66,8 +66,6 @@ void Scene::Draw(Screen& screen)
     sorted.emplace(distance, entity);
   }
 
-  screen.Clear(0, 0, 0);
-
   for(auto it = sorted.rbegin(); it != sorted.rend(); ++it)
   {
     Entity& entity = *it->second;
@@ -77,6 +75,4 @@ void Scene::Draw(Screen& screen)
   
   if(Debug)
     _collider2DMap.Draw(*game->screen);
-
-  screen.SwapBuffer();
 }
