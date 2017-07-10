@@ -53,11 +53,11 @@ void SpacialMap2D::FindCollisions()
           colliderA.collisionOccurred = true;
           colliderB.collisionOccurred = true;
           
-          colliderA.entity.OnCollision2D(colliderA, colliderB);
-          colliderB.entity.OnCollision2D(colliderB, colliderA);
-
           colliderA.collisions.emplace(&colliderB);
           colliderB.collisions.emplace(&colliderA);
+
+          // log collision
+          _collisions.emplace_back(&colliderA, &colliderB);
         }
       }
     }
@@ -65,7 +65,23 @@ void SpacialMap2D::FindCollisions()
     bucket.clear();
   }
 
+  ResolveCollisions();
+
   _map.clear();
+}
+
+void SpacialMap2D::ResolveCollisions()
+{
+  for(std::pair<Collider2D*, Collider2D*> collision : _collisions)
+  {
+    Collider2D& colliderA = *collision.first;
+    Collider2D& colliderB = *collision.second;
+
+    colliderA.entity.OnCollision2D(colliderA, colliderB);
+    colliderB.entity.OnCollision2D(colliderB, colliderA);
+  }
+
+  _collisions.clear();
 }
 
 void SpacialMap2D::Draw(Screen& screen)

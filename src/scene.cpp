@@ -41,6 +41,7 @@ void Scene::Collider2DUpdate()
 {
   _collider2DMap.MapColliders();
   _collider2DMap.FindCollisions();
+  _collider2DMap.ResolveCollisions();
 }
 
 void Scene::EntityUpdate()
