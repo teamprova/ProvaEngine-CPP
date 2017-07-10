@@ -3,17 +3,14 @@
 class Cactus : public Prova::Entity
 {
   Prova::Sprite sprite;
-  Prova::RectCollider collider = Prova::RectCollider(this, 31, 10);
+  Prova::RectCollider collider = Prova::RectCollider(this, 20, 10);
 
   public:
     Cactus()
       : sprite("assets/cactus2.png", 32, 46)
     {
       sprite.origin.x = 16;
-      sprite.origin.y = 45;
-      
-      position.x = 0;
-      position.y = 0;
+      sprite.origin.y = 41;
 
       AddCollider(collider);
     }
