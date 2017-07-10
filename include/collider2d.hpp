@@ -1,6 +1,7 @@
 #pragma once
-#include "vector2.hpp"
+#include <set>
 #include "entity.hpp"
+#include "vector2.hpp"
 
 namespace Prova
 {
@@ -22,6 +23,7 @@ namespace Prova
       Vector2 offset;
       Entity& entity;
       bool collisionOccurred = false;
+      std::set<Collider2D*> collisions;
       bool Intersects(Collider2D&);
       Vector2 GetPosition();
       virtual Vector2 GetSize() = 0;
