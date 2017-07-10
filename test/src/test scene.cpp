@@ -26,16 +26,15 @@ class Test : public Prova::Scene
 
       AddEntity(player);
 
-      for(int x = -15; x < 15; x++)
-        for(int y = -15; y < 15; y++)
-        {
-          cacti.emplace_back();
-          Cactus& cactus = cacti.back();
-          cactus.position.x = x * 32 + 10 * (y % 2);
-          cactus.position.y = y * 20;
+      for(int x = -10; x < 10; x++)
+      {
+        cacti.emplace_back();
+        Cactus& cactus = cacti.back();
+        cactus.position.x = Prova::Math::RandomF(-1, 1) * 200;
+        cactus.position.y = Prova::Math::RandomF(-1, 1) * 150;
 
-          AddEntity(cactus);
-        }
+        AddEntity(cactus);
+      }
     }
     void Update() override
     {

@@ -14,6 +14,7 @@
 #include "vector4.hpp"
 #include "vector3.hpp"
 #include "vector2.hpp"
+#include "math.hpp"
 #include "matrix.hpp"
 #include "rect.hpp"
 
