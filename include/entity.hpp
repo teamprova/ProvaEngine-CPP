@@ -1,5 +1,6 @@
 #pragma once
 #include <list>
+#include <set>
 #include "collider2d.hpp"
 #include "vector3.hpp"
 
@@ -20,6 +21,9 @@ namespace Prova
       Vector3 position;
       Vector3 velocity;
       Scene* scene = nullptr;
+      void AddTag(int);
+      void RemoveTag(int);
+      bool HasTag(int);
       void AddCollider(Collider2D&);
       void RemoveCollider(Collider2D&);
       virtual void Update();
@@ -27,6 +31,7 @@ namespace Prova
       virtual void OnCollision2D(Collider2D&, Collider2D&);
       ~Entity();
     private:
+      std::set<int> _tags;
       std::list<Collider2D*> _2dColliders;
   };
 }

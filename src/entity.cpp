@@ -4,6 +4,21 @@
 
 using namespace Prova;
 
+void Entity::AddTag(int tag)
+{
+  _tags.emplace(tag);
+}
+
+void Entity::RemoveTag(int tag)
+{
+  _tags.erase(tag);
+}
+
+bool Entity::HasTag(int tag)
+{
+  return _tags.find(tag) != _tags.end();
+}
+
 void Entity::AddCollider(Collider2D& collider)
 {
   if(scene != nullptr)
