@@ -1,7 +1,7 @@
-#include <GL/glew.h>
-#include <SDL2/SDL.h>
-#include <SDL2/SDL_opengl.h>
-#include <GL/glu.h>
+#include <glew.h>
+#include <SDL.h>
+#include <SDL_opengl.h>
+#include <glu.h>
 #include <stdexcept>
 #include "glcontext.hpp"
 

@@ -1,6 +1,5 @@
 #pragma once
 #include "vector2.hpp"
-#include <SDL2/SDL.h>
 
 namespace Prova
 {
@@ -18,7 +17,7 @@ namespace Prova
       bool IsMouseButtonDown(int button);
       bool IsMouseButtonUp(int button);
     private:
-      const Uint8* _keystate;
-      const Uint8* _oldkeystate;
+      const uint8_t* _keystate;
+      const uint8_t* _oldkeystate;
   };
 }

@@ -1,5 +1,5 @@
-#include <GL/glew.h>
-#include <GL/glu.h>
+#include <glew.h>
+#include <glu.h>
 #include <fstream>
 #include <string>
 #include <cerrno>

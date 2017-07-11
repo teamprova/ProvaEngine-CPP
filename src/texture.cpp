@@ -1,6 +1,6 @@
-#include <GL/glew.h>
-#include <GL/gl.h>
-#include <SOIL/SOIL.h>
+#include <glew.h>
+#include <gl.h>
+#include <SOIL.h>
 #include <unordered_map>
 #include <string>
 #include "texture.hpp"

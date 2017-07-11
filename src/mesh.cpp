@@ -1,5 +1,5 @@
-#include <GL/glew.h>
-#include <GL/gl.h>
+#include <glew.h>
+#include <gl.h>
 #include "mesh.hpp"
 #include "shaderprogram.hpp"
 
