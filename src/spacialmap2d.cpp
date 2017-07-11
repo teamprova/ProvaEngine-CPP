@@ -11,6 +11,7 @@ void SpacialMap2D::MapColliders()
     // edges don't matter as the buckets are
     // as big as the largest collider
     Rect bounds = collider->GetBounds();
+    collider->collisions.clear();
 
     MapColliderCorner(bounds.GetTopLeft(), collider);
     MapColliderCorner(bounds.GetTopRight(), collider);
@@ -35,21 +36,28 @@ void SpacialMap2D::FindCollisions()
   {
     auto& bucket = spacialMapIterator.second;
 
-    // test for collision within each mapped space
+    // test for collision with every collider within the bucket
     for(auto colliderItA = bucket.begin(); colliderItA != bucket.end(); ++colliderItA)
     {
       Collider2D& colliderA = **colliderItA;
 
+      // test with colliders that haven't already been tested with every collider
+      // by starting after the current collider being tested
       for(auto colliderItB = colliderItA; ++colliderItB != bucket.end();)
       {
         Collider2D& colliderB = **colliderItB;
         
-        if(colliderA.Intersects(colliderB))
+        // collision occured and hadn't already been noticed
+        if(colliderA.Intersects(colliderB) && colliderA.collisions.count(&colliderB) == 0)
         {
           colliderA.collisionOccurred = true;
           colliderB.collisionOccurred = true;
-          colliderA.entity.OnCollision2D(colliderA, colliderB);
-          colliderB.entity.OnCollision2D(colliderB, colliderA);
+          
+          colliderA.collisions.emplace(&colliderB);
+          colliderB.collisions.emplace(&colliderA);
+
+          // log collision
+          _collisions.emplace_back(&colliderA, &colliderB);
         }
       }
     }
@@ -57,7 +65,23 @@ void SpacialMap2D::FindCollisions()
     bucket.clear();
   }
 
+  ResolveCollisions();
+
   _map.clear();
+}
+
+void SpacialMap2D::ResolveCollisions()
+{
+  for(std::pair<Collider2D*, Collider2D*> collision : _collisions)
+  {
+    Collider2D& colliderA = *collision.first;
+    Collider2D& colliderB = *collision.second;
+
+    colliderA.entity.OnCollision2D(colliderA, colliderB);
+    colliderB.entity.OnCollision2D(colliderB, colliderA);
+  }
+
+  _collisions.clear();
 }
 
 void SpacialMap2D::Draw(Screen& screen)

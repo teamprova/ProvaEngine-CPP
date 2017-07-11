@@ -1,5 +1,6 @@
 #pragma once
 #include <string>
+#include "color.hpp"
 #include "game.hpp"
 #include "glcontext.hpp"
 #include "matrix.hpp"
@@ -40,13 +41,16 @@ namespace Prova
       void DrawSprite(Sprite&, Vector3);
       void DrawSprite(Sprite&, float, float);
       void DrawSprite(Sprite&, float, float, float);
-      void Clear(float, float, float);
+      void SetClearColor(float, float, float);
+      void SetClearColor(Color);
+      void Clear();
       void SwapBuffer();
     private:
       void InitGL();
       void InitFlatShader();
       Matrix _transforms;
       Matrix _2DProjection;
+      Color _clearColor;
       int _width;
       int _height;
   };

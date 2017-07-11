@@ -29,6 +29,8 @@ void Scene::RemoveEntity(Entity& entity)
   _collider2DMap.RemoveColliders(entity);
 }
 
+void Scene::Setup() { }
+
 void Scene::Update()
 {
   EntityUpdate();
@@ -39,6 +41,7 @@ void Scene::Collider2DUpdate()
 {
   _collider2DMap.MapColliders();
   _collider2DMap.FindCollisions();
+  _collider2DMap.ResolveCollisions();
 }
 
 void Scene::EntityUpdate()
@@ -66,8 +69,6 @@ void Scene::Draw(Screen& screen)
     sorted.emplace(distance, entity);
   }
 
-  screen.Clear(0, 0, 0);
-
   for(auto it = sorted.rbegin(); it != sorted.rend(); ++it)
   {
     Entity& entity = *it->second;
@@ -77,6 +78,4 @@ void Scene::Draw(Screen& screen)
   
   if(Debug)
     _collider2DMap.Draw(*game->screen);
-
-  screen.SwapBuffer();
 }

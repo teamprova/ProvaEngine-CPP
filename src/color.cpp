@@ -2,6 +2,8 @@
 
 using namespace Prova;
 
+Color::Color() { }
+
 Color::Color(float r, float g, float b)
   : Color(r, g, b, 1) { }
 

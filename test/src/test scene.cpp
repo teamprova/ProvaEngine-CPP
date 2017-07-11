@@ -11,8 +11,10 @@ class Test : public Prova::Scene
   std::list<Cactus> cacti;
   
   public:
-    Test()
+    void Setup() override
     {
+      game->screen->SetClearColor(1.00, 0.75, 0.49);
+
       // Z sorting for 2D
       // Distance sorting for 3D
       camera.projection = Projection::Orthographic;
@@ -24,16 +26,15 @@ class Test : public Prova::Scene
 
       AddEntity(player);
 
-      for(int x = -15; x < 15; x++)
-        for(int y = -15; y < 15; y++)
-        {
-          cacti.emplace_back();
-          Cactus& cactus = cacti.back();
-          cactus.position.x = x * 32 + 10 * (y % 2);
-          cactus.position.y = y * 20;
+      for(int x = -10; x < 10; x++)
+      {
+        cacti.emplace_back();
+        Cactus& cactus = cacti.back();
+        cactus.position.x = Prova::Math::RandomF(-1, 1) * 200;
+        cactus.position.y = Prova::Math::RandomF(-1, 1) * 150;
 
-          AddEntity(cactus);
-        }
+        AddEntity(cactus);
+      }
     }
     void Update() override
     {

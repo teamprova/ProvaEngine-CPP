@@ -6,6 +6,7 @@ add description for the engine
 
 ## Priority
 * Optimize rendering
+* Collider tags
 * Sound class
     * Path
     * Play - maybe play through an audio class instead?

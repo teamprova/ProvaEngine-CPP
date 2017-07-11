@@ -3,7 +3,7 @@
 class Cowboy : public Prova::Entity
 {
   Prova::Sprite sprite;
-  Prova::RectCollider collider = Prova::RectCollider(this, 31, 10);
+  Prova::RectCollider collider = Prova::RectCollider(this, 20, 5);
 
   enum Animations {
     WALK,
@@ -18,7 +18,7 @@ class Cowboy : public Prova::Entity
       sprite.CreateAnimation(Animations::WALK, 1, 6, .1f);
       sprite.PlayAnimation(Animations::WALK, true);
       sprite.origin.x = 12;
-      sprite.origin.y = 36;
+      sprite.origin.y = 34;
 
       position.x = 0;
       position.y = 0;
