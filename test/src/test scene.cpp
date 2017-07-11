@@ -1,6 +1,7 @@
 #include "engine.hpp"
 #include "cowboy.cpp"
 #include "cactus.cpp"
+#include "scorpion.cpp"
 #include <list>
 
 // junky code to test if things are working fast
@@ -9,6 +10,7 @@ class Test : public Prova::Scene
 {
   Cowboy player;
   std::list<Cactus> cacti;
+  Scorpion scorpion;
   
   public:
     void Setup() override
@@ -25,6 +27,7 @@ class Test : public Prova::Scene
       //Debug = true;
 
       AddEntity(player);
+      AddEntity(scorpion);
 
       for(int x = -10; x < 10; x++)
       {

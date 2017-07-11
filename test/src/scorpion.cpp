@@ -10,7 +10,7 @@ class Scorpion : public Prova::Entity
 
   public:
     Scorpion()
-      : sprite("assets/scorpion.png", 8, 4)
+      : sprite("assets/scorpion.png", 6, 4)
     {
       sprite.CreateAnimation(Animations::WALK, 0, 2, .2f);
       sprite.PlayAnimation(Animations::WALK, true);
