@@ -10,7 +10,7 @@ namespace Prova
       int lastStopTime = 0;
       int breakLength = 0;
       void Start();
-      void Stop();
+      void Pause();
       void Reset();
       void Restart();
       int GetElapsedMilliseconds();

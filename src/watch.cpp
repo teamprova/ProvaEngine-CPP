@@ -4,6 +4,7 @@
 
 using namespace Prova;
 
+// Acts as a start/resume function
 void Watch::Start()
 {
   isRunning = true;
@@ -23,12 +24,13 @@ void Watch::Start()
   }
 }
 
-void Watch::Stop()
+void Watch::Pause()
 {
   isRunning = false;
   lastStopTime = SDL_GetTicks();
 }
 
+// Stops timing and resets
 void Watch::Reset()
 {
   isRunning = false;
@@ -36,17 +38,20 @@ void Watch::Reset()
   lastStopTime = 0;
 }
 
+// Resets and starts again
 void Watch::Restart()
 {
-  startTime = SDL_GetTicks();
+  startTime = 0;
   
   Start();
 }
 
+// we currently only track using milliseconds so,
+// maybe this should be renamed?
 int Watch::GetElapsedMilliseconds()
 {
-  if(!isRunning)
-    throw std::runtime_error("StopWatch not running");
+  if(startTime == 0)
+    throw std::runtime_error("Watch never started");
   
   return SDL_GetTicks() - startTime - breakLength;
 }
