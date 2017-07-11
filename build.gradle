@@ -20,12 +20,6 @@ model {
           sharedLibraryFile = file("third party/lib/libGLEW." + sharedLibraryExtension)
         }
       }
-      GLU {
-        headers.srcDir "third party/include/GLU"
-        binaries.withType(SharedLibraryBinary) {
-          sharedLibraryFile = file("third party/lib/libGLU." + sharedLibraryExtension)
-        }
-      }
       GL {
         headers.srcDir "third party/include/GL"
         binaries.withType(SharedLibraryBinary) {
@@ -33,7 +27,7 @@ model {
         }
       }
       SDL {
-        headers.srcDir "/third party/include/SDL2"
+        headers.srcDir "third party/include/SDL2"
         binaries.withType(SharedLibraryBinary) {
           sharedLibraryFile = file("third party/lib/libSDL2." + sharedLibraryExtension)
         }
@@ -52,7 +46,6 @@ model {
           lib library: 'SOIL', linkage: 'static'
           lib library: 'SDL', linkage: 'shared'
           lib library: 'GLEW', linkage: 'shared'
-          lib library: 'GLU', linkage: 'shared'
           lib library: 'GL', linkage: 'shared'
           source.srcDir "src"
           exportedHeaders.srcDir "include"
@@ -67,7 +60,6 @@ model {
             lib library: 'SOIL', linkage: 'static'
             lib library: 'SDL', linkage: 'shared'
             lib library: 'GLEW', linkage: 'shared'
-            lib library: 'GLU', linkage: 'shared'
             lib library: 'GL', linkage: 'shared'
             srcDir "test/src"
           }

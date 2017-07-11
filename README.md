@@ -3,7 +3,7 @@
 ## Building
 
 * In the third party folder, create an include folder and a lib folder
-* Create folders GL, GLU, GLEW, SDL, and SOIL in the include directory
+* Create folders GL, GLEW, SDL2, and SOIL in the include directory
 * Place the header files belonging to each library in those folders
 * Place dll/so files in the lib folder.
     * Make sure the libraries are named as lib[Library Name].*
