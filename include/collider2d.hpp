@@ -22,16 +22,20 @@ namespace Prova
       Collider2D(Entity*);
       Vector2 offset;
       Entity& entity;
-      bool collisionOccurred = false;
       std::set<Collider2D*> collisions;
-      bool Intersects(Collider2D&);
+      bool collisionOccurred = false;
+      void AddTag(int);
+      void RemoveTag(int);
+      bool HasTag(int);
       Vector2 GetPosition();
-      virtual Vector2 GetSize() = 0;
       Rect GetBounds();
+      bool Intersects(Collider2D&);
+      virtual Vector2 GetSize() = 0;
       virtual void Draw(Screen&) = 0;
     protected:
       ColliderShape shape;
     private:
+      std::set<int> _tags;
       static bool PointIntersectsPoint(PointCollider&, PointCollider&);
       static bool PointIntersectsCircle(PointCollider&, CircleCollider&);
       static bool PointIntersectsRect(PointCollider&, RectCollider&);

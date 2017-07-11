@@ -32,6 +32,21 @@ Rect Collider2D::GetBounds()
   );
 }
 
+void Collider2D::AddTag(int tag)
+{
+  _tags.emplace(tag);
+}
+
+void Collider2D::RemoveTag(int tag)
+{
+  _tags.erase(tag);
+}
+
+bool Collider2D::HasTag(int tag)
+{
+  return _tags.find(tag) != _tags.end();
+}
+
 bool Collider2D::Intersects(Collider2D& collider)
 {
   Collider2D& colliderA = *this;
