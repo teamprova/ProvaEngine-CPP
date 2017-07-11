@@ -17,6 +17,13 @@ class Scorpion : public Prova::Entity
       sprite.origin.x = 4;
       sprite.origin.y = 4;
     }
+    void Update() override
+    {
+      Entity& entity = scene->FindClosestEntity(*this);
+      
+      velocity = entity.position - position;
+      velocity = velocity.Normalize();
+    }
     void Draw(Prova::Screen& screen) override
     {
       float offsetY = screen.GetHeight() / 2 + scene->camera.position.y;

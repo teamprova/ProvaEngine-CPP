@@ -27,6 +27,8 @@ namespace Prova
       bool Debug = false;
       void AddEntity(Entity&);
       void RemoveEntity(Entity&);
+      Entity& FindClosestEntity(Entity&);
+      Entity& FindClosestEntity(Entity&, int tag);
       virtual void Setup();
       virtual void Update();
       void Collider2DUpdate();

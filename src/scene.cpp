@@ -29,6 +29,53 @@ void Scene::RemoveEntity(Entity& entity)
   _collider2DMap.RemoveColliders(entity);
 }
 
+// finds the closest entity to this entity
+Entity& Scene::FindClosestEntity(Entity& myEntity)
+{
+  float closestDistance = -1;
+  Entity* closestEntity = nullptr;
+
+  for(Entity* entity : entities)
+  {
+    // dont count yourself
+    if(entity == &myEntity)
+      continue;
+
+    float distance = entity->position.DistanceFrom(myEntity.position);
+
+    if(distance < closestDistance || closestDistance == -1)
+    {
+      closestDistance = distance;
+      closestEntity = entity;
+    }
+  }
+
+  return *closestEntity;
+}
+
+Entity& Scene::FindClosestEntity(Entity& myEntity, int tag)
+{
+  float closestDistance = -1;
+  Entity* closestEntity = nullptr;
+
+  for(Entity* entity : entities)
+  {
+    // match tags and make sure we aren't matching with self
+    if(entity == &myEntity || !entity->HasTag(tag))
+      continue;
+
+    float distance = entity->position.DistanceFrom(myEntity.position);
+
+    if(distance < closestDistance || closestDistance == -1)
+    {
+      closestDistance = distance;
+      closestEntity = entity;
+    }
+  }
+
+  return *closestEntity;
+}
+
 void Scene::Setup() { }
 
 void Scene::Update()
