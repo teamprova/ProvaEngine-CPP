@@ -1,5 +1,6 @@
 // extra
 #include "watch.hpp"
+#include "debug.hpp"
 
 // rendering tools
 #include "mesh.hpp"
