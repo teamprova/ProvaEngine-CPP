@@ -17,7 +17,7 @@ class Scorpion : public Prova::Entity
       sprite.origin.x = 4;
       sprite.origin.y = 4;
     }
-    void Draw(Prova::Screen& screen)
+    void Draw(Prova::Screen& screen) override
     {
       float offsetY = screen.GetHeight() / 2 + scene->camera.position.y;
 

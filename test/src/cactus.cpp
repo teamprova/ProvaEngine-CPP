@@ -14,7 +14,7 @@ class Cactus : public Prova::Entity
 
       AddCollider(collider);
     }
-    void Draw(Prova::Screen& screen)
+    void Draw(Prova::Screen& screen) override
     {
       float offsetY = screen.GetHeight() / 2 + scene->camera.position.y;
 
