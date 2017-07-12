@@ -1,5 +1,6 @@
 #include <SDL2/SDL.h>
 #include "input.hpp"
+#include "keys.hpp"
 #include "vector2.hpp"
 
 using namespace Prova;
@@ -19,22 +20,22 @@ void Input::Update()
   mouse.y = y;
 }
 
-bool Input::IsKeyDown(int key)
+bool Input::IsKeyDown(Keys::Keys key)
 {
   return _keystate[key];
 }
 
-bool Input::IsKeyUp(int key)
+bool Input::IsKeyUp(Keys::Keys key)
 {
   return !_keystate[key];
 }
 
-bool Input::KeyJustPressed(int key)
+bool Input::KeyJustPressed(Keys::Keys key)
 {
   return !_oldkeystate[key] && _keystate[key];
 }
 
-Vector2 Input::SimulateAxis(int up, int left, int down, int right)
+Vector2 Input::SimulateAxis(Keys::Keys up, Keys::Keys left, Keys::Keys down, Keys::Keys right)
 {
   Vector2 vector(
     IsKeyDown(right)-IsKeyDown(left),
@@ -44,12 +45,12 @@ Vector2 Input::SimulateAxis(int up, int left, int down, int right)
   return vector.Normalize();
 }
 
-bool Input::IsMouseButtonDown(int button)
+bool Input::IsMouseButtonDown(int mouseButton)
 {
-  return SDL_BUTTON(button);
+  return SDL_BUTTON(mouseButton);
 }
 
-bool Input::IsMouseButtonUp(int button)
+bool Input::IsMouseButtonUp(int mouseButton)
 {
-  return !SDL_BUTTON(button);
+  return !SDL_BUTTON(mouseButton);
 }
