@@ -16,8 +16,8 @@ namespace Prova
     public:
       SpriteBatch();
       ShaderProgram shaderProgram;
-      void Begin(Matrix);
-      void BatchSprite(Sprite&, Vector3);
+      void Begin(Matrix transform);
+      void BatchSprite(Sprite& sprite, Vector3 position);
       void End();
     private:
       bool _begun = false;

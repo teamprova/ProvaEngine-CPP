@@ -21,14 +21,14 @@ namespace Prova
       Vector3 position;
       Vector3 velocity;
       Scene* scene = nullptr;
-      void AddTag(int);
-      void RemoveTag(int);
-      bool HasTag(int);
-      void AddCollider(Collider2D&);
-      void RemoveCollider(Collider2D&);
+      void AddTag(int tag);
+      void RemoveTag(int tag);
+      bool HasTag(int tag);
+      void AddCollider(Collider2D& collider);
+      void RemoveCollider(Collider2D& collider);
       virtual void Update();
-      virtual void Draw(Screen&);
-      virtual void OnCollision2D(Collider2D&, Collider2D&);
+      virtual void Draw(Screen& screen);
+      virtual void OnCollision2D(Collider2D& collider, Collider2D& hitCollider);
       ~Entity();
     private:
       std::set<int> _tags;

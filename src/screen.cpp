@@ -97,9 +97,12 @@ void Screen::BeginDraw()
   spriteBatch.Begin(_transforms);
 }
 
-void Screen::DrawLine(Color color, Vector3 a, Vector3 b)
+void Screen::DrawLine(Color color, Vector3 start, Vector3 end)
 {
-  float vertices[] = { a.x, a.y, a.z, b.x, b.y, b.z };
+  float vertices[] = {
+    start.x, start.y, start.z,
+    end.x, end.y, end.z
+  };
   unsigned int indexes[] = { 0, 1 };
 
   Mesh mesh;
@@ -111,9 +114,9 @@ void Screen::DrawLine(Color color, Vector3 a, Vector3 b)
   flatShaderProgram.DrawMesh(ShaderProgram::DrawMode::LINES, mesh);
 }
 
-void Screen::DrawLine(Color color, Vector2 a, Vector2 b)
+void Screen::DrawLine(Color color, Vector2 start, Vector2 end)
 {
-  DrawLine(color, a.x, a.y, b.x, b.y);
+  DrawLine(color, start.x, start.y, end.x, end.y);
 }
 
 void Screen::DrawLine(Color color, float x1, float y1, float x2, float y2)

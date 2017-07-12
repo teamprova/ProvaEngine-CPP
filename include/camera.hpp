@@ -23,15 +23,15 @@ namespace Prova
       Projection::Projection projection = Projection::Perspective;
       SortingMethod::SortingMethod sortingMethod = SortingMethod::Distance;
       bool useDepthBuffer = true;
-      
-      // for orthographic
-      int width = 800;
-      int height = 600;
-      // for perspective
-      float FOV = 90;
-
       float zNear = -100;
       float zFar = 100;
+      
+      // for orthographic projection
+      int width = 800;
+      int height = 600;
+      // for perspective projection
+      float FOV = 90;
+
       Vector3 scale;
       Vector3 position;
       Vector3 rotation;

@@ -18,17 +18,17 @@ namespace Prova
       Screen* screen = nullptr;
       Input input;
       int FPS = 60;
-      void SetTitle(std::string);
+      void SetTitle(std::string title);
       void ToggleFullscreen();
-      void SwapScene(Scene*);
-      void SetScene(Scene*);
-      void Start(Scene*);
+      void SwapScene(Scene* scene);
+      void Start(Scene* scene);
       void Close();
     private:
       void Loop();
       void Update();
       void Draw();
       void CleanUp();
+      void SetScene(Scene* scene);
       void* _window;
       bool _isFullscreen = false;
       bool _running = false;

@@ -14,11 +14,11 @@ namespace Prova
       Mesh();
       Matrix transform = Matrix::Identity();
       unsigned int VAO;
-      void SetVBO(float[], int, int);
-      void SetIBO(unsigned int[], int);
+      void SetVBO(float vertices[], int length, int dimensions);
+      void SetIBO(unsigned int indexes[], int length);
       ~Mesh();
     private:
-      void CreateBuffer(unsigned int&);
+      void CreateBuffer(unsigned int& buffer);
       unsigned int VBO = -1;
       unsigned int IBO = -1;
       int _indexCount;

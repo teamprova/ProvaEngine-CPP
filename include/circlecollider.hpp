@@ -9,9 +9,9 @@ namespace Prova
   class CircleCollider : public Collider2D
   {
     public:
-      CircleCollider(Entity*, float);
+      CircleCollider(Entity* entity, float size);
       float radius;
-      void Draw(Screen&) override;
+      void Draw(Screen& screen) override;
     protected:
       Vector2 GetSize() override;
   };

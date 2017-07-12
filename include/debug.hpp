@@ -3,5 +3,5 @@
 
 namespace Prova
 {
-  void Log(std::string);
+  void Log(std::string message);
 }

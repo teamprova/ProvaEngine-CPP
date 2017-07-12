@@ -9,8 +9,8 @@ namespace Prova
   class PointCollider : public Collider2D
   {
     public:
-      PointCollider(Entity*);
-      void Draw(Screen&) override;
+      PointCollider(Entity* entity);
+      void Draw(Screen& screen) override;
     protected:
       Vector2 GetSize() override;
   };

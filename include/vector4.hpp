@@ -10,23 +10,23 @@ namespace Prova
     public:
       Vector4();
       Vector4(Rect rect);
-      Vector4(float, float, float, float);
+      Vector4(float x, float y, float z, float w);
       float x;
       float y;
       float z;
       float w;
       Vector4 Normalize();
       float GetMagnitude();
-      float DistanceFrom(Vector4);
-      Vector4& operator+=(Vector4);
-      Vector4& operator-=(Vector4);
-      Vector4& operator*=(float);
-      Vector4& operator/=(float);
-      Vector4 operator+(Vector4);
-      Vector4 operator-(Vector4);
+      float DistanceFrom(Vector4 vector);
+      Vector4& operator+=(Vector4 vector);
+      Vector4& operator-=(Vector4 vector);
+      Vector4& operator*=(float a);
+      Vector4& operator/=(float a);
+      Vector4 operator+(Vector4 vector);
+      Vector4 operator-(Vector4 vector);
       Vector4 operator-();
-      Vector4 operator*(float);
-      Vector4 operator/(float);
-      bool operator==(const Vector4&) const;
+      Vector4 operator*(float a);
+      Vector4 operator/(float a);
+      bool operator==(const Vector4& vector) const;
   };
 }

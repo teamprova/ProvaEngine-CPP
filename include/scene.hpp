@@ -25,10 +25,10 @@ namespace Prova
       Camera camera;
       std::list<Entity*> entities;
       bool Debug = false;
-      void AddEntity(Entity&);
-      void RemoveEntity(Entity&);
-      Entity& FindClosestEntity(Entity&);
-      Entity& FindClosestEntity(Entity&, int tag);
+      void AddEntity(Entity& entity);
+      void RemoveEntity(Entity& entity);
+      Entity& FindClosestEntity(Entity& entity);
+      Entity& FindClosestEntity(Entity& entity, int tag);
       virtual void Setup();
       virtual void Update();
       void Collider2DUpdate();

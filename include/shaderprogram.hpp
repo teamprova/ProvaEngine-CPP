@@ -27,33 +27,33 @@ namespace Prova
 
       ShaderProgram();
       unsigned int id;
-      unsigned int GetVariable(std::string);
-      unsigned int GetAttribute(std::string);
-      unsigned int GetUniform(std::string);
-      void SetVector2(std::string, Vector2);
-      void SetVector3(std::string, Vector3);
-      void SetVector4(std::string, Vector4);
-      void SetVector4(std::string, Color);
-      void SetMatrix(std::string, Matrix);
-      void SetTexture(int, Texture);
-      void SetTexture(int, unsigned int);
-      void SetTexture(std::string, Texture);
-      void SetTexture(std::string, unsigned int);
-      void DrawMesh(DrawMode, Mesh&);
+      unsigned int GetVariable(std::string name);
+      unsigned int GetAttribute(std::string name);
+      unsigned int GetUniform(std::string name);
+      void SetVector2(std::string name, Vector2 vector);
+      void SetVector3(std::string name, Vector3 vector);
+      void SetVector4(std::string name, Vector4 vector);
+      void SetVector4(std::string name, Color color);
+      void SetMatrix(std::string name, Matrix matrix);
+      void SetTexture(int sampler, Texture texture);
+      void SetTexture(int sampler, unsigned int texture);
+      void SetTexture(std::string name, Texture texture);
+      void SetTexture(std::string name, unsigned int texture);
+      void DrawMesh(DrawMode mode, Mesh& mesh);
       // from file
-      void LoadFragmentShader(std::string);
-      void LoadVertexShader(std::string);
-      void LoadGeometryShader(std::string);
+      void LoadFragmentShader(std::string sourceFile);
+      void LoadVertexShader(std::string sourceFile);
+      void LoadGeometryShader(std::string sourceFile);
       // from source
-      void AttachFragmentShader(std::string);
-      void AttachVertexShader(std::string);
-      void AttachGeometryShader(std::string);
+      void AttachFragmentShader(std::string source);
+      void AttachVertexShader(std::string source);
+      void AttachGeometryShader(std::string source);
       void Link();
       void PrintProgramLog();
       ~ShaderProgram();
     private:
-      void LoadShader(unsigned int, std::string);
-      void CompileShader(unsigned int, std::string);
+      void LoadShader(unsigned int shaderType, std::string sourceFile);
+      void CompileShader(unsigned int shaderType, std::string source);
       void PrintShaderLog(unsigned int shader);
       std::list<unsigned int> _shaders;
   };

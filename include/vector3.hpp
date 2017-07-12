@@ -7,18 +7,18 @@ namespace Prova
   {
     public:
       Vector3();
-      Vector3(float, float, float);
+      Vector3(float x, float y, float z);
       Vector3 Normalize();
-      float DistanceFrom(Vector3);
-      Vector3& operator+=(Vector3);
-      Vector3& operator-=(Vector3);
-      Vector3& operator*=(float);
-      Vector3& operator/=(float);
-      Vector3 operator+(Vector3);
-      Vector3 operator-(Vector3);
+      float DistanceFrom(Vector3 vector);
+      Vector3& operator+=(Vector3 vector);
+      Vector3& operator-=(Vector3 vector);
+      Vector3& operator*=(float a);
+      Vector3& operator/=(float a);
+      Vector3 operator+(Vector3 vector);
+      Vector3 operator-(Vector3 vector);
       Vector3 operator-();
-      Vector3 operator*(float);
-      Vector3 operator/(float);
+      Vector3 operator*(float a);
+      Vector3 operator/(float a);
     private:
       using Vector4::w;
   };

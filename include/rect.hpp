@@ -8,7 +8,7 @@ namespace Prova
   {
     public:
       Rect();
-      Rect(float, float, float, float);
+      Rect(float left, float top, float width, float height);
       Vector2 GetTopLeft();
       Vector2 GetTopRight();
       Vector2 GetBottomLeft();

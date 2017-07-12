@@ -19,7 +19,7 @@ namespace Prova
     public:
       enum ColliderShape { Point, Circle, Rectangle, Pixel };
       
-      Collider2D(Entity*);
+      Collider2D(Entity* entity);
       Vector2 offset;
       Entity& entity;
       std::set<Collider2D*> collisions;
@@ -29,9 +29,9 @@ namespace Prova
       bool HasTag(int);
       Vector2 GetPosition();
       Rect GetBounds();
-      bool Intersects(Collider2D&);
+      bool Intersects(Collider2D& collider);
       virtual Vector2 GetSize() = 0;
-      virtual void Draw(Screen&) = 0;
+      virtual void Draw(Screen& screen) = 0;
     protected:
       ColliderShape shape;
     private:

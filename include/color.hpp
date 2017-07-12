@@ -6,8 +6,8 @@ namespace Prova
   {
     public:
       Color();
-      Color(float, float, float, float);
-      Color(float, float, float);
+      Color(float r, float g, float b, float a);
+      Color(float r, float g, float b);
       float r = 0;
       float g = 0;
       float b = 0;

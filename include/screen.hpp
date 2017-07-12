@@ -23,7 +23,7 @@ namespace Prova
     friend class Game;
 
     public:
-      Screen(Game*);
+      Screen(Game* game);
       Game* game;
       GLContext glContext;
       ShaderProgram flatShaderProgram;
@@ -33,16 +33,16 @@ namespace Prova
       void EnableVSync();
       void DisableVSync();
       void BeginDraw();
-      void DrawLine(Color, Vector3, Vector3);
-      void DrawLine(Color, Vector2, Vector2);
-      void DrawLine(Color, float, float, float, float);
-      void DrawRect(Color, Rect);
-      void DrawRect(Color, float, float, float, float);
-      void DrawSprite(Sprite&, Vector3);
-      void DrawSprite(Sprite&, float, float);
-      void DrawSprite(Sprite&, float, float, float);
-      void SetClearColor(float, float, float);
-      void SetClearColor(Color);
+      void DrawLine(Color color, Vector3 start, Vector3 end);
+      void DrawLine(Color color, Vector2 start, Vector2 end);
+      void DrawLine(Color color, float x1, float y1, float x2, float y2);
+      void DrawRect(Color color, Rect rect);
+      void DrawRect(Color color, float x, float y, float width, float height);
+      void DrawSprite(Sprite& sprite, Vector3 position);
+      void DrawSprite(Sprite& sprite, float x, float y);
+      void DrawSprite(Sprite& sprite, float x, float y, float z);
+      void SetClearColor(float r, float g, float b);
+      void SetClearColor(Color color);
       void Clear();
       void SwapBuffer();
     private:

@@ -9,10 +9,10 @@ namespace Prova
   class RectCollider : public Collider2D
   {
     public:
-      RectCollider(Entity*, float, float);
+      RectCollider(Entity* entity, float width, float height);
       float width;
       float height;
-      void Draw(Screen&) override;
+      void Draw(Screen& screen) override;
     protected:
       Vector2 GetSize() override;
   };
