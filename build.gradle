@@ -1,8 +1,3 @@
-import org.apache.tools.ant.taskdefs.condition.Os
-
-def sharedLibraryExtension = Os.isFamily(Os.FAMILY_WINDOWS) ? "dll" : "so";
-
-
 apply plugin: "cpp"
 
 model {
@@ -16,59 +11,97 @@ model {
       }
       GLEW {
         headers.srcDir "third party/include/GLEW"
-        binaries.withType(SharedLibraryBinary) {
-          sharedLibraryFile = file("third party/lib/libGLEW." + sharedLibraryExtension)
+        binaries.withType(StaticLibraryBinary) {
+          def os = getTargetPlatform().getOperatingSystem()
+
+          if(!os.isCurrent())
+            return;
+          
+          def staticLibraryExtension = os.isWindows() ? "lib" : "a";
+          staticLibraryFile = file("third party/lib/libGLEW.${staticLibraryExtension}")
         }
       }
       GL {
         headers.srcDir "third party/include/GL"
         binaries.withType(SharedLibraryBinary) {
-          sharedLibraryFile = file("third party/lib/libGL." + sharedLibraryExtension)
+          def os = getTargetPlatform().getOperatingSystem()
+          def architecture = getTargetPlatform().getArchitecture()
+          
+          if(!os.isCurrent())
+            return;
+          
+          if(os.isWindows())
+          {
+            def parentFolder = architecture.getName() == "x86" ? "C:/Windows/System32/" : "C:/Windows/SysWOW64/"
+            sharedLibraryFile = file("${parentFolder}opengl32.dll")
+          }
+          else if(os.isLinux())
+          {
+            sharedLibraryFile = file("/usr/lib/libGL.so")
+          }
         }
       }
       SDL {
         headers.srcDir "third party/include/SDL2"
         binaries.withType(SharedLibraryBinary) {
-          sharedLibraryFile = file("third party/lib/libSDL2." + sharedLibraryExtension)
+          def os = getTargetPlatform().getOperatingSystem()
+
+          if(!os.isCurrent())
+            return;
+          
+          if(os.isWindows())
+            sharedLibraryFile = file("third party/lib/SDL2.dll")
+          else if(os.isLinux())
+            sharedLibraryFile = file("/usr/lib/libSDL2.so")
         }
       }
     }
   }
   components {
     ProvaEngine(NativeLibrarySpec) {
+      sources {
+        cpp {
+          lib library: 'SOIL'
+          lib library: 'SDL'
+          lib library: 'GLEW'
+          lib library: 'GL'
+          exportedHeaders.srcDir "include"
+          source.srcDir "src"
+        }
+      }
       binaries.all {
         if (toolChain in Gcc) {
           cppCompiler.args "-O2"
         }
       }
-      sources {
-        cpp {
-          lib library: 'SOIL', linkage: 'static'
-          lib library: 'SDL', linkage: 'shared'
-          lib library: 'GLEW', linkage: 'shared'
-          lib library: 'GL', linkage: 'shared'
-          source.srcDir "src"
-          exportedHeaders.srcDir "include"
-        }
-      }
     }
     Cowboy(NativeExecutableSpec) {
+      copy {
+        from "test/assets"
+        into "build/exe/cowboy/assets"
+        include "*.png"
+      }
       sources {
         cpp {
           source {
             lib library: 'ProvaEngine', linkage: 'static'
             lib library: 'SOIL', linkage: 'static'
             lib library: 'SDL', linkage: 'shared'
-            lib library: 'GLEW', linkage: 'shared'
+            lib library: 'GLEW', linkage: 'static'
             lib library: 'GL', linkage: 'shared'
             srcDir "test/src"
           }
         }
       }
-      copy {
-        from 'test/assets'
-        into 'build/exe/cowboy/assets'
-        include '*.png'
+      binaries.all {
+        def os = getTargetPlatform().getOperatingSystem()
+        
+        if(os.isWindows())
+          copy {
+            from "third party/lib"
+            into "build/exe/cowboy"
+            include "SDL2.dll"
+          }
       }
     }
   }
