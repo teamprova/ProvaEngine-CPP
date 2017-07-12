@@ -43,13 +43,13 @@ class Test : public Prova::Scene
     {
       Scene::Update();
 
-      if(input->IsKeyDown(Keys::F11))
+      if(input->IsKeyDown(Key::F11))
         game->ToggleFullscreen();
       
       camera.position.x = player.position.x;
       camera.position.y = player.position.y;
 
-      Prova::Vector2 cameraInput = input->SimulateAxis(Keys::UP, Keys::LEFT, Keys::DOWN, Keys::RIGHT);
+      Prova::Vector2 cameraInput = input->SimulateStick(Key::UP, Key::LEFT, Key::DOWN, Key::RIGHT);
 
       camera.rotation.y -= cameraInput.x;
       camera.position.z += cameraInput.y * 4;

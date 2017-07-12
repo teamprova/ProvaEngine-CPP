@@ -11,10 +11,10 @@ namespace Prova
     public:
       void Update();
       Vector2 mouse;
-      bool IsKeyDown(Keys::Keys key);
-      bool IsKeyUp(Keys::Keys key);
-      bool KeyJustPressed(Keys::Keys key);
-      Vector2 SimulateAxis(Keys::Keys up, Keys::Keys left, Keys::Keys down, Keys::Keys right);
+      bool IsKeyDown(Key::Key key);
+      bool IsKeyUp(Key::Key key);
+      bool KeyJustPressed(Key::Key key);
+      Vector2 SimulateStick(Key::Key up, Key::Key left, Key::Key down, Key::Key right);
       bool IsMouseButtonDown(int mouseButton);
       bool IsMouseButtonUp(int mouseButton);
     private:

@@ -20,22 +20,22 @@ void Input::Update()
   mouse.y = y;
 }
 
-bool Input::IsKeyDown(Keys::Keys key)
+bool Input::IsKeyDown(Key::Key key)
 {
   return _keystate[key];
 }
 
-bool Input::IsKeyUp(Keys::Keys key)
+bool Input::IsKeyUp(Key::Key key)
 {
   return !_keystate[key];
 }
 
-bool Input::KeyJustPressed(Keys::Keys key)
+bool Input::KeyJustPressed(Key::Key key)
 {
   return !_oldkeystate[key] && _keystate[key];
 }
 
-Vector2 Input::SimulateAxis(Keys::Keys up, Keys::Keys left, Keys::Keys down, Keys::Keys right)
+Vector2 Input::SimulateStick(Key::Key up, Key::Key left, Key::Key down, Key::Key right)
 {
   Vector2 vector(
     IsKeyDown(right)-IsKeyDown(left),
