@@ -1,14 +1,36 @@
 apply plugin: "cpp"
 
 model {
-  repositories {
-    libs(PrebuiltLibraries) {
-      SOIL {
-        headers.srcDir "third party/include/SOIL"
-        binaries.withType(StaticLibraryBinary) {
-          staticLibraryFile = file("third party/lib/libSOIL.a")
+  toolChains {
+    gcc(Gcc) {
+      // force windows_x86 to compile for 64 bit instead of 32
+      // gradle doesn't seem to recognize 64 bit windows
+      target("windows_x86")
+      {
+        cCompiler.executable "x86_64-w64-mingw32-gcc"
+        cppCompiler.executable "x86_64-w64-mingw32-g++"
+        linker.executable "x86_64-w64-mingw32-g++"
+        assembler.executable "x86_64-w64-mingw32-gcc-as"
+        staticLibArchiver.executable "x86_64-w64-mingw32-gcc-ar"
+        linker.withArguments { args ->
+          args << "-m64"
         }
       }
+      /*
+      // actual windows_x86 target configuration
+      target("windows_x86")
+      {
+        cCompiler.executable "i686-w64-mingw32-gcc"
+        cppCompiler.executable "i686-w64-mingw32-g++"
+        linker.executable "i686-w64-mingw32-g++"
+        assembler.executable "i686-w64-mingw32-gcc-as"
+        staticLibArchiver.executable "i686-w64-mingw32-gcc-ar"
+      }
+      */
+    }
+  }
+  repositories {
+    libs(PrebuiltLibraries) {
       GLEW {
         headers.srcDir "third party/include/GLEW"
         binaries.withType(StaticLibraryBinary) {
@@ -17,8 +39,10 @@ model {
           if(!os.isCurrent())
             return;
           
-          def staticLibraryExtension = os.isWindows() ? "lib" : "a";
-          staticLibraryFile = file("third party/lib/libGLEW.${staticLibraryExtension}")
+          if(os.isWindows())
+            staticLibraryFile = file("third party/lib/glew32s.lib")
+          else if(os.isLinux())
+            staticLibraryFile = file("third party/lib/libGLEW.a")
         }
       }
       GL {
@@ -61,7 +85,7 @@ model {
     ProvaEngine(NativeLibrarySpec) {
       sources {
         cpp {
-          lib library: 'SOIL'
+          lib project: ':SOIL', library: 'SOIL', linkage: 'static'
           lib library: 'SDL'
           lib library: 'GLEW'
           lib library: 'GL'
@@ -85,7 +109,7 @@ model {
         cpp {
           source {
             lib library: 'ProvaEngine', linkage: 'static'
-            lib library: 'SOIL', linkage: 'static'
+            lib project: ':SOIL', library: 'SOIL', linkage: 'static'
             lib library: 'SDL', linkage: 'shared'
             lib library: 'GLEW', linkage: 'static'
             lib library: 'GL', linkage: 'shared'
@@ -95,7 +119,7 @@ model {
       }
       binaries.all {
         def os = getTargetPlatform().getOperatingSystem()
-        
+
         if(os.isWindows())
           copy {
             from "third party/lib"
