@@ -12,8 +12,8 @@ model {
         linker.executable "x86_64-w64-mingw32-g++"
         assembler.executable "x86_64-w64-mingw32-gcc-as"
         staticLibArchiver.executable "x86_64-w64-mingw32-gcc-ar"
-        linker.withArguments { args ->
-          args << "-m64"
+        linker.withArguments {
+          args -> args << "-m64"
         }
       }
       /*
