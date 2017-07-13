@@ -99,34 +99,5 @@ model {
         }
       }
     }
-    Cowboy(NativeExecutableSpec) {
-      copy {
-        from "test/assets"
-        into "build/exe/cowboy/assets"
-        include "*.png"
-      }
-      sources {
-        cpp {
-          source {
-            lib library: 'ProvaEngine', linkage: 'static'
-            lib project: ':SOIL', library: 'SOIL', linkage: 'static'
-            lib library: 'SDL', linkage: 'shared'
-            lib library: 'GLEW', linkage: 'static'
-            lib library: 'GL', linkage: 'shared'
-            srcDir "test/src"
-          }
-        }
-      }
-      binaries.all {
-        def os = getTargetPlatform().getOperatingSystem()
-
-        if(os.isWindows())
-          copy {
-            from "third party/lib"
-            into "build/exe/cowboy"
-            include "SDL2.dll"
-          }
-      }
-    }
   }
 }
