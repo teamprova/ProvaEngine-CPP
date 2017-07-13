@@ -1,5 +1,4 @@
 #include <glew.h>
-#include <glu.h>
 #include <fstream>
 #include <string>
 #include <cerrno>

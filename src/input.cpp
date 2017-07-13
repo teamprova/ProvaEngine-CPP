@@ -1,4 +1,4 @@
-#include <SDL2/SDL.h>
+#include <SDL.h>
 #include "input.hpp"
 #include "keys.hpp"
 #include "vector2.hpp"

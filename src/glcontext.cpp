@@ -1,7 +1,6 @@
 #include <glew.h>
 #include <SDL.h>
 #include <SDL_opengl.h>
-#include <glu.h>
 #include <stdexcept>
 #include "glcontext.hpp"
 

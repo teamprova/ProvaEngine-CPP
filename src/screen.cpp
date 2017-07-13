@@ -1,7 +1,6 @@
 #include <glew.h>
 #include <SDL.h>
 #include <SDL_opengl.h>
-#include <glu.h>
 #include <math.h>
 #include <stdexcept>
 #include "screen.hpp"
