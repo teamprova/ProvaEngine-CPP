@@ -99,6 +99,8 @@ model {
       }
       
       binaries.all {
+        cppCompiler.define "GLEW_STATIC"
+        
         if (toolChain in Gcc) {
           cppCompiler.args "-O2"
         }
