@@ -24,6 +24,7 @@
 #include "screen.hpp"
 #include "scene.hpp"
 #include "input.hpp"
+#include "controller.hpp"
 #include "camera.hpp"
 #include "entity.hpp"
 #include "collider2d.hpp"

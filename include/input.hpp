@@ -1,4 +1,6 @@
 #pragma once
+#include <map>
+#include "controller.hpp"
 #include "keys.hpp"
 #include "vector2.hpp"
 
@@ -11,6 +13,7 @@ namespace Prova
     public:
       void Update();
       Vector2 mouse;
+      Controller& GetController(int index);
       bool IsKeyDown(Key::Key key);
       bool IsKeyUp(Key::Key key);
       bool KeyJustPressed(Key::Key key);
@@ -18,7 +21,8 @@ namespace Prova
       bool IsMouseButtonDown(int mouseButton);
       bool IsMouseButtonUp(int mouseButton);
     private:
+      std::map<int, Controller*> _controllers;
       const uint8_t* _keystate;
-      const uint8_t* _oldkeystate;
+      const uint8_t* _oldKeystate;
   };
 }
