@@ -73,7 +73,7 @@ void SpriteBatch::End()
   auto spriteIt = _sprites.begin();
   auto positionIt = _positions.begin();
 
-  for(int i = 0; i < spriteCount; i++)
+  for(int i = 0; i < spriteCount; ++i)
   {
     Sprite& sprite = **(spriteIt++);
     Vector3& position = *(positionIt++);

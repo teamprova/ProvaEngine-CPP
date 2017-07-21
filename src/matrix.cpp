@@ -20,8 +20,8 @@ void PrintMatrix(Matrix m)
 
 Matrix::Matrix()
 {
-  for(int y = 0; y < 4; y++)
-    for(int x = 0; x < 4; x++)
+  for(int y = 0; y < 4; ++y)
+    for(int x = 0; x < 4; ++x)
       _mat[y][x] = 0;
 }
 
@@ -29,7 +29,7 @@ Matrix Matrix::Identity()
 {
   Matrix identity;
 
-  for(int i = 0; i < 4; i++)
+  for(int i = 0; i < 4; ++i)
     identity[i][i] = 1;
   
   return identity;
@@ -120,7 +120,7 @@ Matrix Matrix::Scale(float x, float y, float z)
 {
   Matrix result;
 
-  for(int col = 0; col < 4; col++)
+  for(int col = 0; col < 4; ++col)
   {
     result[0][col] = _mat[0][col] * x;
     result[1][col] = _mat[1][col] * y;
@@ -153,8 +153,8 @@ float* Matrix::operator[](int i)
 
 Matrix Matrix::operator+(Matrix matrix)
 {
-  for(int y = 0; y < 4; y++)
-    for(int x = 0; x < 4; x++)
+  for(int y = 0; y < 4; ++y)
+    for(int x = 0; x < 4; ++x)
       matrix[y][x] += _mat[x][y];
 
   return matrix;
@@ -162,8 +162,8 @@ Matrix Matrix::operator+(Matrix matrix)
 
 Matrix Matrix::operator-(Matrix matrix)
 {
-  for(int y = 0; y < 4; y++)
-    for(int x = 0; x < 4; x++)
+  for(int y = 0; y < 4; ++y)
+    for(int x = 0; x < 4; ++x)
       matrix[y][x] -= _mat[y][x];
 
   return matrix;
@@ -173,9 +173,9 @@ Matrix Matrix::operator*(Matrix& matrix)
 {
   Matrix result;
 
-  for(int y = 0; y < 4; y++)
-    for(int x = 0; x < 4; x++)
-      for(int i = 0; i < 4; i++)
+  for(int y = 0; y < 4; ++y)
+    for(int x = 0; x < 4; ++x)
+      for(int i = 0; i < 4; ++i)
         result[y][x] += _mat[y][i] * matrix[i][x];
 
   return result;
@@ -185,7 +185,7 @@ Vector4 Matrix::operator*(Vector4 vector)
 {
   Vector4 result;
 
-  for(int col = 0; col < 4; col++)
+  for(int col = 0; col < 4; ++col)
   {
     result.x += _mat[0][col] * vector.x;
     result.y += _mat[1][col] * vector.y;
@@ -200,8 +200,8 @@ Matrix Matrix::operator*(float a)
 {
   Matrix matrix;
 
-  for(int y = 0; y < 4; y++)
-    for(int x = 0; x < 4; x++)
+  for(int y = 0; y < 4; ++y)
+    for(int x = 0; x < 4; ++x)
       matrix[y][x] = _mat[y][x] * a;
 
   return matrix;
@@ -211,8 +211,8 @@ Matrix Matrix::operator/(float a)
 {
   Matrix matrix;
 
-  for(int y = 0; y < 4; y++)
-    for(int x = 0; x < 4; x++)
+  for(int y = 0; y < 4; ++y)
+    for(int x = 0; x < 4; ++x)
       matrix[y][x] = _mat[y][x] / a;
 
   return matrix;
