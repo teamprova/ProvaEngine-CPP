@@ -20,6 +20,7 @@ namespace Prova
         TRIGGER_LEFT, TRIGGER_RIGHT
       };
 
+      const int id;
       bool IsConnected();
       bool IsButtonDown(Button button);
       bool IsButtonUp(Button button);

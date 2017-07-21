@@ -6,9 +6,10 @@
 using namespace Prova;
 
 Controller::Controller(int index)
+  : id(index)
 {
   _handle = SDL_GameControllerOpen(index);
-
+  
   for(int i = 0; i < 17; ++i)
   {
     _oldButtonState[i] = false;
