@@ -1,6 +1,6 @@
 #pragma once
-#include <string>
 #include <list>
+#include <string>
 
 namespace Prova
 {
@@ -52,9 +52,9 @@ namespace Prova
       void PrintProgramLog();
       ~ShaderProgram();
     private:
+      std::list<unsigned int> _shaders;
       void LoadShader(unsigned int shaderType, std::string sourceFile);
       void CompileShader(unsigned int shaderType, std::string source);
       void PrintShaderLog(unsigned int shader);
-      std::list<unsigned int> _shaders;
   };
 }
