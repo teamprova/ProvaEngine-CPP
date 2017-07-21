@@ -157,8 +157,8 @@ bool Vector4::operator==(const Vector4& vector) const
 
 bool Vector4::operator!=(const Vector4& vector) const
 {
-  return vector.x != x &&
-        vector.y != y &&
-        vector.z != z &&
+  return vector.x != x ||
+        vector.y != y ||
+        vector.z != z ||
         vector.w != w;
 }
