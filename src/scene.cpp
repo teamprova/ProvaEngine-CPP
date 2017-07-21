@@ -123,6 +123,6 @@ void Scene::Draw(Screen& screen)
     entity.Draw(screen);
   }
   
-  if(Debug)
+  if(debug)
     _collider2DMap.Draw(*game->screen);
 }

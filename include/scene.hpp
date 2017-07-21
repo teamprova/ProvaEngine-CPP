@@ -22,9 +22,9 @@ namespace Prova
     public:
       Game* game = nullptr;
       Input* input = nullptr;
+      bool debug = false;
       Camera camera;
       std::list<Entity*> entities;
-      bool Debug = false;
       void AddEntity(Entity& entity);
       void RemoveEntity(Entity& entity);
       Entity& FindClosestEntity(Entity& entity);
