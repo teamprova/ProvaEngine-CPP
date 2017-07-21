@@ -154,3 +154,11 @@ bool Vector4::operator==(const Vector4& vector) const
         vector.z == z &&
         vector.w == w;
 }
+
+bool Vector4::operator!=(const Vector4& vector) const
+{
+  return vector.x != x &&
+        vector.y != y &&
+        vector.z != z &&
+        vector.w != w;
+}

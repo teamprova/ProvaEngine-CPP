@@ -28,5 +28,6 @@ namespace Prova
       Vector4 operator*(float a);
       Vector4 operator/(float a);
       bool operator==(const Vector4& vector) const;
+      bool operator!=(const Vector4& vector) const;
   };
 }
