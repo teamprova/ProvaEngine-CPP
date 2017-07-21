@@ -38,8 +38,6 @@ add a description for the engine
         * DPad/WASD/Analog/up/down selects current input
     * Slider
         * Left/Right arrow, mouse
-* Input class
-    * Controller support
 * SaveFile
     * Name
     * Save location?
