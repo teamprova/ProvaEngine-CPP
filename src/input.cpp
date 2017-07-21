@@ -6,6 +6,12 @@
 
 using namespace Prova;
 
+void Input::Init()
+{
+  UpdateKeystate();
+  _oldKeystate = _keystate;
+}
+
 void Input::Update()
 {
   // update controller state
@@ -14,10 +20,7 @@ void Input::Update()
 
   // update keystate
   _oldKeystate = _keystate;
-  _keystate = SDL_GetKeyboardState(NULL);
-
-  if(_oldKeystate == nullptr)
-    _oldKeystate = _keystate;
+  UpdateKeystate();
 
   // update mouse state
   int x, y;
@@ -25,6 +28,15 @@ void Input::Update()
 
   mouse.x = x;
   mouse.y = y;
+}
+
+void Input::UpdateKeystate()
+{
+  int keystateLength;
+  const Uint8* SDLKeystate = SDL_GetKeyboardState(&keystateLength);
+
+  _keystate.resize(keystateLength);
+  std::copy(SDLKeystate, SDLKeystate + keystateLength, _keystate.begin());
 }
 
 Controller& Input::GetController(int index)

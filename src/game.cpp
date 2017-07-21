@@ -30,6 +30,8 @@ Game::Game(int width, int height, std::string title)
   screen = new Screen(this);
   screen->_width = width;
   screen->_height = height;
+
+  input.Init();
 }
 
 void Game::SetTitle(std::string title)
