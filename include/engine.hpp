@@ -19,6 +19,7 @@
 
 // input
 #include "input.hpp"
+#include "binding.hpp"
 #include "controller.hpp"
 #include "keys.hpp"
 
