@@ -2,31 +2,35 @@
 #include "watch.hpp"
 #include "debug.hpp"
 
-// rendering tools
-#include "mesh.hpp"
-#include "shaderprogram.hpp"
-#include "texture.hpp"
+// core
+#include "game.hpp"
+#include "scene.hpp"
+#include "entity.hpp"
+
+// graphics
+#include "screen.hpp"
+#include "camera.hpp"
 #include "sprite.hpp"
 #include "animation.hpp"
+#include "shaderprogram.hpp"
+#include "texture.hpp"
+#include "mesh.hpp"
 #include "color.hpp"
 
-// core tools
+// input
+#include "input.hpp"
+#include "controller.hpp"
 #include "keys.hpp"
+
+// math
+#include "math.hpp"
 #include "vector4.hpp"
 #include "vector3.hpp"
 #include "vector2.hpp"
-#include "math.hpp"
 #include "matrix.hpp"
 #include "rect.hpp"
 
-// core
-#include "game.hpp"
-#include "screen.hpp"
-#include "scene.hpp"
-#include "input.hpp"
-#include "controller.hpp"
-#include "camera.hpp"
-#include "entity.hpp"
+// physics
 #include "collider2d.hpp"
 #include "pointcollider.hpp"
 #include "circlecollider.hpp"
