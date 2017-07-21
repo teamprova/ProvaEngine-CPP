@@ -15,8 +15,14 @@ void Scene::AddEntity(Entity& entity)
 {
   entities.push_back(&entity);
   entity.scene = this;
-  
+
   _collider2DMap.AddColliders(entity);
+
+  if(!entity._setup)
+  {
+    entity.Setup();
+    entity._setup = true;
+  }
 }
 
 void Scene::RemoveEntity(Entity& entity)

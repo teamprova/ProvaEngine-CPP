@@ -26,11 +26,13 @@ namespace Prova
       bool HasTag(int tag);
       void AddCollider(Collider2D& collider);
       void RemoveCollider(Collider2D& collider);
+      virtual void Setup();
       virtual void Update();
       virtual void Draw(Screen& screen);
       virtual void OnCollision2D(Collider2D& collider, Collider2D& hitCollider);
       ~Entity();
     private:
+      bool _setup = false;
       std::set<int> _tags;
       std::list<Collider2D*> _2dColliders;
   };

@@ -35,6 +35,7 @@ void Entity::RemoveCollider(Collider2D& collider)
   _2dColliders.remove(&collider);
 }
 
+void Entity::Setup(){}
 void Entity::Update(){}
 void Entity::Draw(Screen& screen){}
 
