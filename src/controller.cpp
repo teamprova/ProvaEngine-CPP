@@ -62,7 +62,7 @@ Vector2 Controller::GetStick(ThumbStick stick)
 
   return Vector2(
       GetAxis(xAxis),
-      GetAxis(xAxis + 1)
+      -GetAxis(xAxis + 1)
     );
 }
 

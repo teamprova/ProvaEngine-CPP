@@ -68,7 +68,7 @@ Vector2 Input::SimulateStick(Key::Key up, Key::Key left, Key::Key down, Key::Key
 {
   Vector2 vector(
     IsKeyDown(right)-IsKeyDown(left),
-    IsKeyDown(down)-IsKeyDown(up)
+    IsKeyDown(up)-IsKeyDown(down)
   );
 
   return vector.Normalize();
