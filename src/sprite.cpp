@@ -70,7 +70,7 @@ void Sprite::Update()
     return;
   
   clip.left = clip.width * GetCurrentFrame();
-  clip.top = clip.height * _currentAnimation->row;
+  clip.top = 1 - clip.height * (_currentAnimation->row + 1);
 }
 
 Sprite::~Sprite()
