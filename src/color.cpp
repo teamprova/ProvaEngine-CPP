@@ -14,3 +14,19 @@ Color::Color(float r, float g, float b, float a)
   this->b = b;
   this->a = a;
 }
+
+bool Color::operator==(Color& color) const
+{
+  return color.r == r &&
+         color.g == g &&
+         color.b == b &&
+         color.a == a;
+}
+
+bool Color::operator!=(Color& color) const
+{
+  return color.r != r ||
+         color.g != g ||
+         color.b != b ||
+         color.a != a;
+}

@@ -12,5 +12,7 @@ namespace Prova
       float g = 0;
       float b = 0;
       float a = 1;
+      bool operator==(Color& color) const;
+      bool operator!=(Color& color) const;
   };
 }
