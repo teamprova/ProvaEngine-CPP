@@ -10,7 +10,10 @@ using namespace Prova;
 std::unordered_map<std::string, Texture*> Texture::_textureCache;
 
 Texture::Texture()
-{}
+{
+  width = 0;
+  height = 0;
+}
 
 Texture::Texture(std::string path)
 {
