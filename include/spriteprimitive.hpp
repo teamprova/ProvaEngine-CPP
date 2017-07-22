@@ -15,6 +15,7 @@ namespace Prova
     friend class SpriteBatch;
 
     public:
+      SpritePrimitive();
       SpritePrimitive(std::string sheetpath, int width, int height);
       int angle = 0;
       int width;
@@ -23,6 +24,6 @@ namespace Prova
       Vector2 origin;
       Vector2 scale;
       Rect clip;
-      Color color;
+      Color tint = Color(1, 1, 1);
   };
 }
