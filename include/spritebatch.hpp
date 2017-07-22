@@ -1,5 +1,7 @@
 #pragma once
 #include <list>
+#include <string>
+#include "font.hpp"
 #include "mesh.hpp"
 #include "shaderprogram.hpp"
 #include "spriteprimitive.hpp"
@@ -19,7 +21,10 @@ namespace Prova
       SpriteBatch();
       ShaderProgram shaderProgram;
       void Begin(Matrix transform);
+      void BatchString(std::string text, Font& font, Vector3 position);
+      void BatchString(std::string text, Font& font, Color color, Vector3 position);
       void BatchSprite(Sprite& sprite, Vector3 position);
+      void BatchSprite(SpritePrimitive& sprite, Vector3 position);
       void End();
     private:
       bool _begun = false;

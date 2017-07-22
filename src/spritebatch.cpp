@@ -1,6 +1,10 @@
 #include <stdexcept>
+#include <string>
 #include "spritebatch.hpp"
+#include "color.hpp"
+#include "font.hpp"
 #include "shaderprogram.hpp"
+#include "spriteprimitive.hpp"
 #include "sprite.hpp"
 #include "vector3.hpp"
 
@@ -24,6 +28,8 @@ SpriteBatch::SpriteBatch()
     R"(#version 130
     uniform sampler2D sprite;
     uniform vec4 clip;
+    uniform vec4 tint;
+
     in vec2 position;
     out vec4 fragmentColor;
 
@@ -33,7 +39,7 @@ SpriteBatch::SpriteBatch()
         clip.y + (position.y) * clip.w
       );
 
-      fragmentColor = texture(sprite, texPos);
+      fragmentColor = texture(sprite, texPos) * tint;
 
       if(fragmentColor.a == 0)
         discard;
@@ -67,12 +73,42 @@ void SpriteBatch::Begin(Matrix transform)
   _begun = true;
 }
 
+void SpriteBatch::BatchString(std::string text, Font& font, Vector3 position)
+{
+  BatchString(text, font, Color(1, 1, 1), position);
+}
+
+void SpriteBatch::BatchString(std::string text, Font& font, Color color, Vector3 position)
+{
+  SpritePrimitive sprite;
+  sprite.texture = font.texture;
+  sprite.tint = color;
+
+  for(int i = 0; i < text.size(); ++i)
+  {
+    int c = text[i];
+    Glyph& glyph = font.glyphs[c];
+    sprite.clip = glyph.clip;
+    sprite.width = glyph.width;
+    sprite.height = glyph.height;
+
+    BatchSprite(sprite, position + glyph.offset);
+
+    position += glyph.shift;
+  }
+}
+
 void SpriteBatch::BatchSprite(Sprite& sprite, Vector3 position)
+{
+  sprite.Update();
+
+  BatchSprite(sprite, position);
+}
+
+void SpriteBatch::BatchSprite(SpritePrimitive& sprite, Vector3 position)
 {
   if(!_begun)
     throw std::runtime_error("Batch not started");
-
-  sprite.Update();
   
   _spritePrimitives.emplace_back(sprite);
   _positions.emplace_back(position);
@@ -83,10 +119,14 @@ void SpriteBatch::End()
   if(!_begun)
     throw std::runtime_error("Batch not started");
 
+  Color lastTint(1, 1, 1);
   unsigned int lastTexture = -1;
   int spriteCount = _spritePrimitives.size();
   auto spriteIt = _spritePrimitives.begin();
   auto positionIt = _positions.begin();
+
+  // set the inital value for the tint
+  shaderProgram.SetVector4("tint", lastTint);
 
   for(int i = 0; i < spriteCount; ++i)
   {
@@ -97,6 +137,12 @@ void SpriteBatch::End()
     {
       shaderProgram.SetTexture(0, sprite.texture);
       lastTexture = sprite.texture.id;
+    }
+
+    if(sprite.tint != lastTint)
+    {
+      shaderProgram.SetVector4("tint", sprite.tint);
+      lastTint = sprite.tint;
     }
     
     DrawSpritePrimitive(sprite, position);

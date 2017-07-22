@@ -5,12 +5,13 @@
 #include <stdexcept>
 #include "screen.hpp"
 #include "color.hpp"
+#include "font.hpp"
+#include "game.hpp"
 #include "scene.hpp"
 #include "shaderprogram.hpp"
 #include "sprite.hpp"
 #include "vector3.hpp"
 #include "vector4.hpp"
-#include "game.hpp"
 
 using namespace Prova;
 
@@ -154,6 +155,36 @@ void Screen::DrawRect(Color color, float x, float y, float width, float height)
   flatShaderProgram.SetMatrix("projection", _2DProjection);
   flatShaderProgram.SetVector4("color", color);
   flatShaderProgram.DrawMesh(ShaderProgram::DrawMode::LINE_LOOP, mesh);
+}
+
+void Screen::DrawString(std::string text, Font& font, Vector3 position)
+{
+  spriteBatch.BatchString(text, font, position);
+}
+
+void Screen::DrawString(std::string text, Font& font, float x, float y)
+{
+  spriteBatch.BatchString(text, font, Vector3(x, y, 0));
+}
+
+void Screen::DrawString(std::string text, Font& font, float x, float y, float z)
+{
+  spriteBatch.BatchString(text, font, Vector3(x, y, z));
+}
+
+void Screen::DrawString(std::string text, Font& font, Color color, Vector3 position)
+{
+  spriteBatch.BatchString(text, font, color, position);
+}
+
+void Screen::DrawString(std::string text, Font& font, Color color, float x, float y)
+{
+  spriteBatch.BatchString(text, font, color, Vector3(x, y, 0));
+}
+
+void Screen::DrawString(std::string text, Font& font, Color color, float x, float y, float z)
+{
+  spriteBatch.BatchString(text, font, color, Vector3(x, y, z));
 }
 
 void Screen::DrawSprite(Sprite& sprite, Vector3 position)

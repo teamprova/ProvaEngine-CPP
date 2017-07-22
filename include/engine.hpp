@@ -17,6 +17,7 @@
 #include "texture.hpp"
 #include "mesh.hpp"
 #include "color.hpp"
+#include "font.hpp"
 
 // input
 #include "input.hpp"
