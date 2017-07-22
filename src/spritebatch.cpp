@@ -102,7 +102,7 @@ void SpriteBatch::BatchSprite(Sprite& sprite, Vector3 position)
 {
   sprite.Update();
 
-  BatchSprite(sprite, position);
+  BatchSprite((SpritePrimitive&) sprite, position);
 }
 
 void SpriteBatch::BatchSprite(SpritePrimitive& sprite, Vector3 position)
