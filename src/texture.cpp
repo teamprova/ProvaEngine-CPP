@@ -37,7 +37,7 @@ Texture* Texture::FetchTexture(std::string path)
     path.c_str(),
     SOIL_LOAD_AUTO,
     SOIL_CREATE_NEW_ID,
-    0
+    SOIL_FLAG_INVERT_Y
   );
 
   glGetTexLevelParameteriv(GL_TEXTURE_2D, 0, GL_TEXTURE_WIDTH, &texture->width);
