@@ -1,35 +1,26 @@
 #pragma once
 #include <string>
 #include <unordered_map>
+#include "animation.hpp"
 #include "mesh.hpp"
 #include "rect.hpp"
+#include "spriteprimitive.hpp"
+#include "spritebatch.hpp"
 #include "texture.hpp"
 #include "vector2.hpp"
 
 namespace Prova
 {
-  class Animation;
-  class Model;
-  class Rect;
-  class Screen;
-  class Texture;
-  class Vector2;
-
+  class SpriteBatch;
+  
   // animations use an id as an int
   // but use enums
-  class Sprite
+  class Sprite : public SpritePrimitive
   {
     friend class SpriteBatch;
 
     public:
       Sprite(std::string sheetpath, int width, int height);
-      Texture texture;
-      Mesh mesh;
-      Vector2 origin;
-      Vector2 scale;
-      int width;
-      int height;
-      int angle = 0;
       bool looping = false;
       void CreateAnimation(int id, int row, int frameCount, float frameDuration);
       void PlayAnimation(int id, bool loop);
@@ -42,7 +33,6 @@ namespace Prova
     private:
       std::unordered_map<int, Animation*> _animations;
       Animation* _currentAnimation = NULL;
-      Rect _clip;
       unsigned int _startTime;
   };
 }
