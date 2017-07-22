@@ -3,7 +3,6 @@
 add a description for the engine
 
 ## Priority
-* Optimize rendering
 * Sound class
     * Path
     * Play - maybe play through an audio class instead?
@@ -17,7 +16,6 @@ add a description for the engine
         * scene pointer
         * focus management
         * draw method
-    * Font class
     * Control
         * GUI pointer
         * Focus (click modifies this)
