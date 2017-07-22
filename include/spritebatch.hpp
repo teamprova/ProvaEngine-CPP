@@ -1,6 +1,8 @@
 #pragma once
 #include <list>
+#include "mesh.hpp"
 #include "shaderprogram.hpp"
+#include "spriteprimitive.hpp"
 #include "sprite.hpp"
 #include "vector3.hpp"
 
@@ -21,9 +23,10 @@ namespace Prova
       void End();
     private:
       bool _begun = false;
-      std::list<Sprite*> _sprites;
+      std::list<SpritePrimitive> _spritePrimitives;
       std::list<Vector3> _positions;
-      void DrawSprite(Sprite&, Vector3&);
+      void DrawSpritePrimitive(SpritePrimitive&, Vector3&);
       Matrix _transform;
+      Mesh _mesh;
   };
 }

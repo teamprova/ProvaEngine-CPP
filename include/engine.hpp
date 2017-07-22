@@ -11,6 +11,7 @@
 #include "screen.hpp"
 #include "camera.hpp"
 #include "sprite.hpp"
+#include "spriteprimitive.hpp"
 #include "animation.hpp"
 #include "shaderprogram.hpp"
 #include "texture.hpp"

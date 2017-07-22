@@ -41,6 +41,19 @@ SpriteBatch::SpriteBatch()
   );
 
   shaderProgram.Link();
+
+
+  float vertices[] = {
+    0, 0, 0, 1,
+    1, 0, 0, 1,
+    1, 1, 0, 1,
+    0, 1, 0, 1
+  };
+
+  unsigned int indexes[] = { 0, 1, 2, 3 };
+
+  _mesh.SetIBO(indexes, 4);
+  _mesh.SetVBO(vertices, 16, 4);
 }
 
 void SpriteBatch::Begin(Matrix transform)
@@ -48,7 +61,7 @@ void SpriteBatch::Begin(Matrix transform)
   if(_begun)
     throw std::runtime_error("Batch already started");
   
-  _sprites.clear();
+  _spritePrimitives.clear();
   _positions.clear();
   _transform = transform;
   _begun = true;
@@ -59,7 +72,9 @@ void SpriteBatch::BatchSprite(Sprite& sprite, Vector3 position)
   if(!_begun)
     throw std::runtime_error("Batch not started");
 
-  _sprites.emplace_back(&sprite);
+  sprite.Update();
+  
+  _spritePrimitives.emplace_back(sprite);
   _positions.emplace_back(position);
 }
 
@@ -69,13 +84,13 @@ void SpriteBatch::End()
     throw std::runtime_error("Batch not started");
 
   unsigned int lastTexture = -1;
-  int spriteCount = _sprites.size();
-  auto spriteIt = _sprites.begin();
+  int spriteCount = _spritePrimitives.size();
+  auto spriteIt = _spritePrimitives.begin();
   auto positionIt = _positions.begin();
 
   for(int i = 0; i < spriteCount; ++i)
   {
-    Sprite& sprite = **(spriteIt++);
+    SpritePrimitive& sprite = *(spriteIt++);
     Vector3& position = *(positionIt++);
 
     if(sprite.texture.id != lastTexture)
@@ -84,16 +99,14 @@ void SpriteBatch::End()
       lastTexture = sprite.texture.id;
     }
     
-    DrawSprite(sprite, position);
+    DrawSpritePrimitive(sprite, position);
   }
 
   _begun = false;
 }
 
-void SpriteBatch::DrawSprite(Sprite& sprite, Vector3& position)
+void SpriteBatch::DrawSpritePrimitive(SpritePrimitive& sprite, Vector3& position)
 {
-  sprite.Update();
-
   Matrix model = Matrix::Identity();
   model = model.Scale(sprite.width, sprite.height, 1);
   model = model.Translate(-sprite.origin);
@@ -102,6 +115,6 @@ void SpriteBatch::DrawSprite(Sprite& sprite, Vector3& position)
   model = model.Translate(position.x, position.y, position.z);
 
   shaderProgram.SetMatrix("transforms", _transform * model);
-  shaderProgram.SetVector4("clip", sprite._clip);
-  shaderProgram.DrawMesh(ShaderProgram::DrawMode::TRIANGLE_FAN, sprite.mesh);
+  shaderProgram.SetVector4("clip", sprite.clip);
+  shaderProgram.DrawMesh(ShaderProgram::DrawMode::TRIANGLE_FAN, _mesh);
 }
