@@ -62,7 +62,7 @@ Vector2 Controller::GetStick(ThumbStick stick)
   
   Vector2 displacement(GetAxis(xAxis), -GetAxis(xAxis + 1));
 
-  if(displacement.GetMagnitude() == deadzone)
+  if(displacement.GetMagnitude() <= deadzone)
     return Vector2();
   else
     return displacement;
