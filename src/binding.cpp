@@ -131,7 +131,7 @@ Vector2 Binding::GetStick(int stick)
   {
     Vector2 vector = _controller->GetStick(it->second);
 
-    if(vector != zero)
+    if(vector.GetMagnitude() > deadzone)
       return vector;
   }
 

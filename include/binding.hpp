@@ -14,6 +14,8 @@ namespace Prova
     friend class Input;
 
     public:
+      float deadzone = .15;
+
       void BindInput(Input* input);
       void BindController(int index);
       void BindButton(int button, Keys::Key key);
