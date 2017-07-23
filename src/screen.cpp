@@ -10,6 +10,7 @@
 #include "scene.hpp"
 #include "shaderprogram.hpp"
 #include "sprite.hpp"
+#include "animatedsprite.hpp"
 #include "vector3.hpp"
 #include "vector4.hpp"
 
@@ -198,6 +199,21 @@ void Screen::DrawSprite(Sprite& sprite, float x, float y)
 }
 
 void Screen::DrawSprite(Sprite& sprite, float x, float y, float z)
+{
+  spriteBatch.BatchSprite(sprite, Vector3(x, y, z));
+}
+
+void Screen::DrawSprite(AnimatedSprite& sprite, Vector3 position)
+{
+  spriteBatch.BatchSprite(sprite, position);
+}
+
+void Screen::DrawSprite(AnimatedSprite& sprite, float x, float y)
+{
+  spriteBatch.BatchSprite(sprite, Vector3(x, y, 0));
+}
+
+void Screen::DrawSprite(AnimatedSprite& sprite, float x, float y, float z)
 {
   spriteBatch.BatchSprite(sprite, Vector3(x, y, z));
 }

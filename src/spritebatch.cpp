@@ -4,8 +4,8 @@
 #include "color.hpp"
 #include "font.hpp"
 #include "shaderprogram.hpp"
-#include "spriteprimitive.hpp"
 #include "sprite.hpp"
+#include "animatedsprite.hpp"
 #include "vector3.hpp"
 
 using namespace Prova;
@@ -80,7 +80,7 @@ void SpriteBatch::BatchString(std::string text, Font& font, Vector3 position)
 
 void SpriteBatch::BatchString(std::string text, Font& font, Color color, Vector3 position)
 {
-  SpritePrimitive sprite;
+  Sprite sprite;
   sprite.texture = font.texture;
   sprite.tint = color;
 
@@ -98,14 +98,14 @@ void SpriteBatch::BatchString(std::string text, Font& font, Color color, Vector3
   }
 }
 
-void SpriteBatch::BatchSprite(Sprite& sprite, Vector3 position)
+void SpriteBatch::BatchSprite(AnimatedSprite& sprite, Vector3 position)
 {
   sprite.Update();
 
-  BatchSprite((SpritePrimitive&) sprite, position);
+  BatchSprite((Sprite&) sprite, position);
 }
 
-void SpriteBatch::BatchSprite(SpritePrimitive& sprite, Vector3 position)
+void SpriteBatch::BatchSprite(Sprite& sprite, Vector3 position)
 {
   if(!_begun)
     throw std::runtime_error("Batch not started");
@@ -130,7 +130,7 @@ void SpriteBatch::End()
 
   for(int i = 0; i < spriteCount; ++i)
   {
-    SpritePrimitive& sprite = *(spriteIt++);
+    Sprite& sprite = *(spriteIt++);
     Vector3& position = *(positionIt++);
 
     if(sprite.texture.id != lastTexture)
@@ -145,13 +145,13 @@ void SpriteBatch::End()
       lastTint = sprite.tint;
     }
     
-    DrawSpritePrimitive(sprite, position);
+    DrawSprite(sprite, position);
   }
 
   _begun = false;
 }
 
-void SpriteBatch::DrawSpritePrimitive(SpritePrimitive& sprite, Vector3& position)
+void SpriteBatch::DrawSprite(Sprite& sprite, Vector3& position)
 {
   Matrix model = Matrix::Identity();
   model = model.Scale(sprite.width, sprite.height, 1);

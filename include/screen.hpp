@@ -49,6 +49,9 @@ namespace Prova
       void DrawSprite(Sprite& sprite, Vector3 position);
       void DrawSprite(Sprite& sprite, float x, float y);
       void DrawSprite(Sprite& sprite, float x, float y, float z);
+      void DrawSprite(AnimatedSprite& sprite, Vector3 position);
+      void DrawSprite(AnimatedSprite& sprite, float x, float y);
+      void DrawSprite(AnimatedSprite& sprite, float x, float y, float z);
       void SetClearColor(float r, float g, float b);
       void SetClearColor(Color color);
       void Clear();
