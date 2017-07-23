@@ -23,6 +23,8 @@ void Scene::AddEntity(Entity& entity)
     entity.Setup();
     entity._setup = true;
   }
+
+  entity.Start();
 }
 
 void Scene::RemoveEntity(Entity& entity)
@@ -83,6 +85,7 @@ Entity& Scene::FindClosestEntity(Entity& myEntity, int tag)
 }
 
 void Scene::Setup() { }
+void Scene::Start() { }
 
 void Scene::Update()
 {

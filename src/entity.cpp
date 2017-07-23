@@ -36,6 +36,7 @@ void Entity::RemoveCollider(Collider2D& collider)
 }
 
 void Entity::Setup(){}
+void Entity::Start(){}
 void Entity::Update(){}
 void Entity::Draw(Screen& screen){}
 

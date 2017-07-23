@@ -135,7 +135,10 @@ void Game::SetScene(Scene* scene)
   this->scene = scene;
   this->scene->game = this;
   this->scene->input = &input;
-  this->scene->Setup();
+
+  if(!this->scene->_setup)
+    this->scene->Setup();
+  this->scene->Start();
 }
 
 void Game::Close()

@@ -26,7 +26,13 @@ namespace Prova
       bool HasTag(int tag);
       void AddCollider(Collider2D& collider);
       void RemoveCollider(Collider2D& collider);
+      // initalization function that runs when
+      // the entity is first attached to the game
       virtual void Setup();
+      // function that runs everytime the entity is attached
+      // to a scene
+      virtual void Start();
+      // runs every update tick
       virtual void Update();
       virtual void Draw(Screen& screen);
       virtual void OnCollision2D(Collider2D& collider, Collider2D& hitCollider);
