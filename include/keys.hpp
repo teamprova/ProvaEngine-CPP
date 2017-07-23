@@ -1,6 +1,6 @@
 #pragma once
 
-namespace Key
+namespace Keys
 {
   enum Key
   {

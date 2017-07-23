@@ -16,10 +16,10 @@ namespace Prova
       void Init();
       void Update();
       Controller& GetController(int index);
-      bool IsKeyDown(Key::Key key);
-      bool IsKeyUp(Key::Key key);
-      bool KeyJustPressed(Key::Key key);
-      Vector2 SimulateStick(Key::Key up, Key::Key left, Key::Key down, Key::Key right);
+      bool IsKeyDown(Keys::Key key);
+      bool IsKeyUp(Keys::Key key);
+      bool KeyJustPressed(Keys::Key key);
+      Vector2 SimulateStick(Keys::Key up, Keys::Key left, Keys::Key down, Keys::Key right);
       bool IsMouseButtonDown(int mouseButton);
       bool IsMouseButtonUp(int mouseButton);
     private:

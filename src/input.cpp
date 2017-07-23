@@ -49,22 +49,22 @@ Controller& Input::GetController(int index)
   return *_controllers[index];
 }
 
-bool Input::IsKeyDown(Key::Key key)
+bool Input::IsKeyDown(Keys::Key key)
 {
   return _keystate[key];
 }
 
-bool Input::IsKeyUp(Key::Key key)
+bool Input::IsKeyUp(Keys::Key key)
 {
   return !_keystate[key];
 }
 
-bool Input::KeyJustPressed(Key::Key key)
+bool Input::KeyJustPressed(Keys::Key key)
 {
   return !_oldKeystate[key] && _keystate[key];
 }
 
-Vector2 Input::SimulateStick(Key::Key up, Key::Key left, Key::Key down, Key::Key right)
+Vector2 Input::SimulateStick(Keys::Key up, Keys::Key left, Keys::Key down, Keys::Key right)
 {
   Vector2 vector(
     IsKeyDown(right)-IsKeyDown(left),
