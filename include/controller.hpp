@@ -21,6 +21,7 @@ namespace Prova
       };
 
       const int id;
+      float deadzone = .15;
       bool IsConnected();
       bool IsButtonDown(Button button);
       bool IsButtonUp(Button button);

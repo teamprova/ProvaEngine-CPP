@@ -59,11 +59,13 @@ Vector2 Controller::GetStick(ThumbStick stick)
 
   if(stick == THUMBSTICK_RIGHT)
     xAxis = SDL_CONTROLLER_AXIS_RIGHTX;
+  
+  Vector2 displacement(GetAxis(xAxis), -GetAxis(xAxis + 1));
 
-  return Vector2(
-      GetAxis(xAxis),
-      -GetAxis(xAxis + 1)
-    );
+  if(displacement.GetMagnitude() == deadzone)
+    return Vector2();
+  else
+    return displacement;
 }
 
 // throws an error for non trigger buttons
