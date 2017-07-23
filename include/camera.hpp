@@ -2,26 +2,19 @@
 #include "matrix.hpp"
 #include "vector3.hpp"
 
-namespace SortingMethod
-{
-  enum SortingMethod { Z, Distance };
-}
-
-namespace Projection
-{
-  enum Projection { Perspective, Orthographic };
-}
-
 namespace Prova
 {
   class Vector3;
+
+  enum class SortingMethod { Z, Distance };
+  enum class Projection { Perspective, Orthographic };
 
   class Camera
   {
     public:
       Camera();
-      Projection::Projection projection = Projection::Perspective;
-      SortingMethod::SortingMethod sortingMethod = SortingMethod::Distance;
+      Projection projection = Projection::Perspective;
+      SortingMethod sortingMethod = SortingMethod::Distance;
       bool useDepthBuffer = true;
       float zNear = -100;
       float zFar = 100;

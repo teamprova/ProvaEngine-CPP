@@ -6,29 +6,30 @@ namespace Prova
 {
   class Vector2;
 
+  enum class ThumbStick { LEFT, RIGHT };
+  enum class ControllerButton {
+    A, B, X, Y, BACK, GUIDE, START,
+    LEFT_STICK, RIGHT_STICK, BUMPER_LEFT, BUMPER_RIGHT,
+    DPAD_UP, DPAD_DOWN, DPAD_LEFT, DPAD_RIGHT,
+    // simulated buttons
+    TRIGGER_LEFT, TRIGGER_RIGHT
+  };
+
   class Controller
   {
     friend class Input;
 
     public:
-      enum ThumbStick { THUMBSTICK_LEFT, THUMBSTICK_RIGHT };
-      enum Button {
-        A, B, X, Y, BACK, GUIDE, START,
-        LEFT_STICK, RIGHT_STICK, BUMPER_LEFT, BUMPER_RIGHT,
-        DPAD_UP, DPAD_DOWN, DPAD_LEFT, DPAD_RIGHT,
-        // simulated buttons
-        TRIGGER_LEFT, TRIGGER_RIGHT
-      };
 
       const int id;
       float deadzone = .15;
       bool IsConnected();
-      bool IsButtonDown(Button button);
-      bool IsButtonUp(Button button);
-      bool ButtonJustPressed(Button button);
+      bool IsButtonDown(ControllerButton button);
+      bool IsButtonUp(ControllerButton button);
+      bool ButtonJustPressed(ControllerButton button);
       Vector2 GetStick(ThumbStick joystick);
       // throws an error for non trigger buttons
-      float GetTrigger(Button button);
+      float GetTrigger(ControllerButton button);
       ~Controller();
     private:
       void* _handle;
@@ -36,7 +37,7 @@ namespace Prova
       bool _oldButtonState[17];
       Controller(int index);
       void Update();
-      bool GetButtonState(Button button);
+      bool GetButtonState(ControllerButton button);
       float GetAxis(int axis);
   };
 }

@@ -1,7 +1,7 @@
 //https://wiki.libsdl.org/SDLScancodeLookup
 
 var rows = document.querySelectorAll("table")[1].querySelectorAll("tr")
-var string = "enum Keys\n{\n";
+var string = "enum class Key\n{\n";
 
 for(let i = 1; i < rows.length; i++)
 {

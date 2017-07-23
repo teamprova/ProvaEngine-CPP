@@ -15,7 +15,7 @@ namespace Prova
   class ShaderProgram
   {
     public:
-      enum DrawMode {
+      enum class DrawMode : unsigned int {
         POINTS = 0,
         LINES = 1,
         LINE_LOOP = 2,

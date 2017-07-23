@@ -8,7 +8,7 @@ using namespace Prova;
 PointCollider::PointCollider(Entity* entity)
   : Collider2D(entity)
 {
-  shape = ColliderShape::Point;
+  shape = Shape::Point;
 }
 
 Vector2 PointCollider::GetSize()

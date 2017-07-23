@@ -21,23 +21,23 @@ void Binding::BindController(int index)
   _controller = &_input->GetController(index);
 }
 
-void Binding::BindButton(int button, Keys::Key key)
+void Binding::BindButton(int button, Key key)
 {
   _boundKeyButtons.emplace(button, key);
 }
 
-void Binding::BindButton(int button, Controller::Button controllerButton)
+void Binding::BindButton(int button, ControllerButton controllerButton)
 {
   _boundControllerButtons.emplace(button, controllerButton);
 }
 
-void Binding::BindStick(int stick, Keys::Key up, Keys::Key left, Keys::Key down, Keys::Key right)
+void Binding::BindStick(int stick, Key up, Key left, Key down, Key right)
 {
-  std::array<Keys::Key, 4> simulatedStick = {up, left, down, right};
+  std::array<Key, 4> simulatedStick = {up, left, down, right};
   _boundKeySticks.emplace(stick, simulatedStick);
 }
 
-void Binding::BindStick(int stick, Controller::ThumbStick joystick)
+void Binding::BindStick(int stick, ThumbStick joystick)
 {
   _boundControllerSticks.emplace(stick, joystick);
 }
@@ -111,7 +111,7 @@ Vector2 Binding::GetStick(int stick)
 
   for(auto it = keyRange.first; it != keyRange.second; ++it)
   {
-    std::array<Keys::Key, 4> simulatedStick = it->second;
+    std::array<Key, 4> simulatedStick = it->second;
     Vector2 vector = _input->SimulateStick(
       simulatedStick[0], simulatedStick[1], simulatedStick[2], simulatedStick[3]
     );

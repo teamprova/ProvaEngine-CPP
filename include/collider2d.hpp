@@ -15,10 +15,8 @@ namespace Prova
   //class PixelCollider;
 
   class Collider2D
-  {
+  {    
     public:
-      enum ColliderShape { Point, Circle, Rectangle, Pixel };
-      
       Collider2D(Entity* entity);
       Vector2 offset;
       Entity& entity;
@@ -33,7 +31,9 @@ namespace Prova
       virtual Vector2 GetSize() = 0;
       virtual void Draw(Screen& screen) = 0;
     protected:
-      ColliderShape shape;
+      enum class Shape { Point, Circle, Rectangle, Pixel };
+
+      Shape shape;
     private:
       std::set<int> _tags;
       static bool PointIntersectsPoint(PointCollider&, PointCollider&);

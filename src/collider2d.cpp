@@ -52,21 +52,21 @@ bool Collider2D::Intersects(Collider2D& collider)
   Collider2D& colliderA = *this;
   Collider2D& colliderB = collider;
 
-  if(colliderA.shape == Point && colliderB.shape == Point)
+  if(colliderA.shape == Shape::Point && colliderB.shape == Shape::Point)
     return PointIntersectsPoint((PointCollider&) colliderA, (PointCollider&) colliderB);
-  else if(colliderA.shape == Point && colliderB.shape == Circle)
+  else if(colliderA.shape == Shape::Point && colliderB.shape == Shape::Circle)
     return PointIntersectsCircle((PointCollider&) colliderA, (CircleCollider&) colliderB);
-  else if(colliderA.shape == Point && colliderB.shape == Rectangle)
+  else if(colliderA.shape == Shape::Point && colliderB.shape == Shape::Rectangle)
     return PointIntersectsRect((PointCollider&) colliderA, (RectCollider&) colliderB);
 
-  else if(colliderA.shape == Circle && colliderB.shape == Point)
+  else if(colliderA.shape == Shape::Circle && colliderB.shape == Shape::Point)
     return PointIntersectsCircle((PointCollider&) colliderB, (CircleCollider&) colliderA);
-  else if(colliderA.shape == Circle && colliderB.shape == Circle)
+  else if(colliderA.shape == Shape::Circle && colliderB.shape == Shape::Circle)
     return CircleIntersectsCircle((CircleCollider&) colliderA, (CircleCollider&) colliderB);
   
-  else if(colliderA.shape == Rectangle && colliderB.shape == Rectangle)
+  else if(colliderA.shape == Shape::Rectangle && colliderB.shape == Shape::Rectangle)
     return RectIntersectsRect((RectCollider&) colliderA, (RectCollider&) colliderB);
-  else if(colliderA.shape == Rectangle && colliderB.shape == Point)
+  else if(colliderA.shape == Shape::Rectangle && colliderB.shape == Shape::Point)
     return PointIntersectsRect((PointCollider&) colliderB, (RectCollider&) colliderA);
   
   return false;

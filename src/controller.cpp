@@ -27,37 +27,37 @@ void Controller::Update()
   for(int i = 0; i < 17; ++i)
   {
     _oldButtonState[i] = _buttonState[i];
-    _buttonState[i] = GetButtonState((Button) i);
+    _buttonState[i] = GetButtonState((ControllerButton) i);
   }
 }
 
-bool Controller::GetButtonState(Button button)
+bool Controller::GetButtonState(ControllerButton button)
 {
-  if(button == TRIGGER_LEFT || button == TRIGGER_RIGHT)
+  if(button == ControllerButton::TRIGGER_LEFT || button == ControllerButton::TRIGGER_RIGHT)
     return GetTrigger(button) > .3;
   return SDL_GameControllerGetButton((SDL_GameController*) _handle, (SDL_GameControllerButton) button);
 }
 
-bool Controller::IsButtonDown(Button button)
+bool Controller::IsButtonDown(ControllerButton button)
 {
-  return _buttonState[button];
+  return _buttonState[(int) button];
 }
 
-bool Controller::IsButtonUp(Button button)
+bool Controller::IsButtonUp(ControllerButton button)
 {
-  return !_buttonState[button];
+  return !_buttonState[(int) button];
 }
 
-bool Controller::ButtonJustPressed(Button button)
+bool Controller::ButtonJustPressed(ControllerButton button)
 {
-  return _buttonState[button] && !_oldButtonState[button];
+  return _buttonState[(int) button] && !_oldButtonState[(int) button];
 }
 
 Vector2 Controller::GetStick(ThumbStick stick)
 {
   int xAxis = SDL_CONTROLLER_AXIS_LEFTX;
 
-  if(stick == THUMBSTICK_RIGHT)
+  if(stick == ThumbStick::RIGHT)
     xAxis = SDL_CONTROLLER_AXIS_RIGHTX;
   
   Vector2 displacement(GetAxis(xAxis), -GetAxis(xAxis + 1));
@@ -69,11 +69,11 @@ Vector2 Controller::GetStick(ThumbStick stick)
 }
 
 // throws an error for non trigger buttons
-float Controller::GetTrigger(Button button)
+float Controller::GetTrigger(ControllerButton button)
 {
-  if(button == TRIGGER_LEFT)
+  if(button == ControllerButton::TRIGGER_LEFT)
     return GetAxis(SDL_CONTROLLER_AXIS_TRIGGERLEFT);
-  if(button == TRIGGER_RIGHT)
+  if(button == ControllerButton::TRIGGER_RIGHT)
     return GetAxis(SDL_CONTROLLER_AXIS_TRIGGERRIGHT);
   
   throw std::runtime_error("Specified button is not a trigger.");

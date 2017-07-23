@@ -111,7 +111,7 @@ void ShaderProgram::DrawMesh(DrawMode mode, Mesh& mesh)
 {
   glUseProgram(id);
   glBindVertexArray(mesh.VAO);
-  glDrawElements(mode, mesh._indexCount, GL_UNSIGNED_INT, NULL);
+  glDrawElements((unsigned int) mode, mesh._indexCount, GL_UNSIGNED_INT, NULL);
 }
 
 void ShaderProgram::LoadVertexShader(std::string sourceFile)

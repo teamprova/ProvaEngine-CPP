@@ -10,7 +10,7 @@ using namespace Prova;
 RectCollider::RectCollider(Entity* entity, float width, float height)
   : Collider2D(entity)
 {
-  shape = ColliderShape::Rectangle;
+  shape = Shape::Rectangle;
   this->width = width;
   this->height = height;
 }

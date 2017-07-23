@@ -9,7 +9,7 @@ using namespace Prova;
 CircleCollider::CircleCollider(Entity* entity, float radius)
   : Collider2D(entity)
 {
-  shape = ColliderShape::Circle;
+  shape = Shape::Circle;
   this->radius = radius;
 }
 

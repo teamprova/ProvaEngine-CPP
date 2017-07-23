@@ -1,8 +1,8 @@
 #pragma once
 
-namespace Keys
+namespace Prova
 {
-  enum Key
+  enum class Key
   {
     UNKNOWN = 0,
     A = 4,
