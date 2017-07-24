@@ -7,8 +7,9 @@ namespace Prova
   class Texture
   {
     public:
-      Texture(std::string path);
       Texture();
+      Texture(unsigned char data[], int width, int height);
+      Texture(std::string path);
       unsigned int id;
       int width;
       int height;

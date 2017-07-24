@@ -212,41 +212,19 @@ void Font::StitchTexture(std::vector<Bitmap>& glyphBitmaps, int height)
   CreateTexture(textureBitmap, width, height);
 }
 
-void Font::CreateTexture(Bitmap bitmap, int width, int height)
+void Font::CreateTexture(Bitmap& bitmap, int width, int height)
 {
-  texture.width = width;
-  texture.height = height;
-
   std::vector<unsigned char> textureData;
-  textureData.reserve(texture.width * texture.height * 4);
+  textureData.reserve(width * height * 4);
 
   // move data to a vector for continuous data
   for(auto it = bitmap.rbegin(); it != bitmap.rend(); ++it) 
   {
     std::vector<unsigned char>& row = *it;
 
-    row.resize(texture.width * 4, 0);
+    row.resize(width * 4, 0);
     textureData.insert(textureData.end(), row.begin(), row.end());
   }
 
-  // create opengl texture
-  glGenTextures(1, &texture.id);
-  glBindTexture(GL_TEXTURE_2D, texture.id);
-  
-  glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
-  glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
-  glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
-  glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
-
-  glTexImage2D(
-    GL_TEXTURE_2D,
- 	  0,
-    GL_RGBA,
-    texture.width,
-    texture.height,
-    0,
-    GL_RGBA,
-    GL_UNSIGNED_BYTE,
- 	  &textureData[0]
-  );
+  texture = Texture(&textureData[0], width, height);
 }

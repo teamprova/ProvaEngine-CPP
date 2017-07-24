@@ -35,6 +35,6 @@ namespace Prova
       void LoadBDF(std::string path);
       Bitmap GetBitmapBDF(std::ifstream& file, int height);
       void StitchTexture(std::vector<Bitmap>& glyphBitmaps, int height);
-      void CreateTexture(Bitmap bitmap, int width, int height);
+      void CreateTexture(Bitmap& bitmap, int width, int height);
   };
 }
