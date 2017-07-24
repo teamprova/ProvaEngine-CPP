@@ -19,6 +19,11 @@ Font::Font(std::string path)
   LoadBDF(path);
 }
 
+bool Font::HasGlyph(int character)
+{
+  return glyphs.find(character) != glyphs.end();
+}
+
 Vector2 Font::MeasureString(std::string text, float scale)
 {
   Vector2 position;
@@ -28,6 +33,10 @@ Vector2 Font::MeasureString(std::string text, float scale)
   for(int i = 0; i < text.size(); ++i)
   {
     int c = text[i];
+
+    if(!HasGlyph(c))
+      continue;
+
     Glyph& glyph = glyphs[c];
 
     // get the top of the glyph

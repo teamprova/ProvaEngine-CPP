@@ -31,6 +31,7 @@ namespace Prova
       Font(std::string path);
       std::map<int, Glyph> glyphs;
       Texture texture;
+      bool HasGlyph(int character);
       Vector2 MeasureString(std::string text, float scale);
     private:
       void LoadBDF(std::string path);

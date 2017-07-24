@@ -88,6 +88,10 @@ void SpriteBatch::BatchString(std::string text, Vector3 position, Font& font, Co
   for(int i = 0; i < text.size(); ++i)
   {
     int c = text[i];
+
+    if(!font.HasGlyph(c))
+      continue;
+
     Glyph& glyph = font.glyphs[c];
     sprite.clip = glyph.clip;
     sprite.width = glyph.width;
