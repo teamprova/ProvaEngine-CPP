@@ -54,12 +54,13 @@ void Font::LoadBDF(std::string path)
   if(!file.is_open())
     throw std::runtime_error("Failed to open file: " + path);
 
-  std::vector<Bitmap> bitmaps;
+  std::map<int, Bitmap> bitmaps;
   std::string line, keyword;
   int defaultWidth, defaultHeight, glyphCount;
   int glyphsAdded = 0, totalHeight = 0;
   Vector2 defaultOffset;
   Glyph glyph;
+  Bitmap bitmap;
 
   while(std::getline(file, line))
   {
@@ -91,13 +92,15 @@ void Font::LoadBDF(std::string path)
     }
     else if(keyword == "BITMAP")
     {
-      Bitmap bitmap = GetBitmapBDF(file, glyph.height);
-      bitmaps[glyphsAdded] = bitmap;
+      bitmap = GetBitmapBDF(file, glyph.height);
     }
     else if(keyword == "ENDCHAR")
     {
       // copy this glyph to the glyph map
       glyphs.emplace(glyph.encoding, glyph);
+      
+      // copy its bitmap
+      bitmaps.emplace(glyph.encoding, bitmap);
 
       // add height to the total for later stitching/compression
       totalHeight += glyph.height;
@@ -115,8 +118,6 @@ void Font::LoadBDF(std::string path)
     else if(keyword == "CHARS")
     {
       words >> glyphCount;
-
-      bitmaps.resize(glyphCount);
     }
   }
 
@@ -166,21 +167,21 @@ Font::Bitmap Font::GetBitmapBDF(std::ifstream& file, int height)
   return bitmap;
 }
 
-void Font::StitchTexture(std::vector<Bitmap>& glyphBitmaps, int height)
+void Font::StitchTexture(std::map<int, Bitmap>& glyphBitmaps, int height)
 {
   int top = 0, left = 0, width = 0;
   Bitmap textureBitmap(height);
-  auto glyphIt = glyphs.begin();
 
-  for(Bitmap& glyphBitmap : glyphBitmaps)
+  auto glyphIt = glyphs.begin();
+  auto bitmapIt = glyphBitmaps.begin();
+
+  while(bitmapIt != glyphBitmaps.end())
   {
+    Bitmap& glyphBitmap = (bitmapIt++)->second;
+    Glyph& glyph = (glyphIt++)->second;
+
     int bitmapHeight = glyphBitmap.size();
     int bitmapWidth = glyphBitmap[0].size() * 8;
-
-    // update glyph's clipping
-    Glyph& glyph = (glyphIt++)->second;
-    glyph.clip.left = left;
-    glyph.clip.top = top;
 
     if(height < top + bitmapHeight)
     {
@@ -221,6 +222,10 @@ void Font::StitchTexture(std::vector<Bitmap>& glyphBitmaps, int height)
 
     // update position
     top += bitmapHeight;
+
+    // update glyph's clipping
+    glyph.clip.left = left;
+    glyph.clip.top = top;
   }
 
   // adjust glyph clipping to be percentage based
