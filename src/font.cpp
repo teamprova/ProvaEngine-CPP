@@ -19,6 +19,34 @@ Font::Font(std::string path)
   LoadBDF(path);
 }
 
+Vector2 Font::MeasureString(std::string text, float scale)
+{
+  Vector2 position;
+  float width = 0;
+  float height = 0;
+
+  for(int i = 0; i < text.size(); ++i)
+  {
+    int c = text[i];
+    Glyph& glyph = glyphs[c];
+
+    // get the top of the glyph
+    float top = position.y + glyph.offset.y + glyph.height;
+
+    // update the height if the top is higher
+    if(top > height)
+      height = top;
+    
+    // update the width
+    width = position.x + glyph.width;
+
+    // update the position
+    position += glyph.shift;
+  }
+
+  return Vector2(width, height) * scale;
+}
+
 void Font::LoadBDF(std::string path)
 {
   std::ifstream file(path);
