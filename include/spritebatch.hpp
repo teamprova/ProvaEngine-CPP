@@ -22,8 +22,8 @@ namespace Prova
       SpriteBatch();
       ShaderProgram shaderProgram;
       void Begin(Matrix transform);
-      void BatchString(std::string text, Font& font, Vector3 position);
-      void BatchString(std::string text, Font& font, Color color, Vector3 position);
+      void BatchString(std::string text, Vector3 position, Font& font, Color color);
+      void BatchString(std::string text, Vector3 position, Font& font, Color color, float scale);
       void BatchSprite(AnimatedSprite& sprite, Vector3 position);
       void BatchSprite(Sprite& sprite, Vector3 position);
       void End();

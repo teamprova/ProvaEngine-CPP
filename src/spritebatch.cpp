@@ -73,16 +73,17 @@ void SpriteBatch::Begin(Matrix transform)
   _begun = true;
 }
 
-void SpriteBatch::BatchString(std::string text, Font& font, Vector3 position)
+void SpriteBatch::BatchString(std::string text, Vector3 position, Font& font, Color color)
 {
-  BatchString(text, font, Color(1, 1, 1), position);
+  BatchString(text, position, font, color, 1);
 }
 
-void SpriteBatch::BatchString(std::string text, Font& font, Color color, Vector3 position)
+void SpriteBatch::BatchString(std::string text, Vector3 position, Font& font, Color color, float scale)
 {
   Sprite sprite;
   sprite.texture = font.texture;
   sprite.tint = color;
+  sprite.scale.x = sprite.scale.y = scale;
 
   for(int i = 0; i < text.size(); ++i)
   {
@@ -92,9 +93,9 @@ void SpriteBatch::BatchString(std::string text, Font& font, Color color, Vector3
     sprite.width = glyph.width;
     sprite.height = glyph.height;
 
-    BatchSprite(sprite, position + glyph.offset);
+    BatchSprite(sprite, position + glyph.offset * scale);
 
-    position += glyph.shift;
+    position += glyph.shift * scale;
   }
 }
 

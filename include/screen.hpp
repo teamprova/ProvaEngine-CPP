@@ -40,12 +40,12 @@ namespace Prova
       void DrawLine(Color color, float x1, float y1, float x2, float y2);
       void DrawRect(Color color, Rect rect);
       void DrawRect(Color color, float x, float y, float width, float height);
-      void DrawString(std::string text, Font& font, Vector3 position);
-      void DrawString(std::string text, Font& font, float x, float y);
-      void DrawString(std::string text, Font& font, float x, float y, float z);
-      void DrawString(std::string text, Font& font, Color color, Vector3 position);
-      void DrawString(std::string text, Font& font, Color color, float x, float y);
-      void DrawString(std::string text, Font& font, Color color, float x, float y, float z);
+      void DrawString(std::string text, Vector3 position, Font& font, Color color);
+      void DrawString(std::string text, float x, float y, Font& font, Color color);
+      void DrawString(std::string text, float x, float y, float z, Font& font, Color color);
+      void DrawString(std::string text, Vector3 position, Font& font, Color color, float scale);
+      void DrawString(std::string text, float x, float y, Font& font, Color color, float scale);
+      void DrawString(std::string text, float x, float y, float z, Font& font, Color color, float scale);
       void DrawSprite(Sprite& sprite, Vector3 position);
       void DrawSprite(Sprite& sprite, float x, float y);
       void DrawSprite(Sprite& sprite, float x, float y, float z);

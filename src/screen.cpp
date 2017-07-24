@@ -158,34 +158,34 @@ void Screen::DrawRect(Color color, float x, float y, float width, float height)
   flatShaderProgram.DrawMesh(ShaderProgram::DrawMode::LINE_LOOP, mesh);
 }
 
-void Screen::DrawString(std::string text, Font& font, Vector3 position)
+void Screen::DrawString(std::string text, Vector3 position, Font& font, Color color)
 {
-  spriteBatch.BatchString(text, font, position);
+  spriteBatch.BatchString(text, position, font, color, 1);
 }
 
-void Screen::DrawString(std::string text, Font& font, float x, float y)
+void Screen::DrawString(std::string text, float x, float y, Font& font, Color color)
 {
-  spriteBatch.BatchString(text, font, Vector3(x, y, 0));
+  spriteBatch.BatchString(text, Vector3(x, y, 0), font, color, 1);
 }
 
-void Screen::DrawString(std::string text, Font& font, float x, float y, float z)
+void Screen::DrawString(std::string text, float x, float y, float z, Font& font, Color color)
 {
-  spriteBatch.BatchString(text, font, Vector3(x, y, z));
+  spriteBatch.BatchString(text, Vector3(x, y, z), font, color, 1);
 }
 
-void Screen::DrawString(std::string text, Font& font, Color color, Vector3 position)
+void Screen::DrawString(std::string text, Vector3 position, Font& font, Color color, float scale)
 {
-  spriteBatch.BatchString(text, font, color, position);
+  spriteBatch.BatchString(text, position, font, color, scale);
 }
 
-void Screen::DrawString(std::string text, Font& font, Color color, float x, float y)
+void Screen::DrawString(std::string text, float x, float y, Font& font, Color color, float scale)
 {
-  spriteBatch.BatchString(text, font, color, Vector3(x, y, 0));
+  spriteBatch.BatchString(text, Vector3(x, y, 0), font, color, scale);
 }
 
-void Screen::DrawString(std::string text, Font& font, Color color, float x, float y, float z)
+void Screen::DrawString(std::string text, float x, float y, float z, Font& font, Color color, float scale)
 {
-  spriteBatch.BatchString(text, font, color, Vector3(x, y, z));
+  spriteBatch.BatchString(text, Vector3(x, y, z), font, color, scale);
 }
 
 void Screen::DrawSprite(Sprite& sprite, Vector3 position)
