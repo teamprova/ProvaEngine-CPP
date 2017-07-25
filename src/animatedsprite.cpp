@@ -49,7 +49,7 @@ float AnimatedSprite::GetCurrentTime()
 
 int AnimatedSprite::GetCurrentFrame()
 {
-  if(_currentAnimation == NULL)
+  if(_currentAnimation == nullptr)
     return 0;
   
   int frame = GetCurrentTime() / _currentAnimation->frameDuration;
@@ -67,7 +67,7 @@ int AnimatedSprite::GetCurrentAnimation()
 
 void AnimatedSprite::Update()
 {
-  if(_currentAnimation == NULL)
+  if(_currentAnimation == nullptr)
     return;
   
   clip.left = clip.width * GetCurrentFrame();

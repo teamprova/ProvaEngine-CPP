@@ -10,7 +10,7 @@ GLContext::GLContext(void* window)
 {
   handle = SDL_GL_CreateContext((SDL_Window*) window);
   
-  if(handle == NULL)
+  if(handle == nullptr)
   {
     std::string error(SDL_GetError());
     throw std::runtime_error("Error initializing GL Context: " + error);

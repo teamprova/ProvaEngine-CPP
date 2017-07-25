@@ -32,7 +32,7 @@ namespace Prova
       ~AnimatedSprite();
     private:
       std::unordered_map<int, Animation*> _animations;
-      Animation* _currentAnimation = NULL;
+      Animation* _currentAnimation = nullptr;
       unsigned int _startTime;
   };
 }
