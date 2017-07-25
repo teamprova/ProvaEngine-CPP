@@ -15,12 +15,12 @@ namespace Prova
   class ShaderProgram;
   class Sprite;
   class Vector3;
-
+  
   class SpriteBatch
   {
     public:
       SpriteBatch();
-      ShaderProgram shaderProgram;
+      ShaderProgram* shaderProgram;
       void Begin(Matrix transform);
       void BatchString(std::string text, Vector3 position, Font& font, Color color);
       void BatchString(std::string text, Vector3 position, Font& font, Color color, float scale);

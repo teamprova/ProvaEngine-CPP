@@ -4,6 +4,7 @@
 #include "color.hpp"
 #include "font.hpp"
 #include "shaderprogram.hpp"
+#include "spriteshaderprogram.hpp"
 #include "sprite.hpp"
 #include "animatedsprite.hpp"
 #include "vector3.hpp"
@@ -12,42 +13,8 @@ using namespace Prova;
 
 SpriteBatch::SpriteBatch()
 {
-  shaderProgram.AttachVertexShader(
-    R"(#version 130
-    uniform mat4 transforms;
-    in vec4 vertexPosition;
-    out vec2 position;
-
-    void main() {
-      position = vertexPosition.xy;
-      gl_Position = transforms * vertexPosition;
-    })"
-  );
-
-  shaderProgram.AttachFragmentShader(
-    R"(#version 130
-    uniform sampler2D sprite;
-    uniform vec4 clip;
-    uniform vec4 tint;
-
-    in vec2 position;
-    out vec4 fragmentColor;
-
-    void main() {
-      vec2 texPos = vec2(
-        clip.x + (position.x) * clip.z,
-        clip.y + (position.y) * clip.w
-      );
-
-      fragmentColor = texture(sprite, texPos) * tint;
-
-      if(fragmentColor.a == 0)
-        discard;
-    })"
-  );
-
-  shaderProgram.Link();
-
+  static ShaderProgram* defaultShaderProgram = new SpriteShaderProgram();
+  shaderProgram = defaultShaderProgram;
 
   float vertices[] = {
     0, 0, 0, 1,
@@ -131,7 +98,7 @@ void SpriteBatch::End()
   auto positionIt = _positions.begin();
 
   // set the inital value for the tint
-  shaderProgram.SetVector4("tint", lastTint);
+  shaderProgram->SetVector4("tint", lastTint);
 
   for(int i = 0; i < spriteCount; ++i)
   {
@@ -140,13 +107,13 @@ void SpriteBatch::End()
 
     if(sprite.texture.id != lastTexture)
     {
-      shaderProgram.SetTexture(0, sprite.texture);
+      shaderProgram->SetTexture(0, sprite.texture);
       lastTexture = sprite.texture.id;
     }
 
     if(sprite.tint != lastTint)
     {
-      shaderProgram.SetVector4("tint", sprite.tint);
+      shaderProgram->SetVector4("tint", sprite.tint);
       lastTint = sprite.tint;
     }
     
@@ -165,7 +132,7 @@ void SpriteBatch::DrawSprite(Sprite& sprite, Vector3& position)
   model = model.RotateZ(sprite.angle);
   model = model.Translate(position.x, position.y, position.z);
 
-  shaderProgram.SetMatrix("transforms", _transform * model);
-  shaderProgram.SetVector4("clip", sprite.clip);
-  shaderProgram.DrawMesh(ShaderProgram::DrawMode::TRIANGLE_FAN, _mesh);
+  shaderProgram->SetMatrix("transforms", _transform * model);
+  shaderProgram->SetVector4("clip", sprite.clip);
+  shaderProgram->DrawMesh(ShaderProgram::DrawMode::TRIANGLE_FAN, _mesh);
 }
