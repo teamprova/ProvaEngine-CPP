@@ -14,7 +14,8 @@ namespace Prova
 
     public:
       Sprite();
-      Sprite(std::string sheetpath, int width, int height);
+      Sprite(Texture texture);
+      Sprite(std::string sheetpath);
       int angle = 0;
       int width;
       int height;

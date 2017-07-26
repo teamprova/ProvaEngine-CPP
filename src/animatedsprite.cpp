@@ -9,7 +9,11 @@
 using namespace Prova;
 
 AnimatedSprite::AnimatedSprite(std::string sheetpath, int width, int height)
-  : Sprite(sheetpath, width, height) { }
+  : Sprite(sheetpath)
+{
+  clip.width = width / clip.width;
+  clip.height = height / clip.height;
+}
 
 void AnimatedSprite::CreateAnimation(int id, int row, int frameCount, float frameDuration)
 {

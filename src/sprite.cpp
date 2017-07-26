@@ -14,17 +14,15 @@ Sprite::Sprite()
   scale.y = 1;
 }
 
-Sprite::Sprite(std::string sheetpath, int width, int height)
-  : texture(sheetpath)
+Sprite::Sprite(Texture texture)
+  : Sprite()
 {
-  this->width = width;
-  this->height = height;
-  clip.left = 0;
-  clip.top = 0;
-  clip.width = width / (float) texture.width;
-  clip.height = height / (float) texture.height;
+  this->texture = texture;
+  width = texture.width;
+  height = texture.height;
   origin.x = width / 2;
   origin.y = height / 2;
-  scale.x = 1;
-  scale.y = 1;
 }
+
+Sprite::Sprite(std::string sheetpath)
+  : Sprite(Texture(sheetpath)) { }
