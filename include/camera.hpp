@@ -16,7 +16,7 @@ namespace Prova
       Projection projection = Projection::Perspective;
       SortingMethod sortingMethod = SortingMethod::Distance;
       bool useDepthBuffer = true;
-      bool resolutionDependant = false;
+      bool resolutionDependent = false;
       float zNear = -100;
       float zFar = 100;
       

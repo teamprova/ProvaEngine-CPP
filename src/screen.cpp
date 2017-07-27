@@ -106,7 +106,7 @@ void Screen::BeginDraw()
   else
     glDisable(GL_DEPTH_TEST);
   
-  if(camera.resolutionDependant)
+  if(camera.resolutionDependent)
   {
     camera.width = _width;
     camera.height = _height;
