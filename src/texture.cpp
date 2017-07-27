@@ -1,5 +1,6 @@
-#include <glew.h>
-#include <SOIL.h>
+#define STB_IMAGE_IMPLEMENTATION
+#include <stb_image.h>
+#include <glad.h>
 #include <unordered_map>
 #include <string>
 #include "texture.hpp"
@@ -41,34 +42,25 @@ Texture::Texture(unsigned char data[], int width, int height)
 
 Texture::Texture(std::string path)
 {
-  Texture* cachedTexture = FetchTexture(path);
+  Texture& cachedTexture = FetchTexture(path);
 
-  id = cachedTexture->id;
-  width = cachedTexture->width;
-  height = cachedTexture->height;
+  id = cachedTexture.id;
+  width = cachedTexture.width;
+  height = cachedTexture.height;
 }
 
-Texture* Texture::FetchTexture(std::string path)
+Texture& Texture::FetchTexture(std::string path)
 {
-  bool cached = _textureCache.count(path) == 1;
+  bool cached = _textureCache.find(path) != _textureCache.end();
 
   if(cached)
-    return _textureCache[path];
+    return *_textureCache[path];
 
-  Texture* texture = _textureCache[path] = new Texture();
+  int width, height, components;
+  unsigned char* data = stbi_load(path.c_str(), &width, &height, &components, 4);
 
-  texture->id = SOIL_load_OGL_texture(
-    path.c_str(),
-    SOIL_LOAD_AUTO,
-    SOIL_CREATE_NEW_ID,
-    SOIL_FLAG_INVERT_Y
-  );
+  Texture* texture = new Texture(data, width, height);
+  _textureCache[path] = texture;
 
-  glGetTexLevelParameteriv(GL_TEXTURE_2D, 0, GL_TEXTURE_WIDTH, &texture->width);
-  glGetTexLevelParameteriv(GL_TEXTURE_2D, 0, GL_TEXTURE_HEIGHT, &texture->height);
-
-  glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
-  glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
-
-  return texture;
+  return *texture;
 }

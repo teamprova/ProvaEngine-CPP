@@ -1,4 +1,4 @@
-#include <glew.h>
+#include <glad.h>
 #include <SDL.h>
 #include <SDL_opengl.h>
 #include <stdexcept>
@@ -16,12 +16,9 @@ GLContext::GLContext(void* window)
     throw std::runtime_error("Error initializing GL Context: " + error);
   }
   
-  //Initialize GLEW
-  GLenum glewError = glewInit();
-
-  if(glewError != GLEW_OK)
+  if(!gladLoadGL())
   {
-    throw std::runtime_error("Failed to initialize GLEW");
+    throw std::runtime_error("Failed to initialize glad OpenGL loader");
   }
 }
 

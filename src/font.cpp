@@ -1,4 +1,3 @@
-#include <glew.h>
 #include <math.h>
 #include <iostream>
 #include <fstream>

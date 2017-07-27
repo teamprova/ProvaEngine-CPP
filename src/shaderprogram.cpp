@@ -1,4 +1,4 @@
-#include <glew.h>
+#include <glad.h>
 #include <fstream>
 #include <string>
 #include <cerrno>

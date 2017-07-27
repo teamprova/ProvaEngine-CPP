@@ -1,4 +1,5 @@
 apply plugin: "cpp"
+apply plugin: "c"
 
 model {
   toolChains {
@@ -32,44 +33,8 @@ model {
 
   repositories {
     libs(PrebuiltLibraries) {
-      GLEW {
-        headers.srcDir "third party/include/GLEW"
-        binaries.withType(StaticLibraryBinary) {
-          def os = getTargetPlatform().getOperatingSystem()
-
-          if(!os.isCurrent())
-            return;
-          
-          if(os.isWindows())
-            staticLibraryFile = file("third party/lib/glew32s.lib")
-          else if(os.isLinux())
-            staticLibraryFile = file("third party/lib/libGLEW.a")
-        }
-      }
-
-      GL {
-        headers.srcDir "third party/include/GL"
-        binaries.withType(SharedLibraryBinary) {
-          def os = getTargetPlatform().getOperatingSystem()
-          def architecture = getTargetPlatform().getArchitecture()
-          
-          if(!os.isCurrent())
-            return;
-          
-          if(os.isWindows())
-          {
-            def parentFolder = architecture.getName() == "x86" ? "C:/Windows/System32/" : "C:/Windows/SysWOW64/"
-            sharedLibraryFile = file("${parentFolder}opengl32.dll")
-          }
-          else if(os.isLinux())
-          {
-            sharedLibraryFile = file("/usr/lib/libGL.so")
-          }
-        }
-      }
-
-      SDL {
-        headers.srcDir "third party/include/SDL2"
+      SDL2 {
+        headers.srcDir "third party/SDL2/include"
         binaries.withType(SharedLibraryBinary) {
           def os = getTargetPlatform().getOperatingSystem()
 
@@ -77,7 +42,7 @@ model {
             return;
           
           if(os.isWindows())
-            sharedLibraryFile = file("third party/lib/SDL2.dll")
+            sharedLibraryFile = file("third party/SDL2/lib/SDL2.dll")
           else if(os.isLinux())
             sharedLibraryFile = file("/usr/lib/libSDL2.so")
         }
@@ -89,20 +54,9 @@ model {
     ProvaEngine(NativeLibrarySpec) {
       sources {
         cpp {
-          lib project: ':SOIL', library: 'SOIL'
-          lib library: 'SDL'
-          lib library: 'GLEW'
-          lib library: 'GL'
-          exportedHeaders.srcDir "include"
-          source.srcDir "src"
-        }
-      }
-      
-      binaries.all {
-        cppCompiler.define "GLEW_STATIC"
-        
-        if (toolChain in Gcc) {
-          cppCompiler.args "-O2"
+          lib library: 'SDL2'
+          exportedHeaders.srcDirs "include", "third party/glad/include", "third party/stb/include"
+          source.srcDirs "src", "third party/glad/src"
         }
       }
     }

@@ -3,9 +3,7 @@
 ## Building
 
 * Install Gradle, gcc, and g++
-* Create a "third party" folder, with an include subfolder and lib subfolder
-* Create folders GL, GLEW, SDL2 in the include directory
-* Place the header files for the matching library in each folder
-* Place the lib/a file for GLEW in the lib folder.
-* Place SDL2.dll in the lib folder (if using Windows, otherwise just install SDL2)
+* Create a folder in the "third party" folder named "SDL2"
+* Make a folder named "include" in the SDL2 folder with associated header files inside
+* Create a "lib" folder in the SDL2 folder and place SDL2.dll inside (if using Windows, otherwise just install SDL2)
 * Run `gradle ProvaEngineStaticLibrary`, if it compiles properly you should see BUILD SUCCESSFUL around the end of Gradle's output
