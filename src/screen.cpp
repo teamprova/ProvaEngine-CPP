@@ -162,10 +162,10 @@ void Screen::DrawRect(Color color, Rect rect)
 void Screen::DrawRect(Color color, float x, float y, float width, float height)
 {
   float vertices[] = {
-    x, y, 0,
+    x, y - height, 0,
+    x + width, y - height, 0,
     x + width, y, 0,
-    x + width, y + height, 0,
-    x, y + height, 0
+    x, y, 0
   };
   unsigned int indexes[] = { 0, 1, 2, 3 };
 

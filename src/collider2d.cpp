@@ -14,8 +14,8 @@ Collider2D::Collider2D(Entity* entity)
 Vector2 Collider2D::GetPosition()
 {
   return Vector2(
-    offset.x + entity.position.x,
-    offset.y + entity.position.y
+    entity.position.x + offset.x,
+    entity.position.y + offset.y
   );
 }
 
@@ -26,7 +26,7 @@ Rect Collider2D::GetBounds()
 
   return Rect(
     position.x - size.x / 2,
-    position.y - size.y / 2,
+    position.y + size.y / 2,
     size.x,
     size.y
   );
@@ -90,7 +90,7 @@ bool Collider2D::PointIntersectsRect(PointCollider& point, RectCollider& rect)
   Rect bounds = rect.GetBounds();
 
   return position.x > bounds.left && position.x < bounds.left + bounds.width &&
-         position.y > bounds.top && position.y < bounds.top + bounds.height;
+         position.y < bounds.top && position.y > bounds.top - bounds.height;
 }
 
 //bool Collider2D::PointIntersectsPixel(PointCollider&, PixelCollider&);
@@ -117,8 +117,8 @@ bool Collider2D::RectIntersectsRect(RectCollider& rectA, RectCollider& rectB)
 
   return positionA.x < positionB.x + rectB.width &&
          positionA.x + rectA.width > positionB.x &&
-         positionA.y < positionB.y + rectB.height &&
-         positionA.y + rectA.height > positionB.y;
+         positionA.y > positionB.y - rectB.height &&
+         positionA.y - rectA.height < positionB.y;
 }
 
 //bool Collider2D::RectIntersectsPixel(RectCollider&, PixelCollider&);

@@ -18,6 +18,11 @@ Font::Font(std::string path)
   LoadBDF(path);
 }
 
+int Font::GetMaxHeight()
+{
+  return _maxHeight;
+}
+
 bool Font::HasGlyph(int character)
 {
   return _glyphs.find(character) != _glyphs.end();
@@ -114,6 +119,10 @@ void Font::LoadBDF(std::string path)
       
       // copy its bitmap
       bitmaps.emplace(glyph.encoding, bitmap);
+
+      // finding the tallest glyph
+      if(glyph.height > _maxHeight)
+        _maxHeight = glyph.height;
 
       // add height to the total for later stitching/compression
       totalHeight += glyph.height;

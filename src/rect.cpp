@@ -26,10 +26,10 @@ Vector2 Rect::GetTopRight()
 
 Vector2 Rect::GetBottomLeft()
 {
-  return Vector2(left, top + height);
+  return Vector2(left, top - height);
 }
 
 Vector2 Rect::GetBottomRight()
 {
-  return Vector2(left + width, top + height);
+  return Vector2(left + width, top - height);
 }

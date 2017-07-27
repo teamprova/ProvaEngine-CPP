@@ -30,10 +30,12 @@ namespace Prova
     public:
       Font(std::string path);
       Texture texture;
+      int GetMaxHeight();
       bool HasGlyph(int character);
       Glyph GetGlyph(int character);
       Vector2 MeasureString(std::string text, float scale);
     private:
+      int _maxHeight = 0;
       std::map<int, Glyph> _glyphs;
       void LoadBDF(std::string path);
       Bitmap GetBitmapBDF(std::ifstream& file, int height);

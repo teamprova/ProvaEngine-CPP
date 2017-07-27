@@ -52,6 +52,9 @@ void SpriteBatch::BatchString(std::string text, Vector3 position, Font& font, Co
   sprite.tint = color;
   sprite.scale.x = sprite.scale.y = scale;
 
+  // lower the text to draw from the top left
+  position.y -= font.GetMaxHeight();
+
   for(int i = 0; i < text.size(); ++i)
   {
     int c = text[i];
@@ -63,6 +66,9 @@ void SpriteBatch::BatchString(std::string text, Vector3 position, Font& font, Co
     sprite.clip = glyph.clip;
     sprite.width = glyph.width;
     sprite.height = glyph.height;
+
+    // lower the sprite to draw from the top left
+    glyph.offset.y -= sprite.height;
 
     BatchSprite(sprite, position + glyph.offset * scale);
 
@@ -130,7 +136,7 @@ void SpriteBatch::DrawSprite(Sprite& sprite, Vector3& position)
   model = model.Translate(-sprite.origin);
   model = model.Scale(sprite.scale);
   model = model.RotateZ(sprite.angle);
-  model = model.Translate(position.x, position.y, position.z);
+  model = model.Translate(position.x, position.y + sprite.height, position.z);
 
   shaderProgram->SetMatrix("transforms", _transform * model);
   shaderProgram->SetVector4("clip", sprite.clip);
