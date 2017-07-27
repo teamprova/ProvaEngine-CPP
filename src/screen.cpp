@@ -118,7 +118,7 @@ void Screen::BeginDraw()
   spriteBatch.Begin(_transforms);
 }
 
-void Screen::DrawLine(Color color, Vector3 start, Vector3 end)
+void Screen::DrawLine(Vector3 start, Vector3 end, Color color)
 {
   float vertices[] = {
     start.x, start.y, start.z,
@@ -135,12 +135,12 @@ void Screen::DrawLine(Color color, Vector3 start, Vector3 end)
   flatShaderProgram.DrawMesh(ShaderProgram::DrawMode::LINES, mesh);
 }
 
-void Screen::DrawLine(Color color, Vector2 start, Vector2 end)
+void Screen::DrawLine(Vector2 start, Vector2 end, Color color)
 {
-  DrawLine(color, start.x, start.y, end.x, end.y);
+  DrawLine(start.x, start.y, end.x, end.y, color);
 }
 
-void Screen::DrawLine(Color color, float x1, float y1, float x2, float y2)
+void Screen::DrawLine(float x1, float y1, float x2, float y2, Color color)
 {
   float vertices[] = { x1, y1, 0, x2, y2, 0 };
   unsigned int indexes[] = { 0, 1 };
@@ -154,12 +154,12 @@ void Screen::DrawLine(Color color, float x1, float y1, float x2, float y2)
   flatShaderProgram.DrawMesh(ShaderProgram::DrawMode::LINES, mesh);
 }
 
-void Screen::DrawRect(Color color, Rect rect)
+void Screen::DrawRect(Rect rect, Color color)
 {
-  DrawRect(color, rect.left, rect.top, rect.width, rect.height);
+  DrawRect(rect.left, rect.top, rect.width, rect.height, color);
 }
 
-void Screen::DrawRect(Color color, float x, float y, float width, float height)
+void Screen::DrawRect(float x, float y, float width, float height, Color color)
 {
   float vertices[] = {
     x, y - height, 0,

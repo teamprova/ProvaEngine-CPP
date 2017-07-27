@@ -21,5 +21,5 @@ void PointCollider::Draw(Screen& screen)
   Color color = collisionOccurred ? Color(1, 0, 0) : Color(0, 0, 1);
   Vector3 position = GetPosition();
 
-  screen.DrawLine(color, position, position);
+  screen.DrawLine(position, position, color);
 }

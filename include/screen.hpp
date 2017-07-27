@@ -36,11 +36,11 @@ namespace Prova
       void EnableVSync();
       void DisableVSync();
       void BeginDraw();
-      void DrawLine(Color color, Vector3 start, Vector3 end);
-      void DrawLine(Color color, Vector2 start, Vector2 end);
-      void DrawLine(Color color, float x1, float y1, float x2, float y2);
-      void DrawRect(Color color, Rect rect);
-      void DrawRect(Color color, float x, float y, float width, float height);
+      void DrawLine(Vector3 start, Vector3 end, Color color);
+      void DrawLine(Vector2 start, Vector2 end, Color color);
+      void DrawLine(float x1, float y1, float x2, float y2, Color color);
+      void DrawRect(Rect rect, Color color);
+      void DrawRect(float x, float y, float width, float height, Color color);
       void DrawString(std::string text, Vector3 position, Font& font, Color color);
       void DrawString(std::string text, float x, float y, Font& font, Color color);
       void DrawString(std::string text, float x, float y, float z, Font& font, Color color);

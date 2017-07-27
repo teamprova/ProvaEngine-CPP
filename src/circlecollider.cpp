@@ -30,9 +30,9 @@ void CircleCollider::Draw(Screen& screen)
   Vector3 bottomLeft = bounds.GetBottomLeft();
   Vector3 bottomRight = bounds.GetBottomRight();
 
-  screen.DrawLine(color, topLeft, topRight);
-  screen.DrawLine(color, topRight, bottomRight);
-  screen.DrawLine(color, bottomRight, bottomLeft);
-  screen.DrawLine(color, bottomLeft, topLeft);
-  screen.DrawLine(color, position, position);
+  screen.DrawLine(topLeft, topRight, color);
+  screen.DrawLine(topRight, bottomRight, color);
+  screen.DrawLine(bottomRight, bottomLeft, color);
+  screen.DrawLine(bottomLeft, topLeft, color);
+  screen.DrawLine(position, position, color);
 }
