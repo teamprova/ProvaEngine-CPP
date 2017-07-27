@@ -1,6 +1,6 @@
 // extra
 #include "watch.hpp"
-#include "debug.hpp"
+#include "logging.hpp"
 
 // core
 #include "game.hpp"
