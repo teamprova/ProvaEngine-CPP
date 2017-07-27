@@ -8,7 +8,7 @@
 
 using namespace Prova;
 
-Game::Game(int width, int height, std::string title)
+Game::Game(std::string title, int width, int height)
 {
   if(SDL_Init(SDL_INIT_EVERYTHING) < 0)
   {
@@ -37,6 +37,11 @@ Game::Game(int width, int height, std::string title)
 void Game::SetTitle(std::string title)
 {
   SDL_SetWindowTitle((SDL_Window*) _window, title.c_str());
+}
+
+void Game::SetTargetFPS(int target)
+{
+  _targetFPS = target;
 }
 
 void Game::ToggleFullscreen()
@@ -71,7 +76,7 @@ void Game::Loop()
 
   while(_running)
   {
-    int frameDuration = 1000/FPS;
+    int frameDuration = 1000 / _targetFPS;
     lag += watch.GetElapsedMilliseconds();
     watch.Restart();
 

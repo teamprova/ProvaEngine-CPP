@@ -16,13 +16,13 @@ namespace Prova
       Sprite();
       Sprite(Texture texture);
       Sprite(std::string sheetpath);
-      int angle = 0;
+      int angle;
       int width;
       int height;
       Texture texture;
       Vector2 origin;
       Vector2 scale;
       Rect clip;
-      Color tint = Color(1, 1, 1);
+      Color tint;
   };
 }

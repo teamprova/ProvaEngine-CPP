@@ -5,14 +5,11 @@
 using namespace Prova;
 
 Sprite::Sprite()
-{
-  clip.left = 0;
-  clip.top = 0;
-  clip.width = 1;
-  clip.height = 1;
-  scale.x = 1;
-  scale.y = 1;
-}
+  : angle(0),
+    clip(0, 0, 1, 1),
+    scale(1, 1),
+    tint(1, 1, 1)
+{ }
 
 Sprite::Sprite(Texture texture)
   : Sprite()

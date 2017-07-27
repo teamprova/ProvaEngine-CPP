@@ -13,12 +13,12 @@ namespace Prova
     friend class Screen;
 
     public:
-      Game(int width, int height, std::string title);
+      Game(std::string title, int width, int height);
       Scene* scene = nullptr;
       Screen* screen = nullptr;
       Input input;
-      int FPS = 60;
       void SetTitle(std::string title);
+      void SetTargetFPS(int target);
       void ToggleFullscreen();
       void SwapScene(Scene* scene);
       void Start(Scene* scene);
@@ -32,5 +32,6 @@ namespace Prova
       void* _window;
       bool _isFullscreen = false;
       bool _running = false;
+      int _targetFPS = 60;
   };
 }

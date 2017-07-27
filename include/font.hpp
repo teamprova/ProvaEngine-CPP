@@ -29,11 +29,12 @@ namespace Prova
 
     public:
       Font(std::string path);
-      std::map<int, Glyph> glyphs;
       Texture texture;
       bool HasGlyph(int character);
+      Glyph GetGlyph(int character);
       Vector2 MeasureString(std::string text, float scale);
     private:
+      std::map<int, Glyph> _glyphs;
       void LoadBDF(std::string path);
       Bitmap GetBitmapBDF(std::ifstream& file, int height);
       void StitchTexture(std::map<int, Bitmap>& glyphBitmaps, int height);

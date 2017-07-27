@@ -18,9 +18,9 @@ namespace Prova
     friend class SpacialMap2D;
 
     public:
+      Scene* scene = nullptr;
       Vector3 position;
       Vector3 velocity;
-      Scene* scene = nullptr;
       void AddTag(int tag);
       void RemoveTag(int tag);
       bool HasTag(int tag);

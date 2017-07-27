@@ -21,10 +21,10 @@ namespace Prova
 
     public:
       AnimatedSprite(std::string sheetpath, int width, int height);
-      bool looping = false;
       void CreateAnimation(int id, int row, int frameCount, float frameDuration);
       void PlayAnimation(int id, bool loop);
       bool IsAnimationFinished();
+      bool IsLooping();
       float GetCurrentTime();
       int GetCurrentFrame();
       int GetCurrentAnimation();
@@ -34,5 +34,6 @@ namespace Prova
       std::unordered_map<int, Animation*> _animations;
       Animation* _currentAnimation = nullptr;
       unsigned int _startTime;
+      bool _looping = false;
   };
 }

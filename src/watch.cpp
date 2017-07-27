@@ -7,41 +7,41 @@ using namespace Prova;
 // Acts as a start/resume function
 void Watch::Start()
 {
-  isRunning = true;
+  _isRunning = true;
   
   // reset
-  if(startTime == 0)
+  if(_startTime == 0)
   {
-    breakLength = 0;
-    lastStopTime = 0;
-    startTime = SDL_GetTicks();
+    _breakLength = 0;
+    _lastStopTime = 0;
+    _startTime = SDL_GetTicks();
   }
   
-  if(lastStopTime != 0)
+  if(_lastStopTime != 0)
   {
-    breakLength += startTime - lastStopTime;
-    lastStopTime = 0;
+    _breakLength += _startTime - _lastStopTime;
+    _lastStopTime = 0;
   }
 }
 
 void Watch::Pause()
 {
-  isRunning = false;
-  lastStopTime = SDL_GetTicks();
+  _isRunning = false;
+  _lastStopTime = SDL_GetTicks();
 }
 
 // Stops timing and resets
 void Watch::Reset()
 {
-  isRunning = false;
-  startTime = 0;
-  lastStopTime = 0;
+  _isRunning = false;
+  _startTime = 0;
+  _lastStopTime = 0;
 }
 
 // Resets and starts again
 void Watch::Restart()
 {
-  startTime = 0;
+  _startTime = 0;
   
   Start();
 }
@@ -50,8 +50,13 @@ void Watch::Restart()
 // maybe this should be renamed?
 int Watch::GetElapsedMilliseconds()
 {
-  if(startTime == 0)
+  if(_startTime == 0)
     throw std::runtime_error("Watch never started");
   
-  return SDL_GetTicks() - startTime - breakLength;
+  return SDL_GetTicks() - _startTime - _breakLength;
+}
+
+bool Watch::IsRunning()
+{
+  return _isRunning;
 }

@@ -30,7 +30,7 @@ void AnimatedSprite::CreateAnimation(int id, int row, int frameCount, float fram
 void AnimatedSprite::PlayAnimation(int id, bool loop)
 {
   _startTime = SDL_GetTicks();
-  looping = loop;
+  _looping = loop;
   
   _currentAnimation = _animations[id];
 }
@@ -40,12 +40,17 @@ bool AnimatedSprite::IsAnimationFinished()
   return GetCurrentTime() > _currentAnimation->duration;
 }
 
+bool AnimatedSprite::IsLooping()
+{
+  return _looping;
+}
+
 float AnimatedSprite::GetCurrentTime()
 {
   float currentTime = SDL_GetTicks() - _startTime;
   currentTime /= 1000.0f;
 
-  if(looping)
+  if(_looping)
     currentTime = fmod(currentTime, _currentAnimation->duration);
 
   return currentTime;

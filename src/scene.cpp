@@ -11,6 +11,21 @@
 
 using namespace Prova;
 
+void Scene::EnableDebug()
+{
+  _debug = true;
+}
+
+void Scene::DisableDebug()
+{
+  _debug = false;
+}
+
+bool Scene::IsDebugEnabled()
+{
+  return _debug;
+}
+
 void Scene::AddEntity(Entity& entity)
 {
   entities.push_back(&entity);
@@ -132,6 +147,6 @@ void Scene::Draw(Screen& screen)
     entity.Draw(screen);
   }
   
-  if(debug)
+  if(IsDebugEnabled())
     _collider2DMap.Draw(*game->screen);
 }

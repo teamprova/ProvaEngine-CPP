@@ -23,9 +23,11 @@ namespace Prova
     public:
       Game* game = nullptr;
       Input* input = nullptr;
-      bool debug = false;
       Camera camera;
       std::list<Entity*> entities;
+      void EnableDebug();
+      void DisableDebug();
+      bool IsDebugEnabled();
       void AddEntity(Entity& entity);
       void RemoveEntity(Entity& entity);
       Entity& FindClosestEntity(Entity& entity);
@@ -42,6 +44,7 @@ namespace Prova
       void EntityUpdate();
       virtual void Draw(Screen& screen);
     private:
+      bool _debug;
       bool _setup = false;
       const uint8_t* _keystate;
       SpacialMap2D _collider2DMap;

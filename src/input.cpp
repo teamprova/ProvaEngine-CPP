@@ -26,8 +26,8 @@ void Input::Update()
   int x, y;
   SDL_GetMouseState(&x, &y);
 
-  mouse.x = x;
-  mouse.y = y;
+  _mousePosition.x = x;
+  _mousePosition.y = y;
 }
 
 void Input::UpdateKeystate()
@@ -82,4 +82,9 @@ bool Input::IsMouseButtonDown(int mouseButton)
 bool Input::IsMouseButtonUp(int mouseButton)
 {
   return !SDL_BUTTON(mouseButton);
+}
+
+Vector2 Input::GetMousePosition()
+{
+  return _mousePosition;
 }

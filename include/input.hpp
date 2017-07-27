@@ -12,7 +12,6 @@ namespace Prova
   class Input
   {
     public:
-      Vector2 mouse;
       void Init();
       void Update();
       Controller& GetController(int index);
@@ -22,10 +21,12 @@ namespace Prova
       Vector2 SimulateStick(Key up, Key left, Key down, Key right);
       bool IsMouseButtonDown(int mouseButton);
       bool IsMouseButtonUp(int mouseButton);
+      Vector2 GetMousePosition();
     private:
       std::map<int, Controller*> _controllers;
       std::vector<bool> _keystate;
       std::vector<bool> _oldKeystate;
+      Vector2 _mousePosition;
       void UpdateKeystate();
   };
 }

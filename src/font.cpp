@@ -21,7 +21,12 @@ Font::Font(std::string path)
 
 bool Font::HasGlyph(int character)
 {
-  return glyphs.find(character) != glyphs.end();
+  return _glyphs.find(character) != _glyphs.end();
+}
+
+Glyph Font::GetGlyph(int character)
+{
+  return _glyphs[character];
 }
 
 Vector2 Font::MeasureString(std::string text, float scale)
@@ -37,7 +42,7 @@ Vector2 Font::MeasureString(std::string text, float scale)
     if(!HasGlyph(c))
       continue;
 
-    Glyph& glyph = glyphs[c];
+    Glyph& glyph = _glyphs[c];
 
     // get the top of the glyph
     float top = position.y + glyph.offset.y + glyph.height;
@@ -106,7 +111,7 @@ void Font::LoadBDF(std::string path)
     else if(keyword == "ENDCHAR")
     {
       // copy this glyph to the glyph map
-      glyphs.emplace(glyph.encoding, glyph);
+      _glyphs.emplace(glyph.encoding, glyph);
       
       // copy its bitmap
       bitmaps.emplace(glyph.encoding, bitmap);
@@ -181,7 +186,7 @@ void Font::StitchTexture(std::map<int, Bitmap>& glyphBitmaps, int height)
   int top = 0, left = 0, width = 0;
   Bitmap textureBitmap(height);
 
-  auto glyphIt = glyphs.begin();
+  auto glyphIt = _glyphs.begin();
   auto bitmapIt = glyphBitmaps.begin();
 
   while(bitmapIt != glyphBitmaps.end())
@@ -239,7 +244,7 @@ void Font::StitchTexture(std::map<int, Bitmap>& glyphBitmaps, int height)
 
   // adjust glyph clipping to be percentage based
   // rather than pixel based
-  for(auto& it : glyphs)
+  for(auto& it : _glyphs)
   {
     Glyph& glyph = it.second;
 

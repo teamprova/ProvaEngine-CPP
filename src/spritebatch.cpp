@@ -59,7 +59,7 @@ void SpriteBatch::BatchString(std::string text, Vector3 position, Font& font, Co
     if(!font.HasGlyph(c))
       continue;
 
-    Glyph& glyph = font.glyphs[c];
+    Glyph glyph = font.GetGlyph(c);
     sprite.clip = glyph.clip;
     sprite.width = glyph.width;
     sprite.height = glyph.height;
