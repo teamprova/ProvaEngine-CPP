@@ -16,12 +16,13 @@ namespace Prova
       Projection projection = Projection::Perspective;
       SortingMethod sortingMethod = SortingMethod::Distance;
       bool useDepthBuffer = true;
+      bool resolutionDependant = false;
       float zNear = -100;
       float zFar = 100;
       
-      // for orthographic projection
-      int width = 800;
-      int height = 600;
+      // for orthographic projection and UI
+      float width = 1;
+      float height = 1;
       // for perspective projection
       float FOV = 90;
 
@@ -30,5 +31,6 @@ namespace Prova
       Vector3 rotation;
       Matrix GetTransform();
       Matrix GetProjection();
+      Matrix GetUIMatrix();
   };
 }

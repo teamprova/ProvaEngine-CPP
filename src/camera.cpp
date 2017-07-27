@@ -23,3 +23,8 @@ Matrix Camera::GetProjection()
     return Matrix::Ortho(-width/2, width/2, -height/2, height/2, zNear, zFar);
   return Matrix::Perspective(width, height, zNear, zFar, FOV);
 }
+
+Matrix Camera::GetUIMatrix()
+{
+  return Matrix::Ortho(0, width * scale.x, 0, height * scale.y, -1, 1);
+}

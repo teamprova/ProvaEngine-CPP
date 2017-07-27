@@ -20,6 +20,7 @@ namespace Prova
       void SetTitle(std::string title);
       void SetTargetFPS(int target);
       void ToggleFullscreen();
+      void SetResizable(bool resizable);
       void SwapScene(Scene* scene);
       void Start(Scene* scene);
       void Close();

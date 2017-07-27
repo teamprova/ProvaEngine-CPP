@@ -54,6 +54,11 @@ void Game::ToggleFullscreen()
   );
 }
 
+void Game::SetResizable(bool resizable)
+{
+  SDL_SetWindowResizable((SDL_Window*) _window, (SDL_bool) resizable);
+}
+
 void Game::Start(Scene* scene)
 {
   if(_running)
@@ -107,9 +112,13 @@ void Game::Update()
       case SDL_QUIT:
         Close();
         return;
-      case SDL_WINDOWEVENT_SIZE_CHANGED:
-        screen->_width = event.window.data1;
-        screen->_height = event.window.data2;
+      case SDL_WINDOWEVENT:
+        switch(event.window.event)
+        {
+          case SDL_WINDOWEVENT_RESIZED:
+            screen->UpdateResolution(event.window.data1, event.window.data2);
+            break;
+        }
         break;
     }
   }

@@ -27,7 +27,6 @@ Screen::Screen(Game* game)
   glDepthFunc(GL_LEQUAL);
 }
 
-
 void Screen::InitFlatShader()
 {
   flatShaderProgram.AttachVertexShader(
@@ -63,6 +62,20 @@ int Screen::GetHeight()
   return _height;
 }
 
+void Screen::Resize(int width, int height)
+{
+  SDL_SetWindowSize((SDL_Window*) game->_window, width, height);
+  UpdateResolution(width, height);
+}
+
+void Screen::UpdateResolution(int width, int height)
+{
+  _width = width;
+  _height = height;
+
+  glViewport(0, 0, _width, _height);
+}
+
 void Screen::EnableVSync()
 {
   if(SDL_GL_SetSwapInterval(1) < 0)
@@ -83,17 +96,24 @@ void Screen::DisableVSync()
 
 void Screen::BeginDraw()
 {
+  Camera& camera = game->scene->camera;
+
   glEnable(GL_BLEND);
   glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
   
-  if(game->scene->camera.useDepthBuffer)
+  if(camera.useDepthBuffer)
     glEnable(GL_DEPTH_TEST);
   else
     glDisable(GL_DEPTH_TEST);
   
-  Matrix cameraTransform = game->scene->camera.GetTransform();
-  _transforms = game->scene->camera.GetProjection() * cameraTransform;
-  _2DProjection = Matrix::Ortho(0, _width, 0, _height, -1, 1);
+  if(camera.resolutionDependant)
+  {
+    camera.width = _width;
+    camera.height = _height;
+  }
+  
+  _transforms = camera.GetProjection() * camera.GetTransform();
+  _UIProjection = camera.GetUIMatrix();
 
   spriteBatch.Begin(_transforms);
 }
@@ -129,7 +149,7 @@ void Screen::DrawLine(Color color, float x1, float y1, float x2, float y2)
   mesh.SetVBO(vertices, 6, 3);
   mesh.SetIBO(indexes, 2);
 
-  flatShaderProgram.SetMatrix("projection", _2DProjection);
+  flatShaderProgram.SetMatrix("projection", _UIProjection);
   flatShaderProgram.SetVector4("color", color);
   flatShaderProgram.DrawMesh(ShaderProgram::DrawMode::LINES, mesh);
 }
@@ -153,7 +173,7 @@ void Screen::DrawRect(Color color, float x, float y, float width, float height)
   mesh.SetVBO(vertices, 12, 3);
   mesh.SetIBO(indexes, 4);
 
-  flatShaderProgram.SetMatrix("projection", _2DProjection);
+  flatShaderProgram.SetMatrix("projection", _UIProjection);
   flatShaderProgram.SetVector4("color", color);
   flatShaderProgram.DrawMesh(ShaderProgram::DrawMode::LINE_LOOP, mesh);
 }

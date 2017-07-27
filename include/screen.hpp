@@ -32,6 +32,7 @@ namespace Prova
       SpriteBatch spriteBatch;
       int GetWidth();
       int GetHeight();
+      void Resize(int width, int height);
       void EnableVSync();
       void DisableVSync();
       void BeginDraw();
@@ -57,10 +58,10 @@ namespace Prova
       void Clear();
       void SwapBuffer();
     private:
-      void InitGL();
       void InitFlatShader();
+      void UpdateResolution(int width, int height);
       Matrix _transforms;
-      Matrix _2DProjection;
+      Matrix _UIProjection;
       Color _clearColor;
       int _width;
       int _height;
