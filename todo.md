@@ -3,6 +3,8 @@
 add a description for the engine
 
 ## Priority
+* Colliders
+    * Collision between circles and rectangles
 * Sound class
     * Path
     * Play - maybe play through an audio class instead?
