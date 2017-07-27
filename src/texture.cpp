@@ -1,5 +1,4 @@
 #include <glew.h>
-#include <gl.h>
 #include <SOIL.h>
 #include <unordered_map>
 #include <string>

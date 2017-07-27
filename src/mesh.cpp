@@ -1,5 +1,4 @@
 #include <glew.h>
-#include <gl.h>
 #include "mesh.hpp"
 #include "shaderprogram.hpp"
 
