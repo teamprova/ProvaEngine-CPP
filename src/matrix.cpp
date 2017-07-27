@@ -169,7 +169,7 @@ Matrix Matrix::operator-(Matrix matrix)
   return matrix;
 }
 
-Matrix Matrix::operator*(Matrix& matrix)
+Matrix Matrix::operator*(Matrix matrix)
 {
   Matrix result;
 

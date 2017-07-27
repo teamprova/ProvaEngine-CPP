@@ -147,7 +147,7 @@ Vector4 Vector4::operator/(float a)
   return vector; 
 }
 
-bool Vector4::operator==(const Vector4& vector) const
+bool Vector4::operator==(const Vector4 vector) const
 {
   return vector.x == x &&
         vector.y == y &&
@@ -155,7 +155,7 @@ bool Vector4::operator==(const Vector4& vector) const
         vector.w == w;
 }
 
-bool Vector4::operator!=(const Vector4& vector) const
+bool Vector4::operator!=(const Vector4 vector) const
 {
   return vector.x != x ||
         vector.y != y ||

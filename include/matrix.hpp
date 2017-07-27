@@ -26,7 +26,7 @@ namespace Prova
       //Matrix& operator/=(float);
       Matrix operator+(Matrix matrix);
       Matrix operator-(Matrix matrix);
-      Matrix operator*(Matrix& matrix);
+      Matrix operator*(Matrix matrix);
       Vector4 operator*(Vector4 vector);
       Matrix operator*(float a);
       Matrix operator/(float a);
