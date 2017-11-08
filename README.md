@@ -1,5 +1,11 @@
 # ProvaEngine
 
+Old repository here for history's sake.
+
+
+The updated ProvaEngine is written in D:  
+[https://github.com/teamprova/ProvaEngine](https://github.com/teamprova/ProvaEngine)
+
 ## Building
 
 * Install Gradle, gcc, and g++
